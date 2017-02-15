@@ -21,5 +21,5 @@ public class SearchKeyword {
   /**
    * If no tokenizer is defined, the text is used as as single token.
    */
-  private SuggestTokenizer suggestTokenizer;
+  private SuggestTokenizerView suggestTokenizer;
 }

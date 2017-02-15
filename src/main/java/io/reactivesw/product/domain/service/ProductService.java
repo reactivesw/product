@@ -2,10 +2,10 @@ package io.reactivesw.product.domain.service;
 
 import io.reactivesw.exception.ConflictException;
 import io.reactivesw.exception.NotExistException;
-import io.reactivesw.product.application.model.Product;
+import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.ProductDraft;
 import io.reactivesw.product.application.model.mapper.ProductMapper;
-import io.reactivesw.product.domain.model.ProductEntity;
+import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
 import io.reactivesw.product.infrastructure.validator.SkuNameValidator;
 import io.reactivesw.product.infrastructure.validator.SlugValidator;
@@ -44,20 +44,20 @@ public class ProductService {
    * @return the product
    */
   @Transactional
-  public Product createProduct(ProductDraft productDraft) {
+  public ProductView createProduct(ProductDraft productDraft) {
     LOG.debug("enter createProduct, ProductDraft is : {}", productDraft.toString());
 
-    List<ProductEntity> products = productRepository.findAll();
+    List<Product> products = productRepository.findAll();
     SlugValidator.validate(productDraft.getSlug(), products);
     SkuNameValidator.validate(productDraft, products);
 
-    ProductEntity entity = ProductMapper.modelToEntity(productDraft);
+    Product entity = ProductMapper.modelToEntity(productDraft);
 
-    ProductEntity savedEntity = productRepository.save(entity);
+    Product savedEntity = productRepository.save(entity);
 
-    Product result = ProductMapper.entityToModel(savedEntity);
+    ProductView result = ProductMapper.entityToModel(savedEntity);
 
-    LOG.debug("end createProduct, created Product is : {}", result.toString());
+    LOG.debug("end createProduct, created ProductView is : {}", result.toString());
 
     return result;
   }
@@ -68,12 +68,12 @@ public class ProductService {
    * @param categoryId the category id
    * @return the list
    */
-  public List<ProductEntity> queryProductByCategory(String categoryId) {
+  public List<Product> queryProductByCategory(String categoryId) {
     LOG.debug("enter queryProductByCategory, categoryId is : {}", categoryId);
 
-    List<ProductEntity> productEntities = productRepository.findAll();
+    List<Product> productEntities = productRepository.findAll();
 
-    List<ProductEntity> result = productEntities.stream().filter(
+    List<Product> result = productEntities.stream().filter(
         productEntity ->
             productEntity.getMasterData().getCurrent().getCategories().contains(categoryId)
     ).collect(Collectors.toList());
@@ -88,14 +88,14 @@ public class ProductService {
    * @param id the id
    * @return the product by id
    */
-  public Product getProductById(String id) {
+  public ProductView getProductById(String id) {
     LOG.debug("enter getProductById, id is : {}", id);
 
-    ProductEntity entity = getProductEntityById(id);
+    Product entity = getProductEntityById(id);
 
-    Product result = ProductMapper.entityToModel(entity);
+    ProductView result = ProductMapper.entityToModel(entity);
 
-    LOG.debug("end getProductById, get Product is : {}", result.toString());
+    LOG.debug("end getProductById, get ProductView is : {}", result.toString());
 
     return result;
   }
@@ -106,11 +106,11 @@ public class ProductService {
    * @param slug the slug
    * @return the product by slug
    */
-  public Product getProductBySlug(String slug) {
+  public ProductView getProductBySlug(String slug) {
     LOG.debug("enter getProductBySlug, slug is : {}", slug);
 
-    List<ProductEntity> products = productRepository.findAll();
-    ProductEntity productEntity = products.parallelStream().filter(
+    List<Product> products = productRepository.findAll();
+    Product productEntity = products.parallelStream().filter(
         product -> StringUtils.equals(slug, product.getMasterData().getCurrent().getSlug())
     ).findAny().orElse(null);
 
@@ -118,7 +118,7 @@ public class ProductService {
       throw new NotExistException();
     }
     
-    Product result = ProductMapper.entityToModel(productEntity);
+    ProductView result = ProductMapper.entityToModel(productEntity);
 
     LOG.debug("end getProductBySlug, get product : {}", result.toString());
 
@@ -132,11 +132,11 @@ public class ProductService {
    * @param id the id
    * @return the product entity by id
    */
-  private ProductEntity getProductEntityById(String id) {
-    ProductEntity entity = productRepository.findOne(id);
+  private Product getProductEntityById(String id) {
+    Product entity = productRepository.findOne(id);
     if (entity == null) {
       LOG.debug("can not find product by id : {}", id);
-      throw new NotExistException("Product Not Found");
+      throw new NotExistException("ProductView Not Found");
     }
     return entity;
   }
@@ -150,7 +150,7 @@ public class ProductService {
   public void deleteProduct(String id, Integer version) {
     LOG.debug("enter deleteProduct, id:{}, version:{}", id, version);
 
-    ProductEntity entity = this.getProductEntityById(id);
+    Product entity = this.getProductEntityById(id);
     validateVersion(entity, version);
 
     productRepository.delete(entity);
@@ -167,7 +167,7 @@ public class ProductService {
    * @param entity  the entity
    * @param version the version
    */
-  private void validateVersion(ProductEntity entity, Integer version) {
+  private void validateVersion(Product entity, Integer version) {
     if (!Objects.equals(version, entity.getVersion())) {
       LOG.debug("Version not match, input version:{}, entity version:{}",
           version, entity.getVersion());

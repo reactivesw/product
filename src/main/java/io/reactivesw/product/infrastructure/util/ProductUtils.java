@@ -2,11 +2,11 @@ package io.reactivesw.product.infrastructure.util;
 
 import com.google.common.collect.Lists;
 
-import io.reactivesw.product.application.model.Product;
-import io.reactivesw.product.application.model.ProductData;
-import io.reactivesw.product.domain.model.ProductCatalogDataEntity;
-import io.reactivesw.product.domain.model.ProductDataEntity;
-import io.reactivesw.product.domain.model.ProductEntity;
+import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductDataView;
+import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductCatalogData;
+import io.reactivesw.product.domain.model.ProductData;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public final class ProductUtils {
   /**
-   * Instantiates a new Product util.
+   * Instantiates a new ProductView update.
    */
   private ProductUtils() {
   }
@@ -29,7 +29,7 @@ public final class ProductUtils {
    * @param products the products
    * @return the sku names
    */
-  public static List<String> getSkuNames(List<ProductEntity> products) {
+  public static List<String> getSkuNames(List<Product> products) {
     List<String> skuNames = Lists.newArrayList();
 
     if (products != null && !products.isEmpty()) {
@@ -49,12 +49,12 @@ public final class ProductUtils {
    * @param product the product
    * @return the sku names
    */
-  public static List<String> getSkuNames(ProductEntity product) {
+  public static List<String> getSkuNames(Product product) {
     List<String> skuNames = Lists.newArrayList();
 
-    ProductCatalogDataEntity masterData = product.getMasterData();
-    ProductDataEntity currentData = masterData.getCurrent();
-    ProductDataEntity stagedData = masterData.getStaged();
+    ProductCatalogData masterData = product.getMasterData();
+    ProductData currentData = masterData.getCurrent();
+    ProductData stagedData = masterData.getStaged();
 
     skuNames.addAll(getSkuNames(currentData));
     skuNames.addAll(getSkuNames(stagedData));
@@ -68,7 +68,7 @@ public final class ProductUtils {
    * @param productData the product data
    * @return the sku names
    */
-  public static List<String> getSkuNames(ProductDataEntity productData) {
+  public static List<String> getSkuNames(ProductData productData) {
     List<String> skuNames = Lists.newArrayList();
 
     if (productData.getMasterVariant() != null) {
@@ -92,11 +92,11 @@ public final class ProductUtils {
    * @param product the product
    * @return the product sku names
    */
-  public static List<String> getSkuNames(Product product) {
+  public static List<String> getSkuNames(ProductView product) {
     List<String> skuNames = Lists.newArrayList();
 
-    ProductData currentData = product.getMasterData().getCurrent();
-    ProductData stagedData = product.getMasterData().getStaged();
+    ProductDataView currentData = product.getMasterData().getCurrent();
+    ProductDataView stagedData = product.getMasterData().getStaged();
     skuNames.addAll(getSkuNames(currentData));
     skuNames.addAll(getSkuNames(stagedData));
 
@@ -109,7 +109,7 @@ public final class ProductUtils {
    * @param productData the product data
    * @return the sku names
    */
-  public static List<String> getSkuNames(ProductData productData) {
+  public static List<String> getSkuNames(ProductDataView productData) {
     List<String> skuNames = Lists.newArrayList(productData.getMasterVariant().getSku());
 
     if (productData.getVariants() != null && !productData.getVariants().isEmpty()) {

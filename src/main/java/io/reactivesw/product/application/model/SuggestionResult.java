@@ -14,5 +14,5 @@ public class SuggestionResult {
   /**
    * The Search keywords.
    */
-  private List<Suggestion> searchKeywords;
+  private List<SuggestionView> searchKeywords;
 }

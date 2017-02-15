@@ -1,11 +1,13 @@
 package io.reactivesw.product.infrastructure.repository;
 
-import io.reactivesw.product.domain.model.ProductEntity;
+import io.reactivesw.product.domain.model.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by Davis on 16/12/14.
  */
-public interface ProductRepository extends JpaRepository<ProductEntity, String> {
+@Repository
+public interface ProductRepository extends JpaRepository<Product, String> {
 }

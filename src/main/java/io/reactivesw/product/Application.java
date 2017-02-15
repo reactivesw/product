@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Created by Davis on 17/2/14.
  */
 @EnableSwagger2
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "io.reactivesw")
 public class Application {
   /**
    * The entry point of application.

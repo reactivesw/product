@@ -1,9 +1,9 @@
 package io.reactivesw.product.application.model.mapper;
 
 import io.reactivesw.model.Reference;
-import io.reactivesw.product.application.model.Product;
+import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.domain.model.ProductEntity;
+import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,13 +14,13 @@ import org.apache.commons.lang3.StringUtils;
 public final class ProductMapper {
 
   /**
-   * convert ProductDraft to ProductEntity.
+   * convert ProductDraft to Product.
    *
    * @param model the ProductDraft
-   * @return the ProductEntity
+   * @return the Product
    */
-  public static ProductEntity modelToEntity(ProductDraft model) {
-    ProductEntity entity = new ProductEntity();
+  public static Product modelToEntity(ProductDraft model) {
+    Product entity = new Product();
 
     entity.setKey(model.getKey());
     if (model.getState() != null) {
@@ -36,13 +36,13 @@ public final class ProductMapper {
   }
 
   /**
-   * convert ProductEntity to Product.
+   * convert Product to ProductView.
    *
-   * @param entity the ProductEntity
-   * @return the Product
+   * @param entity the Product
+   * @return the ProductView
    */
-  public static Product entityToModel(ProductEntity entity) {
-    Product model = new Product();
+  public static ProductView entityToModel(Product entity) {
+    ProductView model = new ProductView();
 
     model.setCreatedAt(entity.getCreatedAt());
     model.setLastModifiedAt(entity.getLastModifiedAt());

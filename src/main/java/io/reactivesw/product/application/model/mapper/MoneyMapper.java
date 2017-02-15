@@ -1,27 +1,26 @@
 package io.reactivesw.product.application.model.mapper;
 
-import io.reactivesw.model.Money;
-import io.reactivesw.product.domain.model.MoneyEntity;
+import io.reactivesw.product.domain.model.MoneyValue;
 
 /**
  * Created by umasuo on 16/12/8.
  */
 public class MoneyMapper {
 
-  public static MoneyEntity modelToEntity(Money model) {
-    MoneyEntity entity = null;
+  public static MoneyValue modelToEntity(io.reactivesw.model.Money model) {
+    MoneyValue entity = null;
     if (model != null) {
-      entity = new MoneyEntity();
+      entity = new MoneyValue();
       entity.setCentAmount(model.getCentAmount());
       entity.setCurrencyCode(model.getCurrencyCode());
     }
     return entity;
   }
 
-  public static Money entityToModel(MoneyEntity entity) {
-    Money model = null;
+  public static io.reactivesw.model.Money entityToModel(MoneyValue entity) {
+    io.reactivesw.model.Money model = null;
     if (entity != null) {
-      model = new Money();
+      model = new io.reactivesw.model.Money();
 
       model.setCentAmount(entity.getCentAmount());
       model.setCurrencyCode(entity.getCurrencyCode());

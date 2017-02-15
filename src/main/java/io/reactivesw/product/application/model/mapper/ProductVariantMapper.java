@@ -2,9 +2,9 @@ package io.reactivesw.product.application.model.mapper;
 
 import com.google.common.collect.Sets;
 
-import io.reactivesw.product.application.model.ProductVariant;
+import io.reactivesw.product.application.model.ProductVariantView;
 import io.reactivesw.product.application.model.ProductVariantDraft;
-import io.reactivesw.product.domain.model.ProductVariantEntity;
+import io.reactivesw.product.domain.model.ProductVariant;
 
 import java.util.List;
 import java.util.Set;
@@ -21,11 +21,11 @@ public class ProductVariantMapper {
    * @param models the models
    * @return the set
    */
-  public static Set<ProductVariantEntity> modelToEntity(List<ProductVariantDraft> models) {
+  public static Set<ProductVariant> modelToEntity(List<ProductVariantDraft> models) {
     Set entities = Sets.newHashSet();
     for (int i = 0; i < models.size(); i ++) {
       int id = i + 2;
-      ProductVariantEntity entity = modelToEntity(id, models.get(i));
+      ProductVariant entity = modelToEntity(id, models.get(i));
       entities.add(entity);
     }
     return entities;
@@ -38,8 +38,8 @@ public class ProductVariantMapper {
    * @param model the model
    * @return the product variant entity
    */
-  public static ProductVariantEntity modelToEntity(int id, ProductVariantDraft model) {
-    ProductVariantEntity entity = new ProductVariantEntity();
+  public static ProductVariant modelToEntity(int id, ProductVariantDraft model) {
+    ProductVariant entity = new ProductVariant();
 
     entity.setId(id);
     entity.setKey(model.getKey());
@@ -61,8 +61,8 @@ public class ProductVariantMapper {
    * @param entity the entity
    * @return the product variant
    */
-  public static ProductVariant entityToModel(ProductVariantEntity entity) {
-    ProductVariant model = new ProductVariant();
+  public static ProductVariantView entityToModel(ProductVariant entity) {
+    ProductVariantView model = new ProductVariantView();
 
     model.setId(entity.getId());
     model.setKey(entity.getKey());
@@ -95,7 +95,7 @@ public class ProductVariantMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<ProductVariant> entityToModel(Set<ProductVariantEntity> entities) {
+  public static List<ProductVariantView> entityToModel(Set<ProductVariant> entities) {
     return entities.stream().map(
         entity -> {
           return entityToModel(entity);

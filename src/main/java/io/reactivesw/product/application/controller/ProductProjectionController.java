@@ -2,9 +2,9 @@ package io.reactivesw.product.application.controller;
 
 import static io.reactivesw.product.infrastructure.ProductProjectionRouter.PRODUCT_PROJECTION_ROOT;
 
-import io.reactivesw.product.application.ProductApplication;
+import io.reactivesw.product.application.service.ProductApplication;
 import io.reactivesw.product.application.model.PagedQueryResult;
-import io.reactivesw.product.application.model.ProductProjection;
+import io.reactivesw.product.application.model.ProductProjectionView;
 import io.reactivesw.product.application.model.QueryConditions;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,7 +27,7 @@ public class ProductProjectionController {
   private static final Logger LOG = LoggerFactory.getLogger(ProductProjectionController.class);
 
   /**
-   * The Product application.
+   * The ProductView application.
    */
   @Autowired
   private transient ProductApplication productApplication;
@@ -41,12 +41,12 @@ public class ProductProjectionController {
   // TODO: 16/12/21 only for query product by category now
   @ApiOperation("")
   @GetMapping(PRODUCT_PROJECTION_ROOT)
-  public PagedQueryResult<ProductProjection> queryProductProjections(QueryConditions queryConditions) {
+  public PagedQueryResult<ProductProjectionView> queryProductProjections(QueryConditions queryConditions) {
     LOG.debug("enter queryProductProjections, query conditions is : {}",
         queryConditions.toString());
 
-    PagedQueryResult<ProductProjection> result = new PagedQueryResult<>();
-    List<ProductProjection> productProjections =
+    PagedQueryResult<ProductProjectionView> result = new PagedQueryResult<>();
+    List<ProductProjectionView> productProjections =
         productApplication.queryProductProject(queryConditions);
     result.setTotal(productProjections.size());
     result.setResults(productProjections);

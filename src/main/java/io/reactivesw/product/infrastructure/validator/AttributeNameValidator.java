@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 
 import io.reactivesw.exception.ParametersException;
 import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.application.model.attribute.Attribute;
+import io.reactivesw.product.application.model.attribute.AttributeView;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
 
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public final class AttributeNameValidator {
         attribute -> {
           if (!attributeNames.containsAll(attribute)) {
             LOG.debug("attribute not match, producttype should contains all attributes");
-            throw new ParametersException("Attribute Not Match");
+            throw new ParametersException("AttributeView Not Match");
           }
         }
     );
@@ -92,7 +92,7 @@ public final class AttributeNameValidator {
    * @param attributes the attributes
    * @return the attribute names
    */
-  private static List<String> getAttributeNames(List<Attribute> attributes) {
+  private static List<String> getAttributeNames(List<AttributeView> attributes) {
     List<String> result = Lists.newArrayList();
     if (attributes != null) {
       result = attributes.stream().map(

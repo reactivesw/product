@@ -8,7 +8,7 @@ import io.reactivesw.product.application.model.QueryConditions;
 public final class QueryConditionUtils {
 
   /**
-   * Instantiates a new Query condition util.
+   * Instantiates a new Query condition update.
    */
   private QueryConditionUtils() {}
 

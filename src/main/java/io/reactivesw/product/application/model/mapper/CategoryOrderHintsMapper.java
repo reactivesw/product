@@ -1,7 +1,7 @@
 package io.reactivesw.product.application.model.mapper;
 
-import io.reactivesw.product.application.model.CategoryOrderHint;
-import io.reactivesw.product.domain.model.CategoryOrderHintEntity;
+import io.reactivesw.product.application.model.CategoryOrderHintView;
+import io.reactivesw.product.domain.model.CategoryOrderHint;
 
 import java.util.List;
 import java.util.Set;
@@ -17,10 +17,10 @@ public final class CategoryOrderHintsMapper {
    * @param models the models
    * @return the list
    */
-  public static Set<CategoryOrderHintEntity> modelToEntity(List<CategoryOrderHint> models) {
+  public static Set<CategoryOrderHint> modelToEntity(List<CategoryOrderHintView> models) {
     return models.stream().map(
         model -> {
-          return new CategoryOrderHintEntity(model.getKey(), model.getOrder());
+          return new CategoryOrderHint(model.getKey(), model.getOrder());
         }
     ).collect(Collectors.toSet());
   }
@@ -31,10 +31,10 @@ public final class CategoryOrderHintsMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<CategoryOrderHint> entityToModel(Set<CategoryOrderHintEntity> entities) {
+  public static List<CategoryOrderHintView> entityToModel(Set<CategoryOrderHint> entities) {
     return entities.stream().map(
         entity -> {
-          return new CategoryOrderHint(entity.getCategoryId(), entity.getOrderHint());
+          return new CategoryOrderHintView(entity.getCategoryId(), entity.getOrderHint());
         }
     ).collect(Collectors.toList());
   }

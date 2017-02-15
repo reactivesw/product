@@ -1,7 +1,7 @@
 package io.reactivesw.product.infrastructure.validator;
 
 import io.reactivesw.exception.ConflictException;
-import io.reactivesw.product.domain.model.ProductEntity;
+import io.reactivesw.product.domain.model.Product;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public final class SlugValidator {
    * @param slug     the slug.
    * @param products the products.
    */
-  public static void validate(String slug, List<ProductEntity> products) {
+  public static void validate(String slug, List<Product> products) {
     if (products != null) {
       products.parallelStream().forEach(
           product -> {
@@ -46,7 +46,7 @@ public final class SlugValidator {
    * @param slug    the slug
    * @param product the product
    */
-  private static void validate(String slug, ProductEntity product) {
+  private static void validate(String slug, Product product) {
     if (StringUtils.equals(slug, product.getMasterData().getCurrent().getSlug())
         || StringUtils.equals(slug, product.getMasterData().getStaged().getSlug())) {
       LOG.debug("slug : {} has already exists", slug);

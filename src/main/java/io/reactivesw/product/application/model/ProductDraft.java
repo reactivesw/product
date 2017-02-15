@@ -29,11 +29,11 @@ public class ProductDraft {
   private LocalizedString name;
 
   /**
-   * ResourceIdentifier to a ProductType.
+   * ResourceIdentifierView to a ProductTypeView.
    * a predefined product type must be assigned to the product.
    * Required.
    */
-  private ResourceIdentifier productType;
+  private ResourceIdentifierView productType;
 
   /**
    * human-readable identifiers usually used as deep-link URL to the related product. Each slug
@@ -60,7 +60,7 @@ public class ProductDraft {
   /**
    * CategoryOrderHints.
    */
-  private List<CategoryOrderHint> categoryOrderHints;
+  private List<CategoryOrderHintView> categoryOrderHints;
 
   /**
    * The Meta title.

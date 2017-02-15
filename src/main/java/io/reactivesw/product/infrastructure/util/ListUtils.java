@@ -12,7 +12,7 @@ import java.util.Set;
 public final class ListUtils {
 
   /**
-   * Instantiates a new List util.
+   * Instantiates a new List update.
    */
   private ListUtils() {}
 

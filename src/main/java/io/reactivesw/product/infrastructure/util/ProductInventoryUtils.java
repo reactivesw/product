@@ -1,9 +1,9 @@
 package io.reactivesw.product.infrastructure.util;
 
-import io.reactivesw.product.application.model.InventoryEntry;
-import io.reactivesw.product.application.model.Product;
-import io.reactivesw.product.application.model.ProductData;
-import io.reactivesw.product.application.model.ProductVariant;
+import io.reactivesw.product.application.model.InventoryEntryView;
+import io.reactivesw.product.application.model.ProductVariantView;
+import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.application.model.mapper.ProductVariantAvailabilityMapper;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +16,7 @@ import java.util.List;
 public final class ProductInventoryUtils {
 
   /**
-   * Instantiates a new Product inventory util.
+   * Instantiates a new ProductView inventory update.
    */
   private ProductInventoryUtils() {}
 
@@ -27,10 +27,10 @@ public final class ProductInventoryUtils {
    * @param product          the product
    * @return the product
    */
-  public static Product mergeInventoryEntryToProduct(List<InventoryEntry> inventoryEntries, Product
+  public static ProductView mergeInventoryEntryToProduct(List<InventoryEntryView> inventoryEntries, ProductView
       product) {
-    ProductData currentData = product.getMasterData().getCurrent();
-    ProductVariant masterVariant = currentData.getMasterVariant();
+    ProductDataView currentData = product.getMasterData().getCurrent();
+    ProductVariantView masterVariant = currentData.getMasterVariant();
     mergeInventoryEntryToVariant(inventoryEntries, masterVariant);
 
     if (currentData.getVariants() != null && !currentData.getVariants().isEmpty()) {
@@ -45,12 +45,12 @@ public final class ProductInventoryUtils {
   }
 
   /**
-   * merge InventoryEntry to ProductVariant.
-   * @param inventoryEntries the InventoryEntry
-   * @param variant the ProductVariant
+   * merge InventoryEntryView to ProductVariantView.
+   * @param inventoryEntries the InventoryEntryView
+   * @param variant the ProductVariantView
    */
-  private static void mergeInventoryEntryToVariant(List<InventoryEntry> inventoryEntries,
-                                                   ProductVariant variant) {
+  private static void mergeInventoryEntryToVariant(List<InventoryEntryView> inventoryEntries,
+                                                   ProductVariantView variant) {
     inventoryEntries.stream().forEach(
         entry -> {
           if (StringUtils.equals(entry.getSku(), variant.getSku())) {

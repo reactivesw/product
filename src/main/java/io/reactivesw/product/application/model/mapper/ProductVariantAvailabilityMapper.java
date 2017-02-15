@@ -1,20 +1,20 @@
 package io.reactivesw.product.application.model.mapper;
 
-import io.reactivesw.product.application.model.InventoryEntry;
-import io.reactivesw.product.application.model.ProductVariantAvailability;
+import io.reactivesw.product.application.model.InventoryEntryView;
+import io.reactivesw.product.application.model.ProductVariantAvailabilityView;
 
 /**
  * Created by Davis on 16/12/22.
  */
 public final class ProductVariantAvailabilityMapper {
   /**
-   * Instantiates a new Product variant availability mapper.
+   * Instantiates a new ProductView variant availability mapper.
    */
   private ProductVariantAvailabilityMapper() {
   }
 
-  public static ProductVariantAvailability toModel(InventoryEntry entry) {
-    ProductVariantAvailability model = new ProductVariantAvailability();
+  public static ProductVariantAvailabilityView toModel(InventoryEntryView entry) {
+    ProductVariantAvailabilityView model = new ProductVariantAvailabilityView();
 
     model.setRestockableInDays(entry.getRestockableInDays());
     model.setAvailableQuantity(entry.getAvailableQuantity());

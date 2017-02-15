@@ -2,7 +2,7 @@ package io.reactivesw.product.infrastructure.validator;
 
 import io.reactivesw.exception.ParametersException;
 import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.application.model.attribute.Attribute;
+import io.reactivesw.product.application.model.attribute.AttributeView;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
 
 import org.slf4j.Logger;
@@ -79,7 +79,7 @@ public final class RequireAttributeValidator {
    * @param attributes            the attributes
    */
   private static void validateRequireAttribute(List<String> requireAttributeNames,
-                                               List<Attribute> attributes) {
+                                               List<AttributeView> attributes) {
     if (attributes == null) {
       throwExceptionForRequire();
     }

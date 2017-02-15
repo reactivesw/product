@@ -44,6 +44,11 @@ dependencies {
 
     //spring data jpa
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    //postgresql driver
+    compile('org.postgresql:postgresql:9.4.1212')
+
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5')
+
     //h2
     compile('com.h2database:h2:1.4.193')
 
@@ -52,7 +57,7 @@ dependencies {
     compile('org.apache.commons:commons-lang3:3.4')
     compile("commons-validator:commons-validator:1.4.0")
 
-    //for jsong web token
+    //for json web token
     compile("io.jsonwebtoken:jjwt:0.7.0")
 
     //lombok
@@ -78,4 +83,4 @@ dependencies {
     compile("io.reactivesw:commons:0.0.1")
 }
 
-mainClassName = 'io.reactivesw.authentication.Application'
+mainClassName = 'io.reactivesw.product.Application'

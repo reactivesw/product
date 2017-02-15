@@ -1,9 +1,9 @@
 package io.reactivesw.product.application.model.mapper;
 
 import io.reactivesw.model.Reference;
-import io.reactivesw.product.application.model.Price;
+import io.reactivesw.product.application.model.PriceView;
 import io.reactivesw.product.application.model.PriceDraft;
-import io.reactivesw.product.domain.model.PriceEntity;
+import io.reactivesw.product.domain.model.Price;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class PriceMapper {
 
-  public static Set<PriceEntity> modelToEntity(List<PriceDraft> models) {
+  public static Set<Price> modelToEntity(List<PriceDraft> models) {
     return models.stream().map(
         model -> {
           return modelToEntity(model);
@@ -23,8 +23,8 @@ public class PriceMapper {
     ).collect(Collectors.toSet());
   }
 
-  public static PriceEntity modelToEntity(PriceDraft model) {
-    PriceEntity entity = new PriceEntity();
+  public static Price modelToEntity(PriceDraft model) {
+    Price entity = new Price();
 
     entity.setCountry(model.getCountry());
     entity.setValue(MoneyMapper.modelToEntity(model.getValue()));
@@ -44,8 +44,8 @@ public class PriceMapper {
     return entity;
   }
 
-  public static Price entityToModel(PriceEntity entity) {
-    Price model = new Price();
+  public static PriceView entityToModel(Price entity) {
+    PriceView model = new PriceView();
 
     if (model.getChannel() != null) {
       model.setChannel(new Reference(ReferenceTypes.CHANNEL.getType(), entity.getChannel()));
@@ -63,7 +63,7 @@ public class PriceMapper {
     return model;
   }
 
-  public static List<Price> entityToModel(Set<PriceEntity> entities) {
+  public static List<PriceView> entityToModel(Set<Price> entities) {
     return entities.stream().map(
         entity -> {
           return entityToModel(entity);

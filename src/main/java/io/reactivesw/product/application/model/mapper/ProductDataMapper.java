@@ -1,11 +1,11 @@
 package io.reactivesw.product.application.model.mapper;
 
 import io.reactivesw.model.Reference;
-import io.reactivesw.product.application.model.ProductData;
+import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.application.model.ProductDraft;
 import io.reactivesw.product.application.model.SearchKeyword;
-import io.reactivesw.product.domain.model.ProductDataEntity;
-import io.reactivesw.product.domain.model.ProductVariantEntity;
+import io.reactivesw.product.domain.model.ProductData;
+import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,8 +19,8 @@ public class ProductDataMapper {
 
   private static int MASTER_VARIANT_ID = 1;
 
-  public static ProductDataEntity modelToEntity(ProductDraft model) {
-    ProductDataEntity entity = new ProductDataEntity();
+  public static ProductData modelToEntity(ProductDraft model) {
+    ProductData entity = new ProductData();
 
     entity.setName(LocalizedStringMapper.modelToEntityDefaultNew(model.getName()));
     entity.setSlug(model.getSlug());
@@ -35,7 +35,7 @@ public class ProductDataMapper {
     if (model.getSearchKeyword() != null) {
       entity.setSearchKeyWords(model.getSearchKeyword().getText());
     }
-    ProductVariantEntity masterVariant = new ProductVariantEntity();
+    ProductVariant masterVariant = new ProductVariant();
     if (model.getMasterVariant() != null) {
       masterVariant = ProductVariantMapper.modelToEntity(MASTER_VARIANT_ID, model
           .getMasterVariant());
@@ -65,8 +65,8 @@ public class ProductDataMapper {
     return entity;
   }
 
-  public static ProductData entityToModel(ProductDataEntity entity) {
-    ProductData model = new ProductData();
+  public static ProductDataView entityToModel(ProductData entity) {
+    ProductDataView model = new ProductDataView();
 
     model.setName(LocalizedStringMapper.entityToModelDefaultNull(entity.getName()));
     model.setSlug(entity.getSlug());

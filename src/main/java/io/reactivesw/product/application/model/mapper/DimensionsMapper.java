@@ -1,5 +1,6 @@
 package io.reactivesw.product.application.model.mapper;
 
+import io.reactivesw.product.application.model.AssetDimensionsView;
 import io.reactivesw.product.domain.model.AssetDimensions;
 
 /**
@@ -18,10 +19,9 @@ public final class DimensionsMapper {
    * @param entity the entity
    * @return the io . reactivesw . product . application . model . asset dimensions
    */
-  public static io.reactivesw.product.application.model.AssetDimensions entityToModel(
+  public static AssetDimensionsView entityToModel(
       AssetDimensions entity) {
-    io.reactivesw.product.application.model.AssetDimensions model = new io.reactivesw.product
-        .application.model.AssetDimensions();
+    AssetDimensionsView model = new AssetDimensionsView();
 
     model.setH(entity.getH());
     model.setW(entity.getW());
@@ -35,8 +35,7 @@ public final class DimensionsMapper {
    * @param model the model
    * @return the asset dimensions
    */
-  public static AssetDimensions modelToEntity(io.reactivesw.product.application.model
-                                                  .AssetDimensions model) {
+  public static AssetDimensions modelToEntity(AssetDimensionsView model) {
     AssetDimensions entity = new AssetDimensions();
 
     entity.setH(model.getH());

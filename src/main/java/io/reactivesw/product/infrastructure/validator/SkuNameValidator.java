@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import io.reactivesw.exception.ConflictException;
 import io.reactivesw.exception.ParametersException;
 import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.domain.model.ProductEntity;
+import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.util.ProductDraftUtils;
 import io.reactivesw.product.infrastructure.util.ProductUtils;
 
@@ -53,7 +53,7 @@ public final class SkuNameValidator {
    * @param productDraft the product draft
    * @param products     the products
    */
-  public static void validate(ProductDraft productDraft, List<ProductEntity> products) {
+  public static void validate(ProductDraft productDraft, List<Product> products) {
     List<String> skuNames = ProductDraftUtils.getSkuNames(productDraft);
     List<String> productSkuNames = ProductUtils.getSkuNames(products);
     productSkuNames.retainAll(skuNames);

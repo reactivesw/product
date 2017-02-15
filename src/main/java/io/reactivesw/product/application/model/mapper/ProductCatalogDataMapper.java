@@ -1,15 +1,15 @@
 package io.reactivesw.product.application.model.mapper;
 
-import io.reactivesw.product.application.model.ProductCatalogData;
+import io.reactivesw.product.application.model.ProductCatalogDataView;
 import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.domain.model.ProductCatalogDataEntity;
+import io.reactivesw.product.domain.model.ProductCatalogData;
 
 /**
  * Created by Davis on 16/12/14.
  */
 public class ProductCatalogDataMapper {
-  public static ProductCatalogDataEntity modelToEntity(ProductDraft model) {
-    ProductCatalogDataEntity entity = new ProductCatalogDataEntity();
+  public static ProductCatalogData modelToEntity(ProductDraft model) {
+    ProductCatalogData entity = new ProductCatalogData();
 
     entity.setPublished(model.getPublish());
     entity.setStagedChanged(false);
@@ -19,8 +19,8 @@ public class ProductCatalogDataMapper {
     return entity;
   }
 
-  public static ProductCatalogData entityToModel(ProductCatalogDataEntity entity) {
-    ProductCatalogData model = new ProductCatalogData();
+  public static ProductCatalogDataView entityToModel(ProductCatalogData entity) {
+    ProductCatalogDataView model = new ProductCatalogDataView();
 
     model.setPublished(entity.getPublished());
     model.setHasStagedChanges(entity.getStagedChanged());

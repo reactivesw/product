@@ -2,7 +2,7 @@ package io.reactivesw.product.infrastructure.validator;
 
 import io.reactivesw.exception.ParametersException;
 import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.application.model.attribute.Attribute;
+import io.reactivesw.product.application.model.attribute.AttributeView;
 import io.reactivesw.product.application.model.attribute.AttributeConstraint;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
 import io.reactivesw.product.infrastructure.util.AttributeUtils;
@@ -53,7 +53,7 @@ public final class SameForAllAttributeValidator {
    * @param productDraft  the product draft
    */
   private static void validate(String attributeName, ProductDraft productDraft) {
-    List<Attribute> masterAttributes = productDraft.getMasterVariant().getAttributes();
+    List<AttributeView> masterAttributes = productDraft.getMasterVariant().getAttributes();
     // TODO: 16/12/19 attributeValue should be JsonNode type
     String attributeValue = "";
     if (masterAttributes != null) {

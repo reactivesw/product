@@ -3,10 +3,10 @@ package io.reactivesw.product.application.model.mapper;
 import com.google.common.collect.Lists;
 
 import io.reactivesw.model.Reference;
-import io.reactivesw.product.application.model.ProductProjection;
-import io.reactivesw.product.domain.model.ProductCatalogDataEntity;
-import io.reactivesw.product.domain.model.ProductDataEntity;
-import io.reactivesw.product.domain.model.ProductEntity;
+import io.reactivesw.product.application.model.ProductProjectionView;
+import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductCatalogData;
+import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
 
 import java.util.List;
@@ -22,8 +22,8 @@ public final class ProductProjectionMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<ProductProjection> entityToModel(List<ProductEntity> entities) {
-    List<ProductProjection> models = Lists.newArrayList();
+  public static List<ProductProjectionView> entityToModel(List<Product> entities) {
+    List<ProductProjectionView> models = Lists.newArrayList();
 
     models = entities.stream()
         .map(
@@ -41,11 +41,11 @@ public final class ProductProjectionMapper {
    * @param entity the entity
    * @return the product projection
    */
-  public static ProductProjection entityToModel(ProductEntity entity) {
-    ProductProjection model = new ProductProjection();
+  public static ProductProjectionView entityToModel(Product entity) {
+    ProductProjectionView model = new ProductProjectionView();
 
-    ProductCatalogDataEntity masterData = entity.getMasterData();
-    ProductDataEntity currentData = masterData.getCurrent();
+    ProductCatalogData masterData = entity.getMasterData();
+    ProductData currentData = masterData.getCurrent();
     model.setId(entity.getId());
     model.setKey(entity.getKey());
     model.setName(LocalizedStringMapper.entityToModelDefaultNull(currentData.getName()));

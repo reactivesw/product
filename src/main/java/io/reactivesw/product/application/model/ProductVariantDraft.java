@@ -1,6 +1,6 @@
 package io.reactivesw.product.application.model;
 
-import io.reactivesw.product.application.model.attribute.Attribute;
+import io.reactivesw.product.application.model.attribute.AttributeView;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,12 +35,12 @@ public class ProductVariantDraft {
   private List<PriceDraft> prices;
 
   /**
-   * Array of Image.
+   * Array of ImageView.
    * Optional.
    * External images for the variant draft.
    * You can also upload images to use the commercetools™ platform’s Content Delivery Network.
    */
-  private List<Image> images;
+  private List<ImageView> images;
 
   /**
    * Array of AssetDraft.
@@ -49,8 +49,8 @@ public class ProductVariantDraft {
   private List<AssetDraft> assets;
 
   /**
-   * Array of AttributeEntity.
+   * Array of AttributeView.
    * Optional.
    */
-  private List<Attribute> attributes;
+  private List<AttributeView> attributes;
 }

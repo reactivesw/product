@@ -4,8 +4,8 @@ import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
 
-import io.reactivesw.product.application.ProductApplication;
-import io.reactivesw.product.application.model.Product;
+import io.reactivesw.product.application.service.ProductApplication;
+import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.ProductDraft;
 import io.reactivesw.product.domain.service.ProductService;
 import io.swagger.annotations.ApiOperation;
@@ -35,51 +35,51 @@ public class ProductController {
   private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
   /**
-   * Product Application.
+   * ProductView Application.
    */
   @Autowired
   private transient ProductApplication productApplication;
 
   /**
-   * The Product service.
+   * The ProductView service.
    */
   @Autowired
   private transient ProductService productService;
 
   /**
-   * Create Product.
+   * Create ProductView.
    *
    * @param productDraft the ProductDraft
-   * @return the Product
+   * @return the ProductView
    */
-  @ApiOperation(value = "Create Product")
+  @ApiOperation(value = "Create ProductView")
   @PostMapping(PRODUCT_ROOT)
-  public Product createProduct(@RequestBody
-                               @ApiParam(value = "Product Draft", required = true)
+  public ProductView createProduct(@RequestBody
+                               @ApiParam(value = "ProductView Draft", required = true)
                                @Valid ProductDraft productDraft) {
     LOG.debug("enter createProduct, ProductDraft is : {}", productDraft.toString());
 
-    Product result = productApplication.createProduct(productDraft);
+    ProductView result = productApplication.createProduct(productDraft);
 
-    LOG.debug("end createProduct, created Product is : {}", result.toString());
+    LOG.debug("end createProduct, created ProductView is : {}", result.toString());
 
     return result;
   }
 
   /**
-   * Gets Product by id.
+   * Gets ProductView by id.
    *
    * @param id the id
-   * @return the Product
+   * @return the ProductView
    */
-  @ApiOperation(value = "Get Product By Id")
+  @ApiOperation(value = "Get ProductView By Id")
   @GetMapping(PRODUCT_WITH_ID)
-  public Product getProductById(@PathVariable(value = PRODUCT_ID)
-                                @ApiParam(value = "Product ID", required = true)
+  public ProductView getProductById(@PathVariable(value = PRODUCT_ID)
+                                @ApiParam(value = "ProductView ID", required = true)
                                     String id) {
     LOG.debug("enter getProductById, id is : {}", id);
 
-    Product result = productApplication.getProductById(id);
+    ProductView result = productApplication.getProductById(id);
 
     LOG.debug("end getProductById, get product is : {}", result.toString());
 
@@ -92,14 +92,14 @@ public class ProductController {
    * @param slug the slug
    * @return the product by slug
    */
-  @ApiOperation(value = "Get Product By Slug")
+  @ApiOperation(value = "Get ProductView By Slug")
   @GetMapping(PRODUCT_ROOT)
-  public Product getProductBySlug(@RequestParam
-                                  @ApiParam(value = "Product Slug", required = true)
+  public ProductView getProductBySlug(@RequestParam
+                                  @ApiParam(value = "ProductView Slug", required = true)
                                       String slug) {
     LOG.debug("enter getProductBySlug, slug is : {}", slug);
 
-    Product result = productService.getProductBySlug(slug);
+    ProductView result = productService.getProductBySlug(slug);
 
     LOG.debug("end getProductBySlug, get product : {}", result.toString());
 
@@ -115,10 +115,10 @@ public class ProductController {
   @ApiOperation(value = "delete product by id")
   @DeleteMapping(PRODUCT_WITH_ID)
   public void deleteProductById(@PathVariable(value = PRODUCT_ID)
-                                  @ApiParam(value = "Product ID", required = true)
+                                  @ApiParam(value = "ProductView ID", required = true)
                                       String id,
                                 @RequestParam
-                                  @ApiParam(value = "Product Version", required = true)
+                                  @ApiParam(value = "ProductView Version", required = true)
                                       Integer version){
     LOG.debug("enter deleteProductById, id is {}, version is {}", id, version);
 

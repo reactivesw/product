@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public final class ProductDraftUtils {
   /**
-   * Instantiates a new Product draft util.
+   * Instantiates a new ProductView draft update.
    */
   private ProductDraftUtils() {
   }
