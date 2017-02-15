@@ -3,12 +3,16 @@ package io.reactivesw.product.domain.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.time.ZonedDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,6 +24,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "catalog_product_price")
 public class PriceEntity {
+
+  /**
+   * id.
+   */
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
+  @Column(name = "id")
+  protected String id;
 
   /**
    * value.

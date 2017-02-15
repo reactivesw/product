@@ -1,6 +1,5 @@
 package io.reactivesw.product.domain.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,6 @@ import javax.persistence.Table;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "catalog_product_category")
 public class CategoryOrderHintEntity{
@@ -44,4 +42,15 @@ public class CategoryOrderHintEntity{
    */
   @Column(name = "order_hint")
   private String orderHint;
+
+  /**
+   * Instantiates a new Category order hint entity.
+   *
+   * @param categoryId the category id
+   * @param orderHint  the order hint
+   */
+  public CategoryOrderHintEntity(String categoryId, String orderHint) {
+    this.categoryId = categoryId;
+    this.orderHint = orderHint;
+  }
 }

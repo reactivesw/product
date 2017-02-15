@@ -4,6 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.ZonedDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,4 +70,18 @@ public class ProductEntity {
    */
   @Column(name = "state_id")
   private String state;
+
+  /**
+   * The Created at.
+   */
+  @CreatedDate
+  @Column(name = "created_at")
+  protected ZonedDateTime createdAt;
+
+  /**
+   * The Last modified at.
+   */
+  @LastModifiedDate
+  @Column(name = "last_modified_at")
+  protected ZonedDateTime lastModifiedAt;
 }
