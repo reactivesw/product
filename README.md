@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/reactivesw/product.svg?branch=master)](https://travis-ci.org/reactivesw/product)
 # 1, Name
 product service
 
