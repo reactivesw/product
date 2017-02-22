@@ -1,6 +1,7 @@
 package io.reactivesw.product;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -11,6 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @SpringBootApplication(scanBasePackages = "io.reactivesw")
+@EnableAutoConfiguration
 public class Application {
   /**
    * The entry point of application.
