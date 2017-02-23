@@ -6,6 +6,7 @@ import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.ProductTypeView;
 import io.reactivesw.product.infrastructure.util.ProductUtils;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,17 @@ import java.util.List;
  */
 @Component
 public class ProductRestClient {
+  /**
+   * product type service uri.
+   */
+  @Value("${producttype.service.uri}")
+  private String productTypeUri;
+
+  /**
+   * inventory service uri.
+   */
+  @Value("${inventory.service.uri}")
+  private String inventoryUri;
 
   /**
    * RestTemplate.
@@ -33,7 +45,7 @@ public class ProductRestClient {
    * @return the product type
    */
   public ProductTypeView getProductType(String id) {
-    String url = "http://localhost:8088/product-types/" + id;
+    String url = productTypeUri + id;
     return restTemplate.getForObject(url, ProductTypeView.class);
   }
 
@@ -45,7 +57,7 @@ public class ProductRestClient {
    */
   public List<InventoryEntryView> getInventoryEntry(ProductView product) {
     List<String> skuNames = ProductUtils.getSkuNames(product);
-    String url = "http://localhost:8088/inventory";
+    String url = inventoryUri;
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
         .queryParam("skuNames", skuNames);

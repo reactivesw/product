@@ -22,3 +22,7 @@ spec:
           value: jdbc:postgresql://pg-data/product
         - name: spring_cloud_config_uri
           value: http://reactivesw-config
+        - name: producttype_service_uri
+          value: http://product-type/product-types/
+        - name: inventory_service_uri
+          value: http://inventory/inventory/
