@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAutoConfiguration
 public class Application {
   /**
-   * The entry point of application.
+   * The entry point of controller.
    *
    * @param args the input arguments
    */

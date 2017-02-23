@@ -27,7 +27,7 @@ public class ProductProjectionController {
   private static final Logger LOG = LoggerFactory.getLogger(ProductProjectionController.class);
 
   /**
-   * The ProductView application.
+   * The ProductView controller.
    */
   @Autowired
   private transient ProductApplication productApplication;

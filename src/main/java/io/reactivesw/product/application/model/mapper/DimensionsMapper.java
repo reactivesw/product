@@ -14,10 +14,10 @@ public final class DimensionsMapper {
   }
 
   /**
-   * Entity to model io . reactivesw . product . application . model . asset dimensions.
+   * Entity to model io . reactivesw . product . controller . model . asset dimensions.
    *
    * @param entity the entity
-   * @return the io . reactivesw . product . application . model . asset dimensions
+   * @return the io . reactivesw . product . controller . model . asset dimensions
    */
   public static AssetDimensionsView entityToModel(
       AssetDimensions entity) {
