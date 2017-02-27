@@ -25,11 +25,15 @@ items:
             value: jdbc:postgresql://pg-data/product
           - name: spring_cloud_config_uri
             value: http://reactivesw-config
+          - name: producttype_service_uri
+            value: http://product-type/product-types/
+          - name: inventory_service_uri
+            value: http://inventory/inventory/
           - name: jwt_secret
             valueFrom:
               secretKeyRef:
-              name: reactivesw-secret
-              key: jwt.secret
+                name: reactivesw-secret
+                key: jwt.secret
 - kind: Service
   apiVersion: v1
   metadata:
