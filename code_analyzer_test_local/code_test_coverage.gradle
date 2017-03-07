@@ -1,12 +1,7 @@
 // for spock unit test
 apply plugin: 'groovy'
-dependencies {
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
-}
 
 // for code coverage
-apply plugin: 'com.palantir.jacoco-coverage'
 apply from:'code_analyzer_test/test_coverage.gradle'
 
 // config of coverage check
