@@ -9,14 +9,14 @@ apply from: 'code_analyzer_test/pmd.gradle'
 
 /*************checkstyle(use google java style)***************/
 
-checkstyle {
-    configFile = './code_analyzer_test/config/checkstyle/checkstyle.xml' as File
-}
+//checkstyle {
+//    configFile = './code_analyzer_test/config/checkstyle/checkstyle.xml' as File
+//}
 /*************PMD(Project Manager Design)***************/
 
-pmd {
-    ruleSetFiles = files("./code_analyzer_test/config/pmd/ruleset.xml")
-}
+//pmd {
+//    ruleSetFiles = files("./code_analyzer_test/config/pmd/ruleset.xml")
+//}
 
 tasks.withType(Pmd) {
     //exclude the package you do not want to check
