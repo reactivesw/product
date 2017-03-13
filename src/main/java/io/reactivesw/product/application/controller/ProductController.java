@@ -4,12 +4,10 @@ import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
 
-import io.reactivesw.product.application.service.ProductApplication;
-import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.ProductDraft;
+import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.service.ProductApplication;
 import io.reactivesw.product.domain.service.ProductService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,11 +50,8 @@ public class ProductController {
    * @param productDraft the ProductDraft
    * @return the ProductView
    */
-  @ApiOperation(value = "Create ProductView")
   @PostMapping(PRODUCT_ROOT)
-  public ProductView createProduct(@RequestBody
-                               @ApiParam(value = "ProductView Draft", required = true)
-                               @Valid ProductDraft productDraft) {
+  public ProductView createProduct(@RequestBody @Valid ProductDraft productDraft) {
     LOG.debug("enter createProduct, ProductDraft is : {}", productDraft.toString());
 
     ProductView result = productApplication.createProduct(productDraft);
@@ -72,11 +67,8 @@ public class ProductController {
    * @param id the id
    * @return the ProductView
    */
-  @ApiOperation(value = "Get ProductView By Id")
   @GetMapping(PRODUCT_WITH_ID)
-  public ProductView getProductById(@PathVariable(value = PRODUCT_ID)
-                                @ApiParam(value = "ProductView ID", required = true)
-                                    String id) {
+  public ProductView getProductById(@PathVariable(value = PRODUCT_ID) String id) {
     LOG.debug("enter getProductById, id is : {}", id);
 
     ProductView result = productApplication.getProductById(id);
@@ -92,11 +84,8 @@ public class ProductController {
    * @param slug the slug
    * @return the product by slug
    */
-  @ApiOperation(value = "Get ProductView By Slug")
   @GetMapping(PRODUCT_ROOT)
-  public ProductView getProductBySlug(@RequestParam
-                                  @ApiParam(value = "ProductView Slug", required = true)
-                                      String slug) {
+  public ProductView getProductBySlug(@RequestParam String slug) {
     LOG.debug("enter getProductBySlug, slug is : {}", slug);
 
     ProductView result = productService.getProductBySlug(slug);
@@ -112,14 +101,9 @@ public class ProductController {
    * @param id      the id
    * @param version the version
    */
-  @ApiOperation(value = "delete product by id")
   @DeleteMapping(PRODUCT_WITH_ID)
-  public void deleteProductById(@PathVariable(value = PRODUCT_ID)
-                                  @ApiParam(value = "ProductView ID", required = true)
-                                      String id,
-                                @RequestParam
-                                  @ApiParam(value = "ProductView Version", required = true)
-                                      Integer version){
+  public void deleteProductById(@PathVariable(value = PRODUCT_ID) String id,
+                                @RequestParam Integer version) {
     LOG.debug("enter deleteProductById, id is {}, version is {}", id, version);
 
     productService.deleteProduct(id, version);

@@ -8,7 +8,7 @@ public final class ProductRouter {
   /**
    * product root.
    */
-  public static final String PRODUCT_ROOT = "/products";
+  public static final String PRODUCT_ROOT = "/";
 
   /**
    * product id.
@@ -32,19 +32,7 @@ public final class ProductRouter {
   public static final String PRODUCT_WITH_SLUG = PRODUCT_ROOT + "/{" + PRODUCT_SLUG + "}";
 
   /**
-   * private default constructor.
+   * The constant PRODUCT_HEALTH_CHECK.
    */
-  private ProductRouter() {
-    super();
-  }
-
-  /**
-   * path builder: get product by id.
-   *
-   * @param id String
-   * @return String
-   */
-  public static String getProductWithId(String id) {
-    return PRODUCT_ROOT + "/" + id;
-  }
+  public static final String PRODUCT_HEALTH_CHECK = PRODUCT_ROOT + "health";
 }

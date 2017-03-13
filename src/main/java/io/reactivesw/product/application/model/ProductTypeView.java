@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Data;
 
@@ -17,7 +15,6 @@ import java.util.List;
  * Created by Davis on 16/11/16.
  */
 @Data
-@ApiModel
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductTypeView {
@@ -25,45 +22,38 @@ public class ProductTypeView {
   /**
    * The Id.
    */
-  @ApiModelProperty(required = true)
   private String id;
 
   /**
    * The Version.
    */
-  @ApiModelProperty(required = true)
   private Integer version;
 
   /**
    * The Created at.
    */
-  @ApiModelProperty(required = true)
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
   private ZonedDateTime createdAt;
 
   /**
    * The Last modified at.
    */
-  @ApiModelProperty(required = true)
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
   private ZonedDateTime lastModifiedAt;
 
   /**
    * The Key.
    */
-  @ApiModelProperty(required = false)
   private String key;
 
   /**
    * The Name.
    */
-  @ApiModelProperty(required = true)
   private String name;
 
   /**
    * The Description.
    */
-  @ApiModelProperty(required = true)
   private String description;
 
   /**

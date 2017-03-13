@@ -1,8 +1,5 @@
 package io.reactivesw.product.application.model;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,42 +8,55 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@ApiModel
 public class QueryConditions {
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Expand id.
+   */
   String expandId;
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Version.
+   */
   Integer version;
 
   /**
    * name(en="Pro T-Shirt")
    */
-  @ApiModelProperty(required = false)
   String where;
 
   /**
    * name.em
    */
-  @ApiModelProperty(required = false)
   String sort;
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Sort order.
+   */
   String sortOrder;
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Page.
+   */
   String page;
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Per page.
+   */
   String perPage;
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Expand.
+   */
   String expand;
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Staged.
+   */
   Boolean staged;
 
-  @ApiModelProperty(required = false)
+  /**
+   * The Staged id.
+   */
   Boolean stagedId;
 }

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import io.reactivesw.model.Reference;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Data;
 
@@ -15,26 +13,22 @@ import java.time.ZonedDateTime;
  * Created by Davis on 16/11/17.
  */
 @Data
-@ApiModel
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductView {
   /**
    * The unique ID of the product.
    */
-  @ApiModelProperty(required = true)
   private String id;
 
   /**
    * User-specific unique identifier for the product.
    * ProductView keys are different from product variant keys.
    */
-  @ApiModelProperty(required = false)
   private String key;
 
   /**
    * The current version of the product.
    */
-  @ApiModelProperty(required = true)
   private Integer version;
 
   /**

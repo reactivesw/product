@@ -2,11 +2,10 @@ package io.reactivesw.product.application.controller;
 
 import static io.reactivesw.product.infrastructure.ProductProjectionRouter.PRODUCT_PROJECTION_ROOT;
 
-import io.reactivesw.product.application.service.ProductApplication;
 import io.reactivesw.product.application.model.PagedQueryResult;
 import io.reactivesw.product.application.model.ProductProjectionView;
 import io.reactivesw.product.application.model.QueryConditions;
-import io.swagger.annotations.ApiOperation;
+import io.reactivesw.product.application.service.ProductApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +38,6 @@ public class ProductProjectionController {
    * @return the list
    */
   // TODO: 16/12/21 only for query product by category now
-  @ApiOperation("")
   @GetMapping(PRODUCT_PROJECTION_ROOT)
   public PagedQueryResult<ProductProjectionView> queryProductProjections(QueryConditions queryConditions) {
     LOG.debug("enter queryProductProjections, query conditions is : {}",
