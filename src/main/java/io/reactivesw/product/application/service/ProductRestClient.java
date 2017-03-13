@@ -53,7 +53,7 @@ public class ProductRestClient {
    * @return the product type
    */
   public ProductTypeView getProductType(String id) {
-    LOG.debug("enter getProductType, prodyct type id is : {}", id);
+    LOG.debug("enter getProductType, product type id is : {}", id);
     String url = productTypeUri + id;
     LOG.debug("get product type by url : {}", url);
     ProductTypeView result = restTemplate.getForObject(url, ProductTypeView.class);
