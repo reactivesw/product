@@ -26,9 +26,9 @@ items:
           - name: spring_cloud_config_uri
             value: http://reactivesw-config
           - name: producttype_service_uri
-            value: http://product-type/product-types/
+            value: http://product-type/
           - name: inventory_service_uri
-            value: http://inventory/inventory/
+            value: http://inventory/
           - name: jwt_secret
             valueFrom:
               secretKeyRef:
