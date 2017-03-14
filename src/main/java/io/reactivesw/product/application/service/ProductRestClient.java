@@ -43,7 +43,7 @@ public class ProductRestClient {
   /**
    * RestTemplate.
    */
-  private transient RestTemplate restTemplate = new RestTemplate();;
+  private transient RestTemplate restTemplate = new RestTemplate();
 
 
   /**

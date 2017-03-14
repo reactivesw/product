@@ -8,7 +8,7 @@ public final class ProductProjectionRouter {
    * product merchant root.
    */
 
-  public static final String PRODUCT_PROJECTION_ROOT = "/products/projections";
+  public static final String PRODUCT_PROJECTION_ROOT = "/projections";
 
   /**
    * product merchant id.
