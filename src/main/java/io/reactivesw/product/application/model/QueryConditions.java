@@ -2,12 +2,14 @@ package io.reactivesw.product.application.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by Davis on 16/11/21.
  */
 @Getter
 @Setter
+@ToString
 public class QueryConditions {
 
   /**
