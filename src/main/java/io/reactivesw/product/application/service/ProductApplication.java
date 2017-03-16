@@ -85,7 +85,7 @@ public class ProductApplication {
 
     List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryEntry(result);
 
-    if (inventoryEntries != null && inventoryEntries.isEmpty()) {
+    if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
       result = ProductInventoryUtils.mergeInventoryEntryToProduct(inventoryEntries, result);
     }
 

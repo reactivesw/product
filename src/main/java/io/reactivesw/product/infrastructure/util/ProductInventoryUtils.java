@@ -54,17 +54,17 @@ public final class ProductInventoryUtils {
 
   /**
    * merge InventoryEntryView to ProductVariantView.
-   * @param inventoryEntries the InventoryEntryView
+   * @param inventories the InventoryEntryView
    * @param variant the ProductVariantView
    */
-  private static void mergeInventoryEntryToVariant(List<InventoryEntryView> inventoryEntries,
+  private static void mergeInventoryEntryToVariant(List<InventoryEntryView> inventories,
                                                    ProductVariantView variant) {
-    inventoryEntries.stream().forEach(
-        entry -> {
-          LOG.debug("entry sku is : {}, variant sku is : {}", entry.getSku(), variant.getSku());
-          if (StringUtils.equals(entry.getSku(), variant.getSku())) {
-            LOG.debug("equal sku name, sku is : {}", variant.getScopedPrice());
-            variant.setAvailability(ProductVariantAvailabilityMapper.toModel(entry));
+    LOG.debug("enter mergeInventoryEntryToVariant, inventory size is : {}", inventories.size());
+
+    inventories.stream().forEach(
+        inventory -> {
+          if (StringUtils.equals(inventory.getSku(), variant.getSku())) {
+            variant.setAvailability(ProductVariantAvailabilityMapper.toModel(inventory));
           }
         }
     );

@@ -5,9 +5,9 @@ spring:
     config:
       uri: http://localhost:8888/
 
-#producttype:
-#  service:
-#    uri: http://localhost:8889/product-types/
-#inventory:
-#  service:
-#    uri: http://localhost:8889/inventory/
+producttype:
+  service:
+    uri: http://localhost:8089/
+inventory:
+  service:
+    uri: http://localhost:8085/

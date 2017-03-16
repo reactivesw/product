@@ -1,21 +1,22 @@
 package io.reactivesw.product.application.service;
 
+
+import com.google.common.collect.Lists;
+
 import io.reactivesw.product.application.model.InventoryEntryView;
-import io.reactivesw.product.application.model.PagedQueryResult;
-import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.ProductTypeView;
+import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.infrastructure.util.ProductUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -77,16 +78,14 @@ public class ProductRestClient {
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
         .queryParam("skuNames", skuNames);
 
-    HttpEntity<PagedQueryResult> result = restTemplate.exchange(
+    ResponseEntity<InventoryEntryView[]> result = restTemplate.exchange(
         builder.build().encode().toUri(),
         HttpMethod.GET,
         null,
-        PagedQueryResult.class);
+        InventoryEntryView[].class);
 
     LOG.debug("end getInventoryEntry");
-    LOG.debug("get result number is : {}", result.getBody().getCount());
-    LOG.debug("get result is : {}", result.getBody().getResults());
 
-    return result.getBody().getResults();
+    return Lists.newArrayList(result.getBody());
   }
 }
