@@ -7,6 +7,8 @@ import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.application.model.mapper.ProductVariantAvailabilityMapper;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -14,6 +16,11 @@ import java.util.List;
  * Created by Davis on 16/12/22.
  */
 public final class ProductInventoryUtils {
+
+  /**
+   * log.
+   */
+  private static final Logger LOG = LoggerFactory.getLogger(ProductInventoryUtils.class);
 
   /**
    * Instantiates a new ProductView inventory update.
@@ -29,6 +36,7 @@ public final class ProductInventoryUtils {
    */
   public static ProductView mergeInventoryEntryToProduct(List<InventoryEntryView> inventoryEntries, ProductView
       product) {
+    LOG.debug("enter mergeInventoryEntryToProduct, inventory number is : {}", inventoryEntries.size());
     ProductDataView currentData = product.getMasterData().getCurrent();
     ProductVariantView masterVariant = currentData.getMasterVariant();
     mergeInventoryEntryToVariant(inventoryEntries, masterVariant);
@@ -53,7 +61,9 @@ public final class ProductInventoryUtils {
                                                    ProductVariantView variant) {
     inventoryEntries.stream().forEach(
         entry -> {
+          LOG.debug("entry sku is : {}, variant sku is : {}", entry.getSku(), variant.getSku());
           if (StringUtils.equals(entry.getSku(), variant.getSku())) {
+            LOG.debug("equal sku name, sku is : {}", variant.getScopedPrice());
             variant.setAvailability(ProductVariantAvailabilityMapper.toModel(entry));
           }
         }
