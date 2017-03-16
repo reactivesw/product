@@ -68,7 +68,10 @@ public class ProductRestClient {
    * @return the inventory entry
    */
   public List<InventoryEntryView> getInventoryEntry(ProductView product) {
+    LOG.debug("enter getInventoryEntry");
     List<String> skuNames = ProductUtils.getSkuNames(product);
+    LOG.debug("sku names is : {}", skuNames);
+
     String url = inventoryUri;
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
@@ -79,6 +82,10 @@ public class ProductRestClient {
         HttpMethod.GET,
         null,
         PagedQueryResult.class);
+
+    LOG.debug("end getInventoryEntry");
+    LOG.debug("get result number is : {}", result.getBody().getCount());
+    LOG.debug("get result is : {}", result.getBody().getResults());
 
     return result.getBody().getResults();
   }
