@@ -76,7 +76,7 @@ public class ProductRestClient {
     String url = inventoryUri;
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-        .queryParam("skuNames", skuNames);
+        .queryParam("skuNames", String.join(",", skuNames));
 
     ResponseEntity<InventoryEntryView[]> result = restTemplate.exchange(
         builder.build().encode().toUri(),
