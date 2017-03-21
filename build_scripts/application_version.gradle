@@ -1,4 +1,4 @@
 jar {
-    baseName = 'customer-info'
-    version = '0.0.2'
+    baseName = 'product'
+    version = '0.0.1'
 }
