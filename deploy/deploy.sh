@@ -47,7 +47,7 @@ echo '=============================finish gcloud container cluster credentials==
 
 #kubectl create deployments and service by .yaml file
 echo '=============================kubectl create yaml==================================='
-kubectl delete deployment product
-kubectl delete service product
-kubectl create -f ./k8s.yaml
+kubectl delete deployment product --ignore-not-found=true
+kubectl delete service product --ignore-not-found=true
+kubectl create -f ./deploy/k8s.yaml
 echo '=============================finish kubectl create yaml============================'
