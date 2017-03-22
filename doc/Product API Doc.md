@@ -6,27 +6,7 @@ TODO
 
 ## 2. View Model
 
-### 2.1 ProductProjectionView
-
-| field name | field type | comments |
-|----|----|----|
-| id | String | |
-| key | String | |
-| productType | Reference | |
-| name | LocalizedString | |
-| description | LocalizedString | |
-| slug | String | |
-| categories | List<Reference> | |
-| categoryOrderHints | List<CategoryOrderHintView> | |
-| metaTitle | LocalizedString | |
-| metaDescription | LocalizedString | | 
-| metaKeywords | LocalizedString | |
-| searchKeyword | List<SearchKeyword> | |
-| ProductVariantView | masterVariant | |
-| List<ProductVariantView> | variants | |
-
-
-### 2.2 ProductView
+### 2.1 ProductView
 | field name | field type | comments |
 |----|----|----|
 | id | String | |
@@ -40,10 +20,10 @@ TODO
 | metaDescription | LocalizedString | | 
 | metaKeywords | LocalizedString | |
 | searchKeyword | List<SearchKeyword> | |
-| ProductVariantView | masterVariant | |
-| List<ProductVariantView> | variants | |
+| masterVariant | ProductVariantView | |
+| variants | List<ProductVariantView> | |
 
-### 2.3 ProductVariantView
+### 2.2 ProductVariantView
 
 | field name | field type | comments |
 |----|----|----|
@@ -57,7 +37,7 @@ TODO
 | available | boolean | |
 | isMatchingVariant| boolean | |
 
-### 2.4 PagedQueryResult
+### 2.3 PagedQueryResult
 
 | field name | field type | comments | 
 |-----|-----|-----|
@@ -67,14 +47,13 @@ TODO
 | results | List<T> | |
 | facets | Object | |
 
-
 ## 3. API
 
-### 3.1 get product projection list by categoryId
+### 3.1 get product list by categoryId
 
 * URL : /projections
-* params : categoryId
-* response : PagedQueryResult<ProductProjectionView>
+* params : categoryId - required
+* response : PagedQueryResult<ProductView>
     
 
 ### 3.2 get product detail by productId
