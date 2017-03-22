@@ -25,10 +25,12 @@ public final class ProductRouter {
    */
   public static final String SKU = "Sku";
 
+  public static final String DETAIL_PRODUCT = "DetailProducts";
+
   /**
    * The constant DETAIL_PRODUCT_SKU.
    */
-  public static final String DETAIL_PRODUCT_SKU = PRODUCT_ROOT + "DetailProducts/" + SKU;
+  public static final String DETAIL_PRODUCT_SKU = PRODUCT_ROOT + DETAIL_PRODUCT + "/{" + SKU + "}";
 
   /**
    * The constant PRODUCT_HEALTH_CHECK.
