@@ -71,6 +71,7 @@ public class ProductService {
   public List<Product> queryProductByCategory(String categoryId) {
     LOG.debug("enter queryProductByCategory, categoryId is : {}", categoryId);
 
+    // TODO: 17/3/22 should search by categoryId, not findAll to filter
     List<Product> productEntities = productRepository.findAll();
 
     List<Product> result = productEntities.stream().filter(

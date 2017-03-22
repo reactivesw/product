@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Davis on 16/11/17.
  */
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class ProductProjectionView {
 
   /**
@@ -29,37 +29,25 @@ public class ProductProjectionView {
   private String key;
 
   /**
-   * The current version of the ProductView.
-   */
-  private Integer version;
-
-  /**
-   * The Created at.
-   */
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
-  private ZonedDateTime createdAt;
-  /**
-   * The Last modified at.
-   */
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
-  private ZonedDateTime lastModifiedAt;
-
-  /**
    * Reference to a ProductTypeView
    */
   private Reference productType;
+
   /**
    * The Name.
    */
   private LocalizedString name;
+
   /**
    * The Description.
    */
   private LocalizedString description;
+
   /**
    * The Slug.
    */
   private String slug;
+
   /**
    * Array of Reference to a CategoryEntity.
    * References to category the product is in.
@@ -70,30 +58,27 @@ public class ProductProjectionView {
    * The CategoryEntity order hints.
    */
   private List<CategoryOrderHintView> categoryOrderHints;
+
   /**
    * The Meta title.
    */
   private LocalizedString metaTitle;
+
   /**
    * The Meta description.
    */
   private LocalizedString metaDescription;
+
   /**
    * The Meta keywords.
    */
   private LocalizedString metaKeywords;
+
   /**
    * The Search keywords.
    */
   private List<SearchKeyword> searchKeyword;
-  /**
-   * The Has staged changes.
-   */
-  private Boolean hasStagedChanges;
-  /**
-   * The Published.
-   */
-  private Boolean published;
+
   /**
    * variants - Array of ProductVariant
    */
@@ -103,6 +88,7 @@ public class ProductProjectionView {
    * variants
    */
   private List<ProductVariantView> variants;
+
   /**
    * Reference to a TaxCategory.
    * Optional.

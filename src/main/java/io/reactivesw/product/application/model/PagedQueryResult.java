@@ -16,6 +16,4 @@ public class PagedQueryResult<T> {
   Integer total;
 
   List<T> results;
-
-  Object facets;
 }

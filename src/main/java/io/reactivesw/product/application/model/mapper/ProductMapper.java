@@ -44,11 +44,8 @@ public final class ProductMapper {
   public static ProductView entityToModel(Product entity) {
     ProductView model = new ProductView();
 
-    model.setCreatedAt(entity.getCreatedAt());
-    model.setLastModifiedAt(entity.getLastModifiedAt());
     model.setId(entity.getId());
     model.setKey(entity.getKey());
-    model.setVersion(entity.getVersion());
     if (StringUtils.isNotBlank(entity.getTaxCategory())) {
       model.setTaxCategory(
           new Reference(ReferenceTypes.TAXCATEGORY.getType(), entity.getTaxCategory())

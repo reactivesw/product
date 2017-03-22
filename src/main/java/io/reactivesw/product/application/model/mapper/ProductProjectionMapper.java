@@ -52,8 +52,6 @@ public final class ProductProjectionMapper {
     model.setSlug(currentData.getSlug());
     model.setDescription(LocalizedStringMapper.entityToModelDefaultNull(
         currentData.getDescription()));
-    model.setCreatedAt(entity.getCreatedAt());
-    model.setLastModifiedAt(entity.getLastModifiedAt());
     model.setMetaTitle(LocalizedStringMapper.entityToModelDefaultNull(currentData.getMetaTitle()));
     model.setMetaDescription(LocalizedStringMapper.entityToModelDefaultNull(
         currentData.getMetaDescription()));
@@ -74,12 +72,6 @@ public final class ProductProjectionMapper {
     model.setVariants(ProductVariantMapper.entityToModel(currentData.getVariants()));
     model.setProductType(new Reference(ReferenceTypes.PRODUCTTYPE.getType(),
         entity.getProductType()));
-    model.setHasStagedChanges(masterData.getStagedChanged());
-    model.setPublished(masterData.getPublished());
-//    model.setSearchKeyword();
-//    model.setTaxCategory();
-//    model.setState();
-//    model.setReviewRatingStatistics();
 
     return model;
   }
