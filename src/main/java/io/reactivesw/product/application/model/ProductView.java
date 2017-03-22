@@ -1,68 +1,66 @@
 package io.reactivesw.product.application.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.reactivesw.model.LocalizedString;
 import io.reactivesw.model.Reference;
-import io.reactivesw.product.domain.model.ProductCatalogData;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * Created by Davis on 16/11/17.
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@EqualsAndHashCode(callSuper = false)
 public class ProductView {
+
   /**
-   * The unique ID of the product.
+   * The unique ID of the ProductViewOld.
    */
   private String id;
 
   /**
-   * User-specific unique identifier for the product.
-   * ProductView keys are different from product variant keys.
+   * User-specific unique identifier of the ProductViewOld.
    */
   private String key;
 
   /**
-   * Reference to a ProductTypeView.
+   * Reference to a ProductTypeView
    */
   private Reference productType;
 
   /**
-   * the name.
+   * The Name.
    */
   private LocalizedString name;
 
   /**
-   * the description.
+   * The Description.
    */
   private LocalizedString description;
 
   /**
-   * human-readable identifiers usually used as deep-link URL to the related product.
-   * Each slug is unique across a merchant,
-   * but a product can have the same slug for different languages.
+   * The Slug.
    */
   private String slug;
 
   /**
-   * Array of Reference to a CategoryEntity
+   * Array of Reference to a CategoryEntity.
    * References to category the product is in.
    */
   private List<Reference> categories;
 
   /**
-   * categoryOrderHints.
+   * The CategoryEntity order hints.
    */
   private List<CategoryOrderHintView> categoryOrderHints;
 
   /**
-   * the meta title.
-   * optional.
+   * The Meta title.
    */
   private LocalizedString metaTitle;
 
@@ -77,41 +75,34 @@ public class ProductView {
   private LocalizedString metaKeywords;
 
   /**
-   * masterVariant.
+   * The Search keywords.
+   */
+  private List<SearchKeyword> searchKeyword;
+
+  /**
+   * variants - Array of ProductVariant
    */
   private ProductVariantView masterVariant;
 
   /**
-   * The Variants.
+   * variants
    */
   private List<ProductVariantView> variants;
 
   /**
-   * search keyword.
-   */
-  private SearchKeyword searchKeyword;
-
-  /**
    * Reference to a TaxCategory.
+   * Optional.
    */
-  @Deprecated
   private Reference taxCategory;
 
   /**
    * Reference to a State.
    * Optional.
    */
-  @Deprecated
   private Reference state;
 
   /**
    * Statistics about the review ratings taken into account for this product.
-   * Statistics about the review ratings taken into account for this product.
-   * Optional.
    */
-  @Deprecated
   private ReviewRatingStatisticsView reviewRatingStatistics;
-
-  @Deprecated
-  private ProductCatalogDataView masterData;
 }

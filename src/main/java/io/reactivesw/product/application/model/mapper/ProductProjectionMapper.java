@@ -3,7 +3,7 @@ package io.reactivesw.product.application.model.mapper;
 import com.google.common.collect.Lists;
 
 import io.reactivesw.model.Reference;
-import io.reactivesw.product.application.model.ProductProjectionView;
+import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.model.ProductCatalogData;
 import io.reactivesw.product.domain.model.ProductData;
@@ -22,8 +22,8 @@ public final class ProductProjectionMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<ProductProjectionView> entityToModel(List<Product> entities) {
-    List<ProductProjectionView> models = Lists.newArrayList();
+  public static List<ProductView> entityToModel(List<Product> entities) {
+    List<ProductView> models = Lists.newArrayList();
 
     models = entities.stream()
         .map(
@@ -41,8 +41,8 @@ public final class ProductProjectionMapper {
    * @param entity the entity
    * @return the product projection
    */
-  public static ProductProjectionView entityToModel(Product entity) {
-    ProductProjectionView model = new ProductProjectionView();
+  public static ProductView entityToModel(Product entity) {
+    ProductView model = new ProductView();
 
     ProductCatalogData masterData = entity.getMasterData();
     ProductData currentData = masterData.getCurrent();

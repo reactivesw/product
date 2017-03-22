@@ -1,8 +1,8 @@
 package io.reactivesw.product.application.service;
 
 import io.reactivesw.product.application.model.InventoryEntryView;
-import io.reactivesw.product.application.model.ProductProjectionView;
 import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.model.mapper.ProductProjectionMapper;
 import io.reactivesw.product.domain.model.Product;
@@ -70,7 +70,7 @@ public class ProductApplication {
    * @param queryConditions the query conditions
    * @return the list
    */
-  public List<ProductProjectionView> queryProductProject(QueryConditions queryConditions) {
+  public List<ProductView> queryProductProject(QueryConditions queryConditions) {
     LOG.debug("enter queryProductProjections, query conditions is : {}",
         queryConditions.toString());
 
@@ -78,7 +78,7 @@ public class ProductApplication {
 
     List<Product> productEntities = productService.queryProductByCategory(categoryId);
 
-    List<ProductProjectionView> result = ProductProjectionMapper.entityToModel(productEntities);
+    List<ProductView> result = ProductProjectionMapper.entityToModel(productEntities);
 
     LOG.debug("end queryProductProjections, product projections number is : {}", result.size());
 

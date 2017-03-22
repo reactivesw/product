@@ -5,8 +5,8 @@ import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
 
 import io.reactivesw.product.application.model.PagedQueryResult;
-import io.reactivesw.product.application.model.ProductProjectionView;
 import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.service.ProductApplication;
 import io.reactivesw.product.domain.service.ProductService;
@@ -31,12 +31,12 @@ public class ProductController {
   private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
   /**
-   * ProductView Application.
+   * ProductViewOld Application.
    */
   private transient ProductApplication productApplication;
 
   /**
-   * The ProductView service.
+   * The ProductViewOld service.
    */
   private transient ProductService productService;
 
@@ -53,10 +53,10 @@ public class ProductController {
   }
 
   /**
-   * Gets ProductView by id.
+   * Gets ProductViewOld by id.
    *
    * @param id the id
-   * @return the ProductView
+   * @return the ProductViewOld
    */
   @GetMapping(PRODUCT_WITH_ID)
   public ProductView getProductById(@PathVariable(value = PRODUCT_ID) String id) {
@@ -80,13 +80,13 @@ public class ProductController {
    */
   // TODO: 16/12/21 only for query product by category now
   @GetMapping(PRODUCT_ROOT)
-  public PagedQueryResult<ProductProjectionView> queryProductProjections(QueryConditions
+  public PagedQueryResult<ProductView> queryProductProjections(QueryConditions
                                                                              queryConditions) {
     LOG.debug("enter queryProductProjections, query conditions is : {}",
         queryConditions.toString());
 
-    PagedQueryResult<ProductProjectionView> result = new PagedQueryResult<>();
-    List<ProductProjectionView> productProjections =
+    PagedQueryResult<ProductView> result = new PagedQueryResult<>();
+    List<ProductView> productProjections =
         productApplication.queryProductProject(queryConditions);
     result.setCount(productProjections.size());
     result.setResults(productProjections);

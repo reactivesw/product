@@ -2,7 +2,7 @@ package io.reactivesw.product.domain.service;
 
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.mapper.ProductMapper;
+import io.reactivesw.product.application.model.mapper.ProductProjectionMapper;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
 
@@ -69,9 +69,9 @@ public class ProductService {
 
     Product entity = getProductEntityById(id);
 
-    ProductView result = ProductMapper.entityToModel(entity);
+    ProductView result = ProductProjectionMapper.entityToModel(entity);
 
-    LOG.debug("end getProductById, get ProductView is : {}", result.toString());
+    LOG.debug("end getProductById, get ProductViewOld is : {}", result.toString());
 
     return result;
   }
@@ -86,7 +86,7 @@ public class ProductService {
     Product entity = productRepository.findOne(id);
     if (entity == null) {
       LOG.debug("can not find product by id : {}", id);
-      throw new NotExistException("ProductView Not Found");
+      throw new NotExistException("ProductViewOld Not Found");
     }
     return entity;
   }

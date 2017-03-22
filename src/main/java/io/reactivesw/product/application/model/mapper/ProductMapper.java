@@ -1,7 +1,7 @@
 package io.reactivesw.product.application.model.mapper;
 
 import io.reactivesw.model.Reference;
-import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.application.model.ProductDraft;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
@@ -36,13 +36,13 @@ public final class ProductMapper {
   }
 
   /**
-   * convert Product to ProductView.
+   * convert Product to ProductViewOld.
    *
    * @param entity the Product
-   * @return the ProductView
+   * @return the ProductViewOld
    */
-  public static ProductView entityToModel(Product entity) {
-    ProductView model = new ProductView();
+  public static ProductViewOld entityToModel(Product entity) {
+    ProductViewOld model = new ProductViewOld();
 
     model.setId(entity.getId());
     model.setKey(entity.getKey());

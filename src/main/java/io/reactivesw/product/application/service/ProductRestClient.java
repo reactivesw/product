@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
 import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.infrastructure.util.ProductUtils;
 
 import org.slf4j.Logger;

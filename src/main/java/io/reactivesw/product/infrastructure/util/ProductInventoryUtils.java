@@ -3,6 +3,7 @@ package io.reactivesw.product.infrastructure.util;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductVariantView;
 import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.application.model.mapper.ProductVariantAvailabilityMapper;
 
@@ -23,7 +24,7 @@ public final class ProductInventoryUtils {
   private static final Logger LOG = LoggerFactory.getLogger(ProductInventoryUtils.class);
 
   /**
-   * Instantiates a new ProductView inventory update.
+   * Instantiates a new ProductViewOld inventory update.
    */
   private ProductInventoryUtils() {}
 
@@ -37,18 +38,19 @@ public final class ProductInventoryUtils {
   public static ProductView mergeInventoryEntryToProduct(List<InventoryEntryView> inventoryEntries, ProductView
       product) {
     LOG.debug("enter mergeInventoryEntryToProduct, inventory number is : {}", inventoryEntries.size());
-    ProductDataView currentData = product.getMasterData().getCurrent();
-    ProductVariantView masterVariant = currentData.getMasterVariant();
-    mergeInventoryEntryToVariant(inventoryEntries, masterVariant);
+//    ProductDataView currentData = product.getMasterData().getCurrent();
+//    ProductVariantView masterVariant = currentData.getMasterVariant();
+//    mergeInventoryEntryToVariant(inventoryEntries, masterVariant);
+//
+//    if (currentData.getVariants() != null && !currentData.getVariants().isEmpty()) {
+//      currentData.getVariants().parallelStream().forEach(
+//          variant -> {
+//            mergeInventoryEntryToVariant(inventoryEntries, variant);
+//          }
+//      );
+//    }
 
-    if (currentData.getVariants() != null && !currentData.getVariants().isEmpty()) {
-      currentData.getVariants().parallelStream().forEach(
-          variant -> {
-            mergeInventoryEntryToVariant(inventoryEntries, variant);
-          }
-      );
-    }
-
+    // TODO: 17/3/22 write new method
     return product;
   }
 

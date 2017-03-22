@@ -3,6 +3,7 @@ package io.reactivesw.product.infrastructure.util;
 import com.google.common.collect.Lists;
 
 import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.model.ProductCatalogData;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  */
 public final class ProductUtils {
   /**
-   * Instantiates a new ProductView update.
+   * Instantiates a new ProductViewOld update.
    */
   private ProductUtils() {
   }
@@ -95,10 +96,11 @@ public final class ProductUtils {
   public static List<String> getSkuNames(ProductView product) {
     List<String> skuNames = Lists.newArrayList();
 
-    ProductDataView currentData = product.getMasterData().getCurrent();
-    ProductDataView stagedData = product.getMasterData().getStaged();
-    skuNames.addAll(getSkuNames(currentData));
-    skuNames.addAll(getSkuNames(stagedData));
+//    ProductDataView currentData = product.getMasterData().getCurrent();
+//    ProductDataView stagedData = product.getMasterData().getStaged();
+//    skuNames.addAll(getSkuNames(currentData));
+//    skuNames.addAll(getSkuNames(stagedData));
+    // TODO: 17/3/22 write new method
 
     return ListUtils.removeDuplicateString(skuNames);
   }

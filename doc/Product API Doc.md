@@ -1,21 +1,27 @@
 # Product Service Rest API
 
-## 1. Introduce
+## 1. Introduction
 
 TODO
 
 ## 2. View Model
 
-### 2.1 ProductView
+### 2.1 CategoryProductView
 | field name | field type | comments |
 |----|----|----|
 | id | String | |
-| key | String | |
-| productType | Reference | |
 | name | LocalizedString | |
-| slug | String | |
-| categories | List<Reference> | |
-| categoryOrderHints | List<CategoryOrderHintView> | |
+| sku | String | |
+| price | PriceView | | 
+| imageUrl | String | |
+| available | boolean | |
+
+### 2.2 DetailProductView
+| field name | field type | comments |
+|----|----|----|
+| id | String | |
+| productType | ProductType | |
+| name | LocalizedString | |
 | metaTitle | LocalizedString | |
 | metaDescription | LocalizedString | | 
 | metaKeywords | LocalizedString | |
@@ -23,7 +29,7 @@ TODO
 | masterVariant | ProductVariantView | |
 | variants | List<ProductVariantView> | |
 
-### 2.2 ProductVariantView
+### 2.3 ProductVariantView
 
 | field name | field type | comments |
 |----|----|----|
@@ -37,7 +43,7 @@ TODO
 | available | boolean | |
 | isMatchingVariant| boolean | |
 
-### 2.3 PagedQueryResult
+### 2.4 PagedQueryResult
 
 | field name | field type | comments | 
 |-----|-----|-----|
@@ -47,27 +53,32 @@ TODO
 | results | List<T> | |
 | facets | Object | |
 
-### 2.4 QueryConditions
+### 2.5 QueryConditions
 
 | field name | field type | comments | 
 |-----|-----|-----|
 | where | String | |
 
+### 2.6 CartProductView
+
+
+
 ## 3. API
 
-### 3.1 get product list by categoryId
+### 3.1 get CategoryProductView list by categoryId
 
-* URL : /
+* URL : /CategoryProducts
 * params : where - required
-* response : PagedQueryResult<ProductView>
+* response : PagedQueryResult<CategoryProductView>
 * URL example: {URL}?where=categoryId%3A%2285a2aade-d87e-4b54-8485-54f186f48ace%22
 
-### 3.2 get product detail by productId
+### 3.2 get DetailProductView by Sku
 
-* URL : /{productId}
-* response : ProductView
-* error code :
+* URL : /DetailProducts/{Sku}
+* response : DetailProductView  
   
-  | code | comments |
-  |------|--------|
-  | 404 | can not find product by this id |  
+  
+### 3.3 get CartProductView by productId
+  
+* URL : /CartProducts/{productId}
+* response : CartProductView
