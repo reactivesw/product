@@ -7,7 +7,7 @@ spring:
 
 producttype:
   service:
-    uri: http://localhost:8089/
+    uri: http://35.184.19.183/product-types/
 inventory:
   service:
-    uri: http://localhost:8085/
+    uri: http://35.184.19.183/inventory/

@@ -15,7 +15,7 @@ public final class ProductRouter {
    */
   public static final String PRODUCT_ID = "productId";
 
-  public static final String CATEGORY_PRODUCT_ROOT = PRODUCT_ROOT + "CategoryProducts/";
+  public static final String CATEGORY_PRODUCT_ROOT = PRODUCT_ROOT + "CategoryProducts";
 
   public static final String SKU = "Sku";
 

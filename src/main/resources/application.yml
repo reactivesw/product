@@ -9,7 +9,7 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/product
+    url: jdbc:postgresql://35.184.1.81:5432/product
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver

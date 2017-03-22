@@ -1,19 +1,15 @@
 package io.reactivesw.product.application.controller;
 
 import static io.reactivesw.product.infrastructure.ProductRouter.CATEGORY_PRODUCT_ROOT;
-import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
-import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
 
 import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.PagedQueryResult;
-import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.service.ProductApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -40,23 +36,6 @@ public class ProductController {
    */
   public ProductController(ProductApplication productApplication) {
     this.productApplication = productApplication;
-  }
-
-  /**
-   * Gets ProductViewOld by id.
-   *
-   * @param id the id
-   * @return the ProductViewOld
-   */
-  @GetMapping(PRODUCT_WITH_ID)
-  public ProductView getProductById(@PathVariable(value = PRODUCT_ID) String id) {
-    LOG.debug("enter getProductById, id is : {}", id);
-
-    ProductView result = productApplication.getProductById(id);
-
-    LOG.debug("end getProductById, get product is : {}", result.toString());
-
-    return result;
   }
 
   /**
