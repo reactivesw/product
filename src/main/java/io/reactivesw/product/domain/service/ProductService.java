@@ -1,7 +1,6 @@
 package io.reactivesw.product.domain.service;
 
 import io.reactivesw.exception.NotExistException;
-import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;

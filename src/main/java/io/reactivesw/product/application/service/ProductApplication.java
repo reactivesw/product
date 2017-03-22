@@ -5,7 +5,6 @@ import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
-import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.model.mapper.CartProductMapper;
 import io.reactivesw.product.application.model.mapper.CategoryProductMapper;
@@ -15,8 +14,8 @@ import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.domain.service.ProductService;
 import io.reactivesw.product.infrastructure.util.InventoryUtils;
-import io.reactivesw.product.infrastructure.util.SkuUtils;
 import io.reactivesw.product.infrastructure.util.QueryConditionUtils;
+import io.reactivesw.product.infrastructure.util.SkuUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

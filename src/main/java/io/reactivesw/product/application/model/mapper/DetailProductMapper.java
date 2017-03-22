@@ -29,18 +29,18 @@ public final class DetailProductMapper {
     ProductData productData = entity.getMasterData().getCurrent();
 
     model.setId(entity.getId());
-    model.setName(LocalizedStringMapper.entityToModelDefaultNew(productData.getName()));
-    model.setDescription(LocalizedStringMapper.entityToModelDefaultNew(productData.getDescription
+    model.setName(LocalizedStringMapper.mapToModelDefaultNew(productData.getName()));
+    model.setDescription(LocalizedStringMapper.mapToModelDefaultNew(productData.getDescription
         ()));
-    model.setMasterVariant(ProductVariantMapper.entityToModel(productData.getMasterVariant()));
-    model.setMetaDescription(LocalizedStringMapper.entityToModelDefaultNew(productData
+    model.setMasterVariant(ProductVariantMapper.mapToModel(productData.getMasterVariant()));
+    model.setMetaDescription(LocalizedStringMapper.mapToModelDefaultNew(productData
         .getMetaDescription()));
-    model.setMetaKeywords(LocalizedStringMapper.entityToModelDefaultNew(productData
+    model.setMetaKeywords(LocalizedStringMapper.mapToModelDefaultNew(productData
         .getMetaKeywords()));
-    model.setMetaTitle(LocalizedStringMapper.entityToModelDefaultNew(productData.getMetaTitle()));
+    model.setMetaTitle(LocalizedStringMapper.mapToModelDefaultNew(productData.getMetaTitle()));
     model.setProductType(null);
     model.setSearchKeyword(new SearchKeyword(productData.getSearchKeyWords(), null));
-    model.setVariants(ProductVariantMapper.entityToModel(productData.getVariants()));
+    model.setVariants(ProductVariantMapper.mapToModel(productData.getVariants()));
 
     return model;
   }

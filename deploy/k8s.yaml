@@ -14,7 +14,7 @@ items:
       spec:
         containers:
         - name: product
-          image: reactivesw/product:0.0.1
+          image: reactivesw/product:0.0.2
           imagePullPolicy: Always
           ports:
           - containerPort: 80

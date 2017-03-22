@@ -47,12 +47,12 @@ public final class CategoryProductMapper {
 
     model.setId(entity.getId());
     model.setSku(masterVariant.getSku());
-    model.setName(LocalizedStringMapper.entityToModelDefaultNew(productData.getName()));
+    model.setName(LocalizedStringMapper.mapToModelDefaultNew(productData.getName()));
     if (masterVariant.getImages() != null && !masterVariant.getImages().isEmpty()) {
       model.setImageUrl(masterVariant.getImages().get(0).getUrl());
     }
     if (masterVariant.getPrices() != null && !masterVariant.getPrices().isEmpty()) {
-      model.setPrice(PriceMapper.entityToModel(masterVariant.getPrices().get(0)));
+      model.setPrice(PriceMapper.mapToModel(masterVariant.getPrices().get(0)));
     }
     model.setAvailable(false);
 

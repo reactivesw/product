@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
-import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.infrastructure.util.SkuUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

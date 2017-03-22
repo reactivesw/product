@@ -10,6 +10,12 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/14.
  */
 public class ImageMapper {
+  /**
+   * Entity to model list.
+   *
+   * @param entities the entities
+   * @return the list
+   */
   public static List<ImageView> entityToModel(List<Image> entities) {
     return entities.stream().map(
         entity -> {
@@ -18,33 +24,21 @@ public class ImageMapper {
     ).collect(Collectors.toList());
   }
 
+  /**
+   * Entity to model image view.
+   *
+   * @param entity the entity
+   * @return the image view
+   */
   public static ImageView entityToModel(Image entity) {
     ImageView model = new ImageView();
 
     model.setUrl(entity.getUrl());
     model.setLabel(entity.getLabel());
     model.setDimensions(
-        DimensionsMapper.entityToModel(entity.getDimensions())
+        DimensionsMapper.mapToModel(entity.getDimensions())
     );
 
     return model;
-  }
-
-  public static List<Image> modelToEntity(List<ImageView> models) {
-    return models.stream().map(
-        model -> {
-          return modelToEntity(model);
-        }
-    ).collect(Collectors.toList());
-  }
-
-  public static Image modelToEntity(ImageView model) {
-    Image entity = new Image();
-
-    entity.setUrl(model.getUrl());
-    entity.setLabel(model.getLabel());
-    entity.setDimensions(DimensionsMapper.modelToEntity(model.getDimensions()));
-
-    return entity;
   }
 }
