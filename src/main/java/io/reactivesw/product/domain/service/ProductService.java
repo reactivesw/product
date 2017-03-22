@@ -3,13 +3,16 @@ package io.reactivesw.product.domain.service;
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -42,10 +45,10 @@ public class ProductService {
    * @param categoryId the category id
    * @return the list
    */
+  // TODO: 17/3/22 should search by categoryId, not findAll to filter
   public List<Product> queryProductByCategory(String categoryId) {
     LOG.debug("enter queryProductByCategory, categoryId is : {}", categoryId);
 
-    // TODO: 17/3/22 should search by categoryId, not findAll to filter
     List<Product> productEntities = productRepository.findAll();
 
     List<Product> result = productEntities.stream().filter(
@@ -55,6 +58,37 @@ public class ProductService {
 
     LOG.debug("end queryProductByCategory, get product number is : {}", result.size());
     return result;
+  }
+
+  /**
+   * Gets product by slug.
+   *
+   * @param sku the slug
+   * @return the product by slug
+   */
+  // TODO: 17/3/22  should search by sku, not findAll to filter
+  public Product getProductBySku(String sku) {
+    LOG.debug("enter getProductBySku, sku is : {}", sku);
+
+    List<Product> products = productRepository.findAll();
+
+    Predicate<ProductVariant> p = productVariant -> StringUtils.equals(productVariant.getSku(),
+        sku);
+
+    Product productEntity = products.parallelStream().filter(
+        product ->
+            StringUtils.equals(sku, product.getMasterData().getCurrent().getMasterVariant()
+                .getSku())
+                || product.getMasterData().getCurrent().getVariants().stream().anyMatch(p)
+    ).findAny().orElse(null);
+
+    if (productEntity == null) {
+      throw new NotExistException();
+    }
+
+    LOG.debug("end getProductBySku, get product : {}", productEntity.toString());
+
+    return productEntity;
   }
 
   /**

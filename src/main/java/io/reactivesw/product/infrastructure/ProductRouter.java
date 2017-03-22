@@ -15,17 +15,21 @@ public final class ProductRouter {
    */
   public static final String PRODUCT_ID = "productId";
 
+  /**
+   * The constant CATEGORY_PRODUCT_ROOT.
+   */
   public static final String CATEGORY_PRODUCT_ROOT = PRODUCT_ROOT + "CategoryProducts";
 
+  /**
+   * The constant SKU.
+   */
   public static final String SKU = "Sku";
 
+  /**
+   * The constant DETAIL_PRODUCT_SKU.
+   */
   public static final String DETAIL_PRODUCT_SKU = PRODUCT_ROOT + "DetailProducts/" + SKU;
 
-  /**
-   * product with id.
-   */
-  public static final String PRODUCT_WITH_ID = PRODUCT_ROOT + "/{" + PRODUCT_ID + "}";
-  
   /**
    * The constant PRODUCT_HEALTH_CHECK.
    */

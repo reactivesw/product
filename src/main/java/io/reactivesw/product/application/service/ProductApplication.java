@@ -1,10 +1,13 @@
 package io.reactivesw.product.application.service;
 
 import io.reactivesw.product.application.model.CategoryProductView;
+import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
+import io.reactivesw.product.application.model.ProductTypeView;
 import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.model.mapper.CategoryProductMapper;
+import io.reactivesw.product.application.model.mapper.DetailProductMapper;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.service.ProductService;
 import io.reactivesw.product.infrastructure.util.InventoryUtils;
@@ -102,5 +105,36 @@ public class ProductApplication {
     LOG.debug("end queryCategoryProducts, category product number is : {}", result.size());
 
     return result;
+  }
+
+  /**
+   * Gets detail product by sku.
+   *
+   * @param sku the sku
+   * @return the detail product by sku
+   */
+  public DetailProductView getDetailProductBySku(String sku) {
+    LOG.debug("enter getDetailProductBySku, sku is : {}", sku);
+
+    Product productEntity = productService.getProductBySku(sku);
+
+    DetailProductView result = DetailProductMapper.mapToModel(productEntity);
+
+    String productTypeId = getProductTypeId(productEntity);
+    ProductTypeView productTypeView = productRestClient.getProductType(productTypeId);
+    result = DetailProductMapper.mergeProductType(productTypeView, result);
+
+    LOG.debug("end getDetailProductBySku, result is : {}", result.toString());
+
+    return result;
+  }
+
+  /**
+   * get product typd id.
+   * @param product the Product
+   * @return String
+   */
+  private String getProductTypeId(Product product) {
+    return product.getProductType();
   }
 }

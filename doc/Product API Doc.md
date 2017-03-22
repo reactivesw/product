@@ -22,6 +22,7 @@ TODO
 | id | String | |
 | productType | ProductType | |
 | name | LocalizedString | |
+| description | LocalizedString | |
 | metaTitle | LocalizedString | |
 | metaDescription | LocalizedString | | 
 | metaKeywords | LocalizedString | |
