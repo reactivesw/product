@@ -1,6 +1,5 @@
 package io.reactivesw.product.application.controller;
 
-import static io.reactivesw.product.infrastructure.ProductProjectionRouter.PRODUCT_PROJECTION_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
@@ -17,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -72,23 +70,6 @@ public class ProductController {
   }
 
   /**
-   * Gets product by slug.
-   *
-   * @param slug the slug
-   * @return the product by slug
-   */
-  @GetMapping(PRODUCT_ROOT)
-  public ProductView getProductBySlug(@RequestParam String slug) {
-    LOG.debug("enter getProductBySlug, slug is : {}", slug);
-
-    ProductView result = productService.getProductBySlug(slug);
-
-    LOG.debug("end getProductBySlug, get product : {}", result.toString());
-
-    return result;
-  }
-
-  /**
    * Query product projections list.
    * <p>
    * queryconditions example :
@@ -98,7 +79,7 @@ public class ProductController {
    * @return the list
    */
   // TODO: 16/12/21 only for query product by category now
-  @GetMapping(PRODUCT_PROJECTION_ROOT)
+  @GetMapping(PRODUCT_ROOT)
   public PagedQueryResult<ProductProjectionView> queryProductProjections(QueryConditions
                                                                              queryConditions) {
     LOG.debug("enter queryProductProjections, query conditions is : {}",
@@ -107,7 +88,7 @@ public class ProductController {
     PagedQueryResult<ProductProjectionView> result = new PagedQueryResult<>();
     List<ProductProjectionView> productProjections =
         productApplication.queryProductProject(queryConditions);
-    result.setTotal(productProjections.size());
+    result.setCount(productProjections.size());
     result.setResults(productProjections);
     LOG.debug("end queryProductProjections, product projections number is : {}",
         productProjections.size());

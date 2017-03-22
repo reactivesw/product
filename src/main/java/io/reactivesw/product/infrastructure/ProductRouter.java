@@ -19,18 +19,7 @@ public final class ProductRouter {
    * product with id.
    */
   public static final String PRODUCT_WITH_ID = PRODUCT_ROOT + "/{" + PRODUCT_ID + "}";
-
-
-  /**
-   * The constant PRODUCT_SLUG.
-   */
-  public static final String PRODUCT_SLUG = "productSlug";
-
-  /**
-   * The constant PRODUCT_WITH_SLUG.
-   */
-  public static final String PRODUCT_WITH_SLUG = PRODUCT_ROOT + "/{" + PRODUCT_SLUG + "}";
-
+  
   /**
    * The constant PRODUCT_HEALTH_CHECK.
    */
