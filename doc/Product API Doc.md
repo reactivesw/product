@@ -47,14 +47,20 @@ TODO
 | results | List<T> | |
 | facets | Object | |
 
+### 2.4 QueryConditions
+
+| field name | field type | comments | 
+|-----|-----|-----|
+| where | String | |
+
 ## 3. API
 
 ### 3.1 get product list by categoryId
 
-* URL : /projections
-* params : categoryId - required
+* URL : /
+* params : where - required
 * response : PagedQueryResult<ProductView>
-    
+* URL example: {URL}?where=categoryId%3A%2285a2aade-d87e-4b54-8485-54f186f48ace%22
 
 ### 3.2 get product detail by productId
 
