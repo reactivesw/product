@@ -1,26 +1,26 @@
 package io.reactivesw.product.application.controller;
 
+import static io.reactivesw.product.infrastructure.ProductProjectionRouter.PRODUCT_PROJECTION_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
 
-import io.reactivesw.product.application.model.ProductDraft;
+import io.reactivesw.product.application.model.PagedQueryResult;
+import io.reactivesw.product.application.model.ProductProjectionView;
 import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.service.ProductApplication;
 import io.reactivesw.product.domain.service.ProductService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Davis on 16/12/14.
@@ -35,30 +35,23 @@ public class ProductController {
   /**
    * ProductView Application.
    */
-  @Autowired
   private transient ProductApplication productApplication;
 
   /**
    * The ProductView service.
    */
-  @Autowired
   private transient ProductService productService;
 
   /**
-   * Create ProductView.
+   * Instantiates a new Product controller.
    *
-   * @param productDraft the ProductDraft
-   * @return the ProductView
+   * @param productApplication the product application
+   * @param productService     the product service
    */
-  @PostMapping(PRODUCT_ROOT)
-  public ProductView createProduct(@RequestBody @Valid ProductDraft productDraft) {
-    LOG.debug("enter createProduct, ProductDraft is : {}", productDraft.toString());
-
-    ProductView result = productApplication.createProduct(productDraft);
-
-    LOG.debug("end createProduct, created ProductView is : {}", result.toString());
-
-    return result;
+  @Autowired
+  public ProductController(ProductApplication productApplication, ProductService productService) {
+    this.productApplication = productApplication;
+    this.productService = productService;
   }
 
   /**
@@ -96,18 +89,29 @@ public class ProductController {
   }
 
   /**
-   * Delete product by id.
+   * Query product projections list.
+   * <p>
+   * queryconditions example :
+   * "where"="categoryId:\"c42e4efb-7de7-4f3d-adac-554b84bda1b5\""
    *
-   * @param id      the id
-   * @param version the version
+   * @param queryConditions the query conditions
+   * @return the list
    */
-  @DeleteMapping(PRODUCT_WITH_ID)
-  public void deleteProductById(@PathVariable(value = PRODUCT_ID) String id,
-                                @RequestParam Integer version) {
-    LOG.debug("enter deleteProductById, id is {}, version is {}", id, version);
+  // TODO: 16/12/21 only for query product by category now
+  @GetMapping(PRODUCT_PROJECTION_ROOT)
+  public PagedQueryResult<ProductProjectionView> queryProductProjections(QueryConditions
+                                                                             queryConditions) {
+    LOG.debug("enter queryProductProjections, query conditions is : {}",
+        queryConditions.toString());
 
-    productService.deleteProduct(id, version);
+    PagedQueryResult<ProductProjectionView> result = new PagedQueryResult<>();
+    List<ProductProjectionView> productProjections =
+        productApplication.queryProductProject(queryConditions);
+    result.setTotal(productProjections.size());
+    result.setResults(productProjections);
+    LOG.debug("end queryProductProjections, product projections number is : {}",
+        productProjections.size());
 
-    LOG.debug("end deleteProductById, id is {}, version is {}", id, version);
+    return result;
   }
 }
