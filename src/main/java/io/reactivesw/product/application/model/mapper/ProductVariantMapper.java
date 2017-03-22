@@ -77,7 +77,7 @@ public class ProductVariantMapper {
       model.setImages(ImageMapper.entityToModel(entity.getImages()));
     }
 
-    //availability will be setted in ProductInventoryUtils.mergeInventoryEntryToProduct
+    //availability will be setted in InventoryUtils.mergeInventoryEntryToProduct
     //model.setAvailability();
 
     // TODO: 16/12/20

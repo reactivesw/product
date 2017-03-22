@@ -6,8 +6,7 @@ import com.google.common.collect.Lists;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
 import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.ProductViewOld;
-import io.reactivesw.product.infrastructure.util.ProductUtils;
+import io.reactivesw.product.infrastructure.util.SkuUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,21 +62,18 @@ public class ProductRestClient {
     return result;
   }
 
-  /**
-   * Gets InventoryEntryView.
-   *
-   * @param product the product
-   * @return the inventory entry
-   */
-  public List<InventoryEntryView> getInventoryEntry(ProductView product) {
-    LOG.debug("enter getInventoryEntry");
-    List<String> skuNames = ProductUtils.getSkuNames(product);
-    LOG.debug("sku names is : {}", skuNames);
 
+  /**
+   * get product inventory by sku names.
+   * @param skus list of String
+   * @return list of InventoryEntryView
+   */
+  public List<InventoryEntryView> getInventoryBySkus(List<String> skus) {
+    LOG.debug("enter getInventoryBySkus, sku is : {}", skus);
     String url = inventoryUri;
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-        .queryParam("skuNames", String.join(",", skuNames));
+        .queryParam("skuNames", String.join(",", skus));
 
     ResponseEntity<InventoryEntryView[]> result = restTemplate.exchange(
         builder.build().encode().toUri(),
@@ -85,7 +81,7 @@ public class ProductRestClient {
         null,
         InventoryEntryView[].class);
 
-    LOG.debug("end getInventoryEntry");
+    LOG.debug("end getInventoryBySkus");
 
     return Lists.newArrayList(result.getBody());
   }

@@ -15,6 +15,12 @@ public final class ProductRouter {
    */
   public static final String PRODUCT_ID = "productId";
 
+  public static final String CATEGORY_PRODUCT_ROOT = PRODUCT_ROOT + "CategoryProducts/";
+
+  public static final String SKU = "Sku";
+
+  public static final String DETAIL_PRODUCT_SKU = PRODUCT_ROOT + "DetailProducts/" + SKU;
+
   /**
    * product with id.
    */

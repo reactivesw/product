@@ -29,6 +29,16 @@ items:
             value: http://product-type/
           - name: inventory_service_uri
             value: http://inventory/
+          - name: spring_datasource_username
+            valueFrom:
+              secretKeyRef:
+                name: reactivesw-secret
+                key: postgres.username
+          - name: spring_datasource_password
+            valueFrom:
+              secretKeyRef:
+                name: reactivesw-secret
+                key: postgres.password
           - name: jwt_secret
             valueFrom:
               secretKeyRef:

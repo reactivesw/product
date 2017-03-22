@@ -10,7 +10,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -61,8 +60,8 @@ public class ProductVariant {
   /**
    * prices.
    */
-  @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-  private Set<Price> prices;
+  @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+  private List<Price> prices;
 
   /**
    * attributes.

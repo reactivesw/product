@@ -1,19 +1,17 @@
 package io.reactivesw.product.application.controller;
 
+import static io.reactivesw.product.infrastructure.ProductRouter.CATEGORY_PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
-import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
 
+import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.PagedQueryResult;
 import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.service.ProductApplication;
-import io.reactivesw.product.domain.service.ProductService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,25 +29,17 @@ public class ProductController {
   private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
   /**
-   * ProductViewOld Application.
+   * Product Application.
    */
   private transient ProductApplication productApplication;
-
-  /**
-   * The ProductViewOld service.
-   */
-  private transient ProductService productService;
 
   /**
    * Instantiates a new Product controller.
    *
    * @param productApplication the product application
-   * @param productService     the product service
    */
-  @Autowired
-  public ProductController(ProductApplication productApplication, ProductService productService) {
+  public ProductController(ProductApplication productApplication) {
     this.productApplication = productApplication;
-    this.productService = productService;
   }
 
   /**
@@ -79,18 +69,18 @@ public class ProductController {
    * @return the list
    */
   // TODO: 16/12/21 only for query product by category now
-  @GetMapping(PRODUCT_ROOT)
-  public PagedQueryResult<ProductView> queryProductProjections(QueryConditions
+  @GetMapping(CATEGORY_PRODUCT_ROOT)
+  public PagedQueryResult<CategoryProductView> queryProductProjections(QueryConditions
                                                                              queryConditions) {
     LOG.debug("enter queryProductProjections, query conditions is : {}",
         queryConditions.toString());
 
-    PagedQueryResult<ProductView> result = new PagedQueryResult<>();
-    List<ProductView> productProjections =
-        productApplication.queryProductProject(queryConditions);
+    PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
+    List<CategoryProductView> productProjections =
+        productApplication.queryCategoryProducts(queryConditions);
     result.setCount(productProjections.size());
     result.setResults(productProjections);
-    LOG.debug("end queryProductProjections, product projections number is : {}",
+    LOG.debug("end queryProductProjections, category product number is : {}",
         productProjections.size());
 
     return result;

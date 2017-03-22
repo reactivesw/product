@@ -1,10 +1,9 @@
 package io.reactivesw.product.infrastructure.util;
 
+import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductVariantView;
 import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.ProductViewOld;
-import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.application.model.mapper.ProductVariantAvailabilityMapper;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,17 +15,39 @@ import java.util.List;
 /**
  * Created by Davis on 16/12/22.
  */
-public final class ProductInventoryUtils {
+public final class InventoryUtils {
 
   /**
    * log.
    */
-  private static final Logger LOG = LoggerFactory.getLogger(ProductInventoryUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(InventoryUtils.class);
 
   /**
    * Instantiates a new ProductViewOld inventory update.
    */
-  private ProductInventoryUtils() {}
+  private InventoryUtils() {
+  }
+
+  /**
+   * merge inventory to category product.
+   *
+   * @param inventoryEntryViews  list of InventoryEntryView
+   * @param categoryProductViews list of CategoryProductView
+   * @return list of CategoryProductView
+   */
+  public static List<CategoryProductView> mergeInventoryToCategoryProducts
+  (List<InventoryEntryView> inventoryEntryViews,
+   List<CategoryProductView> categoryProductViews) {
+
+    categoryProductViews.stream().forEach(
+        categoryProductView -> {
+          categoryProductView.setAvailable(getAvailable(categoryProductView.getSku(),
+              inventoryEntryViews));
+        }
+    );
+
+    return categoryProductViews;
+  }
 
   /**
    * Merge inventory entry to product.
@@ -35,9 +56,11 @@ public final class ProductInventoryUtils {
    * @param product          the product
    * @return the product
    */
-  public static ProductView mergeInventoryEntryToProduct(List<InventoryEntryView> inventoryEntries, ProductView
-      product) {
-    LOG.debug("enter mergeInventoryEntryToProduct, inventory number is : {}", inventoryEntries.size());
+  public static ProductView mergeInventoryEntryToProduct(List<InventoryEntryView>
+                                                             inventoryEntries, ProductView
+                                                             product) {
+    LOG.debug("enter mergeInventoryEntryToProduct, inventory number is : {}", inventoryEntries
+        .size());
 //    ProductDataView currentData = product.getMasterData().getCurrent();
 //    ProductVariantView masterVariant = currentData.getMasterVariant();
 //    mergeInventoryEntryToVariant(inventoryEntries, masterVariant);
@@ -54,10 +77,25 @@ public final class ProductInventoryUtils {
     return product;
   }
 
+  private static boolean getAvailable(String sku, List<InventoryEntryView> inventoryEntries) {
+    boolean result = false;
+
+    InventoryEntryView inventory = inventoryEntries.stream().filter(
+        inventoryEntryView -> inventoryEntryView.getSku().equals(sku)
+    ).findFirst().get();
+
+    if (inventory != null) {
+      result = ProductVariantAvailabilityMapper.getAvailable(inventory);
+    }
+
+    return result;
+  }
+
   /**
    * merge InventoryEntryView to ProductVariantView.
+   *
    * @param inventories the InventoryEntryView
-   * @param variant the ProductVariantView
+   * @param variant     the ProductVariantView
    */
   private static void mergeInventoryEntryToVariant(List<InventoryEntryView> inventories,
                                                    ProductVariantView variant) {

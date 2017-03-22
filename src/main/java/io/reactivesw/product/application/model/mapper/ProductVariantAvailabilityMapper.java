@@ -28,7 +28,7 @@ public final class ProductVariantAvailabilityMapper {
 
     model.setRestockableInDays(entry.getRestockableInDays());
     model.setAvailableQuantity(entry.getAvailableQuantity());
-    boolean isOnStock = entry.getAvailableQuantity() > 0 ? true : false;
+    boolean isOnStock = getAvailable(entry);
     model.setIsOnStock(isOnStock);
     // TODO: 16/12/22 set channel
     model.setChannels(null);
@@ -36,4 +36,14 @@ public final class ProductVariantAvailabilityMapper {
     LOG.debug("end toModel, model is : {}", model.toString());
     return model;
   }
+
+  /**
+   * get inventory available.
+   * @param entry the InventoryEntryView
+   * @return boolean
+   */
+  public static boolean getAvailable(InventoryEntryView entry) {
+    return entry.getAvailableQuantity() > 0 ? true : false;
+  }
+
 }

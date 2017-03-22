@@ -2,9 +2,9 @@ package io.reactivesw.product.infrastructure.util;
 
 import com.google.common.collect.Lists;
 
-import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.ProductViewOld;
+import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.ProductDataView;
+import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.model.ProductCatalogData;
 import io.reactivesw.product.domain.model.ProductData;
@@ -17,11 +17,25 @@ import java.util.stream.Collectors;
 /**
  * Created by Davis on 16/12/23.
  */
-public final class ProductUtils {
+public final class SkuUtils {
   /**
    * Instantiates a new ProductViewOld update.
    */
-  private ProductUtils() {
+  private SkuUtils() {
+  }
+
+  /**
+   * get all CategoryProductView's sku name.
+   * @param productViews list of CategoryProductView
+   * @return list of String
+   */
+  public static List<String> getCategoryProductSkuNames(List<CategoryProductView> productViews) {
+    List<String> result = productViews.stream().map(
+        productView -> {
+          return productView.getSku();
+        }
+    ).collect(Collectors.toList());
+    return result;
   }
 
   /**

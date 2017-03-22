@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
  */
 public class PriceMapper {
 
-  public static Set<Price> modelToEntity(List<PriceDraft> models) {
+  public static List<Price> modelToEntity(List<PriceDraft> models) {
     return models.stream().map(
         model -> {
           return modelToEntity(model);
         }
-    ).collect(Collectors.toSet());
+    ).collect(Collectors.toList());
   }
 
   public static Price modelToEntity(PriceDraft model) {
@@ -63,7 +63,7 @@ public class PriceMapper {
     return model;
   }
 
-  public static List<PriceView> entityToModel(Set<Price> entities) {
+  public static List<PriceView> entityToModel(List<Price> entities) {
     return entities.stream().map(
         entity -> {
           return entityToModel(entity);

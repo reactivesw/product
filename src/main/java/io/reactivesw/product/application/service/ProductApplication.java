@@ -1,13 +1,14 @@
 package io.reactivesw.product.application.service;
 
+import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.ProductViewOld;
 import io.reactivesw.product.application.model.QueryConditions;
-import io.reactivesw.product.application.model.mapper.ProductProjectionMapper;
+import io.reactivesw.product.application.model.mapper.CategoryProductMapper;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.service.ProductService;
-import io.reactivesw.product.infrastructure.util.ProductInventoryUtils;
+import io.reactivesw.product.infrastructure.util.InventoryUtils;
+import io.reactivesw.product.infrastructure.util.SkuUtils;
 import io.reactivesw.product.infrastructure.util.QueryConditionUtils;
 
 import org.slf4j.Logger;
@@ -30,14 +31,24 @@ public class ProductApplication {
   /**
    * ProductRestClient.
    */
-  @Autowired
   private transient ProductRestClient productRestClient;
 
   /**
    * product service.
    */
-  @Autowired
   private transient ProductService productService;
+
+  /**
+   * Instantiates a new Product application.
+   *
+   * @param productRestClient the product rest client
+   * @param productService    the product service
+   */
+  @Autowired
+  public ProductApplication(ProductRestClient productRestClient, ProductService productService) {
+    this.productRestClient = productRestClient;
+    this.productService = productService;
+  }
 
   /**
    * Get prodcut by id.
@@ -50,10 +61,11 @@ public class ProductApplication {
 
     ProductView result = productService.getProductById(id);
 
-    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryEntry(result);
+    List<String> skuNames = SkuUtils.getSkuNames(result);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
 
     if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
-      result = ProductInventoryUtils.mergeInventoryEntryToProduct(inventoryEntries, result);
+      result = InventoryUtils.mergeInventoryEntryToProduct(inventoryEntries, result);
     }
 
     LOG.debug("end getProductById, the product is : {}", result.toString());
@@ -70,17 +82,24 @@ public class ProductApplication {
    * @param queryConditions the query conditions
    * @return the list
    */
-  public List<ProductView> queryProductProject(QueryConditions queryConditions) {
-    LOG.debug("enter queryProductProjections, query conditions is : {}",
+  public List<CategoryProductView> queryCategoryProducts(QueryConditions queryConditions) {
+    LOG.debug("enter queryCategoryProducts, query conditions is : {}",
         queryConditions.toString());
 
     String categoryId = QueryConditionUtils.getCategoryId(queryConditions);
 
     List<Product> productEntities = productService.queryProductByCategory(categoryId);
 
-    List<ProductView> result = ProductProjectionMapper.entityToModel(productEntities);
+    List<CategoryProductView> result = CategoryProductMapper.mapToModel(productEntities);
 
-    LOG.debug("end queryProductProjections, product projections number is : {}", result.size());
+    List<String> skuNames = SkuUtils.getCategoryProductSkuNames(result);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+
+    if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
+      result = InventoryUtils.mergeInventoryToCategoryProducts(inventoryEntries, result);
+    }
+
+    LOG.debug("end queryCategoryProducts, category product number is : {}", result.size());
 
     return result;
   }

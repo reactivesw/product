@@ -7,7 +7,7 @@ import io.reactivesw.exception.ParametersException;
 import io.reactivesw.product.application.model.ProductDraft;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.util.ProductDraftUtils;
-import io.reactivesw.product.infrastructure.util.ProductUtils;
+import io.reactivesw.product.infrastructure.util.SkuUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +55,7 @@ public final class SkuNameValidator {
    */
   public static void validate(ProductDraft productDraft, List<Product> products) {
     List<String> skuNames = ProductDraftUtils.getSkuNames(productDraft);
-    List<String> productSkuNames = ProductUtils.getSkuNames(products);
+    List<String> productSkuNames = SkuUtils.getSkuNames(products);
     productSkuNames.retainAll(skuNames);
     if (!productSkuNames.isEmpty()) {
       LOG.debug("sku name has exists");
