@@ -97,16 +97,12 @@ public class ProductService {
    * @param id the id
    * @return the product by id
    */
-  public ProductView getProductById(String id) {
+  public Product getProductById(String id) {
     LOG.debug("enter getProductById, id is : {}", id);
 
-    Product entity = getProductEntityById(id);
+    Product result = getProductEntityById(id);
 
-    // TODO: 17/3/22 change to new ViewModel
-//    ProductView result = ProductMapper.mapToModel(entity);
-    ProductView result = null;
-
-    LOG.debug("end getProductById, get ProductViewOld is : {}", result.toString());
+    LOG.debug("end getProductById, get Product is : {}", result.toString());
 
     return result;
   }

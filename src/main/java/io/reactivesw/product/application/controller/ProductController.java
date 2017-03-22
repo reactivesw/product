@@ -1,9 +1,13 @@
 package io.reactivesw.product.application.controller;
 
+import static io.reactivesw.product.infrastructure.ProductRouter.CART_PRODUCT_VARIANT_PATH;
 import static io.reactivesw.product.infrastructure.ProductRouter.CATEGORY_PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.ProductRouter.DETAIL_PRODUCT_SKU;
+import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
 import static io.reactivesw.product.infrastructure.ProductRouter.SKU;
+import static io.reactivesw.product.infrastructure.ProductRouter.VARIANT_ID;
 
+import io.reactivesw.product.application.model.CartProductView;
 import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.PagedQueryResult;
@@ -14,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -53,9 +58,9 @@ public class ProductController {
    */
 // TODO: 16/12/21 only for query product by category now
   @GetMapping(CATEGORY_PRODUCT_ROOT)
-  public PagedQueryResult<CategoryProductView> queryProductProjections(QueryConditions
+  public PagedQueryResult<CategoryProductView> queryCategoryProducts(QueryConditions
                                                                            queryConditions) {
-    LOG.debug("enter queryProductProjections, query conditions is : {}",
+    LOG.debug("enter queryCategoryProducts, query conditions is : {}",
         queryConditions.toString());
 
     PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
@@ -63,7 +68,7 @@ public class ProductController {
         productApplication.queryCategoryProducts(queryConditions);
     result.setCount(productProjections.size());
     result.setResults(productProjections);
-    LOG.debug("end queryProductProjections, category product number is : {}",
+    LOG.debug("end queryCategoryProducts, category product number is : {}",
         productProjections.size());
 
     return result;
@@ -82,6 +87,27 @@ public class ProductController {
     DetailProductView result = productApplication.getDetailProductBySku(sku);
 
     LOG.debug("end getDetailProductBySku, result is : {}", result.toString());
+
+    return result;
+  }
+
+  /**
+   * Gets cart product by id.
+   *
+   * @param productId the product id
+   * @param variantId the variant id
+   * @return the cart product by id
+   */
+  @GetMapping(CART_PRODUCT_VARIANT_PATH)
+  public CartProductView getCartProductById(@PathVariable(PRODUCT_ID) String productId,
+                                            @RequestParam(VARIANT_ID) Integer variantId) {
+
+    LOG.debug("enter getCartProductById, product id is : {}, variant id is : {}", productId,
+        variantId);
+
+    CartProductView result = productApplication.getProductById(productId, variantId);
+
+    LOG.debug("end getCartProductById, result is : {}", result);
 
     return result;
   }

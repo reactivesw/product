@@ -1,14 +1,18 @@
 package io.reactivesw.product.application.service;
 
+import io.reactivesw.product.application.model.CartProductView;
 import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
 import io.reactivesw.product.application.model.ProductView;
 import io.reactivesw.product.application.model.QueryConditions;
+import io.reactivesw.product.application.model.mapper.CartProductMapper;
 import io.reactivesw.product.application.model.mapper.CategoryProductMapper;
 import io.reactivesw.product.application.model.mapper.DetailProductMapper;
 import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
+import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.domain.service.ProductService;
 import io.reactivesw.product.infrastructure.util.InventoryUtils;
 import io.reactivesw.product.infrastructure.util.SkuUtils;
@@ -20,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by Davis on 16/12/18.
@@ -59,19 +64,36 @@ public class ProductApplication {
    * @param id the id
    * @return the product
    */
-  public ProductView getProductById(String id) {
+  public CartProductView getProductById(String id, Integer variantId) {
     LOG.debug("enter getProductById, the id is : {}", id);
 
-    ProductView result = productService.getProductById(id);
+    Product product = productService.getProductById(id);
 
-    List<String> skuNames = SkuUtils.getSkuNames(result);
-    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+    ProductVariant productVariant = getProductVariant(product, variantId);
 
-    if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
-      result = InventoryUtils.mergeInventoryEntryToProduct(inventoryEntries, result);
-    }
+    CartProductView result = CartProductMapper.mapToModel(product, productVariant);
 
     LOG.debug("end getProductById, the product is : {}", result.toString());
+
+    return result;
+  }
+
+  /**
+   * get product variant by it's id.
+   * @param product product entity
+   * @param variantId variant id
+   * @return ProductVariant
+   */
+  private ProductVariant getProductVariant(Product product, Integer variantId) {
+    ProductVariant result = null;
+    ProductData productData = product.getMasterData().getCurrent();
+
+    if (variantId.equals(1)) {
+      result = productData.getMasterVariant();
+    } else {
+      Predicate<ProductVariant> p = productVariant -> productVariant.getId().equals(variantId);
+      result = productData.getVariants().stream().filter(p).findAny().get();
+    }
 
     return result;
   }
