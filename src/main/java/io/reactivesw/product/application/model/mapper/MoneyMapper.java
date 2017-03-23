@@ -1,5 +1,6 @@
 package io.reactivesw.product.application.model.mapper;
 
+import io.reactivesw.model.Money;
 import io.reactivesw.product.domain.model.MoneyValue;
 
 /**
@@ -7,17 +8,14 @@ import io.reactivesw.product.domain.model.MoneyValue;
  */
 public class MoneyMapper {
 
-  public static MoneyValue modelToEntity(io.reactivesw.model.Money model) {
-    MoneyValue entity = null;
-    if (model != null) {
-      entity = new MoneyValue();
-      entity.setCentAmount(model.getCentAmount());
-      entity.setCurrencyCode(model.getCurrencyCode());
-    }
-    return entity;
-  }
 
-  public static io.reactivesw.model.Money entityToModel(MoneyValue entity) {
+  /**
+   * Entity to model money.
+   *
+   * @param entity the entity
+   * @return the money
+   */
+  public static Money entityToModel(MoneyValue entity) {
     io.reactivesw.model.Money model = null;
     if (entity != null) {
       model = new io.reactivesw.model.Money();

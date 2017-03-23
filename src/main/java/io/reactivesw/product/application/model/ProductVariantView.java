@@ -31,13 +31,18 @@ public class ProductVariantView {
 
   private List<ImageView> images;
 
+  @Deprecated
   private List<AssetView> assets;
 
   private ProductVariantAvailabilityView availability;
 
+  private boolean available;
+
   private Boolean isMatchingVariant;
 
+  @Deprecated
   private ScopedPriceView scopedPrice;
 
+  @Deprecated
   private Boolean scopedPriceDiscounted;
 }

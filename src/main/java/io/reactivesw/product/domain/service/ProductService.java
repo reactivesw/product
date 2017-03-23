@@ -1,24 +1,22 @@
 package io.reactivesw.product.domain.service;
 
-import io.reactivesw.exception.ConflictException;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 import io.reactivesw.exception.NotExistException;
-import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.application.model.mapper.ProductMapper;
 import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
+import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
-import io.reactivesw.product.infrastructure.validator.SkuNameValidator;
-import io.reactivesw.product.infrastructure.validator.SlugValidator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -34,32 +32,15 @@ public class ProductService {
   /**
    * ProductRepository.
    */
-  @Autowired
   private transient ProductRepository productRepository;
 
   /**
-   * Create product.
+   * Instantiates a new Product service.
    *
-   * @param productDraft the product draft
-   * @return the product
+   * @param productRepository the product repository
    */
-  @Transactional
-  public ProductView createProduct(ProductDraft productDraft) {
-    LOG.debug("enter createProduct, ProductDraft is : {}", productDraft.toString());
-
-    List<Product> products = productRepository.findAll();
-    SlugValidator.validate(productDraft.getSlug(), products);
-    SkuNameValidator.validate(productDraft, products);
-
-    Product entity = ProductMapper.modelToEntity(productDraft);
-
-    Product savedEntity = productRepository.save(entity);
-
-    ProductView result = ProductMapper.entityToModel(savedEntity);
-
-    LOG.debug("end createProduct, created ProductView is : {}", result.toString());
-
-    return result;
+  public ProductService(ProductRepository productRepository) {
+    this.productRepository = productRepository;
   }
 
   /**
@@ -68,6 +49,7 @@ public class ProductService {
    * @param categoryId the category id
    * @return the list
    */
+  // TODO: 17/3/22 should search by categoryId, not findAll to filter
   public List<Product> queryProductByCategory(String categoryId) {
     LOG.debug("enter queryProductByCategory, categoryId is : {}", categoryId);
 
@@ -83,48 +65,51 @@ public class ProductService {
   }
 
   /**
-   * Gets product by id.
-   *
-   * @param id the id
-   * @return the product by id
-   */
-  public ProductView getProductById(String id) {
-    LOG.debug("enter getProductById, id is : {}", id);
-
-    Product entity = getProductEntityById(id);
-
-    ProductView result = ProductMapper.entityToModel(entity);
-
-    LOG.debug("end getProductById, get ProductView is : {}", result.toString());
-
-    return result;
-  }
-
-  /**
    * Gets product by slug.
    *
-   * @param slug the slug
+   * @param sku the slug
    * @return the product by slug
    */
-  public ProductView getProductBySlug(String slug) {
-    LOG.debug("enter getProductBySlug, slug is : {}", slug);
+  // TODO: 17/3/22  should search by sku, not findAll to filter
+  public Product getProductBySku(String sku) {
+    LOG.debug("enter getProductBySku, sku is : {}", sku);
 
     List<Product> products = productRepository.findAll();
+
+    Predicate<ProductVariant> p = productVariant -> StringUtils.equals(productVariant.getSku(),
+        sku);
+
     Product productEntity = products.parallelStream().filter(
-        product -> StringUtils.equals(slug, product.getMasterData().getCurrent().getSlug())
+        product ->
+            StringUtils.equals(sku, product.getMasterData().getCurrent().getMasterVariant()
+                .getSku())
+                || product.getMasterData().getCurrent().getVariants().stream().anyMatch(p)
     ).findAny().orElse(null);
 
     if (productEntity == null) {
       throw new NotExistException();
     }
-    
-    ProductView result = ProductMapper.entityToModel(productEntity);
 
-    LOG.debug("end getProductBySlug, get product : {}", result.toString());
+    LOG.debug("end getProductBySku, get product : {}", productEntity.toString());
+
+    return productEntity;
+  }
+
+  /**
+   * Gets product by id.
+   *
+   * @param id the id
+   * @return the product by id
+   */
+  public Product getProductById(String id) {
+    LOG.debug("enter getProductById, id is : {}", id);
+
+    Product result = getProductEntityById(id);
+
+    LOG.debug("end getProductById, get Product is : {}", result.toString());
 
     return result;
   }
-
 
   /**
    * Gets product entity by id.
@@ -136,42 +121,8 @@ public class ProductService {
     Product entity = productRepository.findOne(id);
     if (entity == null) {
       LOG.debug("can not find product by id : {}", id);
-      throw new NotExistException("ProductView Not Found");
+      throw new NotExistException("ProductViewOld Not Found");
     }
     return entity;
-  }
-
-  /**
-   * Delete product.
-   *
-   * @param id      the id
-   * @param version the version
-   */
-  public void deleteProduct(String id, Integer version) {
-    LOG.debug("enter deleteProduct, id:{}, version:{}", id, version);
-
-    Product entity = this.getProductEntityById(id);
-    validateVersion(entity, version);
-
-    productRepository.delete(entity);
-
-    //TODO send message for:
-
-    LOG.debug("end deleteProduct, id:{}, version:{}", id, version);
-  }
-
-
-  /**
-   * Validate version.
-   *
-   * @param entity  the entity
-   * @param version the version
-   */
-  private void validateVersion(Product entity, Integer version) {
-    if (!Objects.equals(version, entity.getVersion())) {
-      LOG.debug("Version not match, input version:{}, entity version:{}",
-          version, entity.getVersion());
-      throw new ConflictException("Version not match");
-    }
   }
 }

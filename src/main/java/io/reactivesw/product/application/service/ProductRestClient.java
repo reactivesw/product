@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
-import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.infrastructure.util.ProductUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,30 +60,35 @@ public class ProductRestClient {
     return result;
   }
 
+
   /**
-   * Gets InventoryEntryView.
-   *
-   * @param product the product
-   * @return the inventory entry
+   * get product inventory by sku names.
+   * @param skus list of String
+   * @return list of InventoryEntryView
    */
-  public List<InventoryEntryView> getInventoryEntry(ProductView product) {
-    LOG.debug("enter getInventoryEntry");
-    List<String> skuNames = ProductUtils.getSkuNames(product);
-    LOG.debug("sku names is : {}", skuNames);
+  public List<InventoryEntryView> getInventoryBySkus(List<String> skus) {
+    LOG.debug("enter getInventoryBySkus, sku is : {}", skus);
 
-    String url = inventoryUri;
+    List<InventoryEntryView> result = Lists.newArrayList();
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-        .queryParam("skuNames", String.join(",", skuNames));
+    if (skus != null && !skus.isEmpty()) {
 
-    ResponseEntity<InventoryEntryView[]> result = restTemplate.exchange(
-        builder.build().encode().toUri(),
-        HttpMethod.GET,
-        null,
-        InventoryEntryView[].class);
+      String url = inventoryUri;
 
-    LOG.debug("end getInventoryEntry");
+      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+          .queryParam("skuNames", String.join(",", skus));
 
-    return Lists.newArrayList(result.getBody());
+      ResponseEntity<InventoryEntryView[]> inventoryResult = restTemplate.exchange(
+          builder.build().encode().toUri(),
+          HttpMethod.GET,
+          null,
+          InventoryEntryView[].class);
+
+      LOG.debug("end getInventoryBySkus");
+
+      result = Lists.newArrayList(inventoryResult.getBody());
+    }
+
+    return result;
   }
 }

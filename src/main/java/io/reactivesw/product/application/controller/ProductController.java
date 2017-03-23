@@ -1,26 +1,26 @@
 package io.reactivesw.product.application.controller;
 
+import static io.reactivesw.product.infrastructure.ProductRouter.CART_PRODUCT_VARIANT_PATH;
+import static io.reactivesw.product.infrastructure.ProductRouter.CATEGORY_PRODUCT_ROOT;
+import static io.reactivesw.product.infrastructure.ProductRouter.DETAIL_PRODUCT_SKU;
 import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
-import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ROOT;
-import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_WITH_ID;
+import static io.reactivesw.product.infrastructure.ProductRouter.SKU;
+import static io.reactivesw.product.infrastructure.ProductRouter.VARIANT_ID;
 
-import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.application.model.ProductView;
+import io.reactivesw.product.application.model.CartProductView;
+import io.reactivesw.product.application.model.CategoryProductView;
+import io.reactivesw.product.application.model.DetailProductView;
+import io.reactivesw.product.application.model.PagedQueryResult;
 import io.reactivesw.product.application.service.ProductApplication;
-import io.reactivesw.product.domain.service.ProductService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Davis on 16/12/14.
@@ -33,81 +33,80 @@ public class ProductController {
   private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
   /**
-   * ProductView Application.
+   * Product Application.
    */
-  @Autowired
   private transient ProductApplication productApplication;
 
   /**
-   * The ProductView service.
+   * Instantiates a new Product controller.
+   *
+   * @param productApplication the product application
    */
-  @Autowired
-  private transient ProductService productService;
+  public ProductController(ProductApplication productApplication) {
+    this.productApplication = productApplication;
+  }
 
   /**
-   * Create ProductView.
+   * Query product projections list.
+   * <p>
+   * queryconditions example :
+   * "where"="categoryId:\"c42e4efb-7de7-4f3d-adac-554b84bda1b5\""
    *
-   * @param productDraft the ProductDraft
-   * @return the ProductView
+   * @param categoryId the query conditions
+   * @return the list
    */
-  @PostMapping(PRODUCT_ROOT)
-  public ProductView createProduct(@RequestBody @Valid ProductDraft productDraft) {
-    LOG.debug("enter createProduct, ProductDraft is : {}", productDraft.toString());
+// TODO: 16/12/21 only for query product by category now
+  @GetMapping(CATEGORY_PRODUCT_ROOT)
+  public PagedQueryResult<CategoryProductView> queryCategoryProducts(@RequestParam("categoryId")
+                                                                           String categoryId) {
+    LOG.debug("enter queryCategoryProducts, category id  is : {}", categoryId);
 
-    ProductView result = productApplication.createProduct(productDraft);
-
-    LOG.debug("end createProduct, created ProductView is : {}", result.toString());
+    PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
+    List<CategoryProductView> categoryProductViews = productApplication.queryCategoryProducts
+        (categoryId);
+    result.setCount(categoryProductViews.size());
+    result.setResults(categoryProductViews);
+    LOG.debug("end queryCategoryProducts, category product number is : {}",
+        categoryProductViews.size());
 
     return result;
   }
 
   /**
-   * Gets ProductView by id.
+   * Gets detail product by sku.
    *
-   * @param id the id
-   * @return the ProductView
+   * @param sku the sku
+   * @return the detail product by sku
    */
-  @GetMapping(PRODUCT_WITH_ID)
-  public ProductView getProductById(@PathVariable(value = PRODUCT_ID) String id) {
-    LOG.debug("enter getProductById, id is : {}", id);
+  @GetMapping(DETAIL_PRODUCT_SKU)
+  public DetailProductView getDetailProductBySku(@PathVariable(SKU) String sku) {
+    LOG.debug("enter getDetailProductBySku, sku is : {}", sku);
 
-    ProductView result = productApplication.getProductById(id);
+    DetailProductView result = productApplication.getDetailProductBySku(sku);
 
-    LOG.debug("end getProductById, get product is : {}", result.toString());
+    LOG.debug("end getDetailProductBySku, result is : {}", result.toString());
 
     return result;
   }
 
   /**
-   * Gets product by slug.
+   * Gets cart product by id.
    *
-   * @param slug the slug
-   * @return the product by slug
+   * @param productId the product id
+   * @param variantId the variant id
+   * @return the cart product by id
    */
-  @GetMapping(PRODUCT_ROOT)
-  public ProductView getProductBySlug(@RequestParam String slug) {
-    LOG.debug("enter getProductBySlug, slug is : {}", slug);
+  @GetMapping(CART_PRODUCT_VARIANT_PATH)
+  public CartProductView getCartProductById(@PathVariable(PRODUCT_ID) String productId,
+                                            @RequestParam(VARIANT_ID) Integer variantId) {
 
-    ProductView result = productService.getProductBySlug(slug);
+    LOG.debug("enter getCartProductById, product id is : {}, variant id is : {}", productId,
+        variantId);
 
-    LOG.debug("end getProductBySlug, get product : {}", result.toString());
+    CartProductView result = productApplication.getProductById(productId, variantId);
+
+    LOG.debug("end getCartProductById, result is : {}", result);
 
     return result;
-  }
-
-  /**
-   * Delete product by id.
-   *
-   * @param id      the id
-   * @param version the version
-   */
-  @DeleteMapping(PRODUCT_WITH_ID)
-  public void deleteProductById(@PathVariable(value = PRODUCT_ID) String id,
-                                @RequestParam Integer version) {
-    LOG.debug("enter deleteProductById, id is {}, version is {}", id, version);
-
-    productService.deleteProduct(id, version);
-
-    LOG.debug("end deleteProductById, id is {}, version is {}", id, version);
   }
 }

@@ -1,19 +1,19 @@
 package io.reactivesw.product.application.service;
 
-import io.reactivesw.exception.NotExistException;
+import io.reactivesw.product.application.model.CartProductView;
+import io.reactivesw.product.application.model.CategoryProductView;
+import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
-import io.reactivesw.product.application.model.ProductView;
-import io.reactivesw.product.application.model.ProductDraft;
-import io.reactivesw.product.application.model.ProductProjectionView;
-import io.reactivesw.product.application.model.QueryConditions;
-import io.reactivesw.product.application.model.mapper.ProductProjectionMapper;
+import io.reactivesw.product.application.model.mapper.CartProductMapper;
+import io.reactivesw.product.application.model.mapper.CategoryProductMapper;
+import io.reactivesw.product.application.model.mapper.DetailProductMapper;
 import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
+import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.domain.service.ProductService;
-import io.reactivesw.product.infrastructure.util.ProductInventoryUtils;
-import io.reactivesw.product.infrastructure.util.QueryConditionUtils;
-import io.reactivesw.product.infrastructure.validator.AttributeConstraintValidator;
-import io.reactivesw.product.infrastructure.validator.SkuNameValidator;
+import io.reactivesw.product.infrastructure.util.InventoryUtils;
+import io.reactivesw.product.infrastructure.util.SkuUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by Davis on 16/12/18.
@@ -35,41 +36,23 @@ public class ProductApplication {
   /**
    * ProductRestClient.
    */
-  @Autowired
   private transient ProductRestClient productRestClient;
 
   /**
    * product service.
    */
-  @Autowired
   private transient ProductService productService;
 
   /**
-   * Create product product.
+   * Instantiates a new Product application.
    *
-   * @param productDraft the product draft
-   * @return the product
+   * @param productRestClient the product rest client
+   * @param productService    the product service
    */
-  public ProductView createProduct(ProductDraft productDraft) {
-    LOG.debug("enter createProduct, product draft is : {}", productDraft.toString());
-
-    String productTypeId = productDraft.getProductType().getId();
-
-    ProductTypeView productType = productRestClient.getProductType(productTypeId);
-
-    if (productType == null) {
-      LOG.debug("can not find product type by id : {}", productTypeId);
-      throw new NotExistException("ProductTypeView Not Found");
-    }
-
-    AttributeConstraintValidator.validate(productType.getAttributes(), productDraft);
-    SkuNameValidator.validate(productDraft);
-
-    ProductView result = productService.createProduct(productDraft);
-
-    LOG.debug("end createProduct, new product is : {}", result.toString());
-
-    return result;
+  @Autowired
+  public ProductApplication(ProductRestClient productRestClient, ProductService productService) {
+    this.productRestClient = productRestClient;
+    this.productService = productService;
   }
 
   /**
@@ -78,16 +61,14 @@ public class ProductApplication {
    * @param id the id
    * @return the product
    */
-  public ProductView getProductById(String id) {
+  public CartProductView getProductById(String id, Integer variantId) {
     LOG.debug("enter getProductById, the id is : {}", id);
 
-    ProductView result = productService.getProductById(id);
+    Product product = productService.getProductById(id);
 
-    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryEntry(result);
+    ProductVariant productVariant = getProductVariant(product, variantId);
 
-    if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
-      result = ProductInventoryUtils.mergeInventoryEntryToProduct(inventoryEntries, result);
-    }
+    CartProductView result = CartProductMapper.mapToModel(product, productVariant);
 
     LOG.debug("end getProductById, the product is : {}", result.toString());
 
@@ -100,20 +81,84 @@ public class ProductApplication {
    * query example:
    * categoryId:"1234567890"
    *
-   * @param queryConditions the query conditions
+   * @param categoryId the query id
    * @return the list
    */
-  public List<ProductProjectionView> queryProductProject(QueryConditions queryConditions) {
-    LOG.debug("enter queryProductProjections, query conditions is : {}",
-        queryConditions.toString());
-
-    String categoryId = QueryConditionUtils.getCategoryId(queryConditions);
+  public List<CategoryProductView> queryCategoryProducts(String categoryId) {
+    LOG.debug("enter queryCategoryProducts, category id  is : {}.", categoryId);
 
     List<Product> productEntities = productService.queryProductByCategory(categoryId);
 
-    List<ProductProjectionView> result = ProductProjectionMapper.entityToModel(productEntities);
+    List<CategoryProductView> result = CategoryProductMapper.mapToModel(productEntities);
 
-    LOG.debug("end queryProductProjections, product projections number is : {}", result.size());
+    List<String> skuNames = SkuUtils.getCategoryProductSkuNames(result);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+
+    if (inventoryEntries != null && !inventoryEntries.isEmpty()) {
+      result = InventoryUtils.mergeInventoryToCategoryProducts(inventoryEntries, result);
+    }
+
+    LOG.debug("end queryCategoryProducts, category {} has {} products.", categoryId, result.size());
+
+    return result;
+  }
+
+  /**
+   * Gets detail product by sku.
+   *
+   * @param sku the sku
+   * @return the detail product by sku
+   */
+  public DetailProductView getDetailProductBySku(String sku) {
+    LOG.debug("enter getDetailProductBySku, sku is : {}.", sku);
+
+    Product productEntity = productService.getProductBySku(sku);
+
+    DetailProductView result = DetailProductMapper.mapToModel(productEntity);
+
+    String productTypeId = getProductTypeId(productEntity);
+    ProductTypeView productTypeView = productRestClient.getProductType(productTypeId);
+    result = DetailProductMapper.mergeProductType(productTypeView, result);
+
+    List<String> skuNames = SkuUtils.getSkuNames(productEntity);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+
+    if (inventoryEntries != null && !inventoryEntries.isEmpty()) {
+      result = InventoryUtils.mergeInventoryToDetailProduct(inventoryEntries, result);
+    }
+
+    LOG.debug("end getDetailProductBySku, result is : {}.", result.toString());
+
+    return result;
+  }
+
+  /**
+   * get product typd id.
+   *
+   * @param product the Product
+   * @return String
+   */
+  private String getProductTypeId(Product product) {
+    return product.getProductType();
+  }
+
+  /**
+   * get product variant by it's id.
+   *
+   * @param product   product entity
+   * @param variantId variant id
+   * @return ProductVariant
+   */
+  private ProductVariant getProductVariant(Product product, Integer variantId) {
+    ProductVariant result = null;
+    ProductData productData = product.getMasterData().getCurrent();
+
+    if (variantId.equals(1)) {
+      result = productData.getMasterVariant();
+    } else {
+      Predicate<ProductVariant> p = productVariant -> productVariant.getId().equals(variantId);
+      result = productData.getVariants().stream().filter(p).findAny().get();
+    }
 
     return result;
   }
