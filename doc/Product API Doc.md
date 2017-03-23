@@ -54,13 +54,7 @@ TODO
 | results | List<T> | |
 | facets | Object | |
 
-### 2.5 QueryConditions
-
-| field name | field type | comments | 
-|-----|-----|-----|
-| where | String | |
-
-### 2.6 CartProductView
+### 2.5 CartProductView
 
 
 
@@ -69,9 +63,9 @@ TODO
 ### 3.1 get CategoryProductView list by categoryId
 
 * URL : /CategoryProducts
-* params : where - required
+* params : categoryId - required
 * response : PagedQueryResult<CategoryProductView>
-* URL example: {URL}?where=categoryId%3A%2285a2aade-d87e-4b54-8485-54f186f48ace%22
+* URL example: {URL}?categoryId=85a2aade-d87e-4b54-8485-54f186f48ace
 
 ### 3.2 get DetailProductView by Sku
 
