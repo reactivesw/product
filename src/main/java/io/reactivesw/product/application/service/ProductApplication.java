@@ -103,14 +103,13 @@ public class ProductApplication {
    * query example:
    * categoryId:"1234567890"
    *
-   * @param queryConditions the query conditions
+   * @param categoryId the query id
    * @return the list
    */
-  public List<CategoryProductView> queryCategoryProducts(QueryConditions queryConditions) {
-    LOG.debug("enter queryCategoryProducts, query conditions is : {}",
-        queryConditions.toString());
+  public List<CategoryProductView> queryCategoryProducts(String categoryId) {
+    LOG.debug("enter queryCategoryProducts, category id  is : {}", categoryId);
 
-    String categoryId = QueryConditionUtils.getCategoryId(queryConditions);
+//    String categoryId = QueryConditionUtils.getCategoryId(queryConditions);
 
     List<Product> productEntities = productService.queryProductByCategory(categoryId);
 

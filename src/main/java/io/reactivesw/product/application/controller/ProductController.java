@@ -53,23 +53,22 @@ public class ProductController {
    * queryconditions example :
    * "where"="categoryId:\"c42e4efb-7de7-4f3d-adac-554b84bda1b5\""
    *
-   * @param queryConditions the query conditions
+   * @param categoryId the query conditions
    * @return the list
    */
 // TODO: 16/12/21 only for query product by category now
   @GetMapping(CATEGORY_PRODUCT_ROOT)
-  public PagedQueryResult<CategoryProductView> queryCategoryProducts(QueryConditions
-                                                                           queryConditions) {
-    LOG.debug("enter queryCategoryProducts, query conditions is : {}",
-        queryConditions.toString());
+  public PagedQueryResult<CategoryProductView> queryCategoryProducts(@RequestParam("categoryId")
+                                                                           String categoryId) {
+    LOG.debug("enter queryCategoryProducts, category id  is : {}", categoryId);
 
     PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
-    List<CategoryProductView> productProjections =
-        productApplication.queryCategoryProducts(queryConditions);
-    result.setCount(productProjections.size());
-    result.setResults(productProjections);
+    List<CategoryProductView> categoryProductViews = productApplication.queryCategoryProducts
+        (categoryId);
+    result.setCount(categoryProductViews.size());
+    result.setResults(categoryProductViews);
     LOG.debug("end queryCategoryProducts, category product number is : {}",
-        productProjections.size());
+        categoryProductViews.size());
 
     return result;
   }
