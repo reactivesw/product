@@ -11,7 +11,6 @@ import io.reactivesw.product.application.model.CartProductView;
 import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.PagedQueryResult;
-import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.service.ProductApplication;
 
 import org.slf4j.Logger;
