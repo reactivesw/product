@@ -56,6 +56,14 @@ TODO
 
 ### 2.5 CartProductView
 
+| field name | field type | comments | 
+|-----|-----|-----|
+| productId | String | | 
+| name | LocalizedString | |
+| variantId | Integer | | 
+| sku | String | |
+| images | List<ImageView> | | 
+| price | PriceView | |
 
 
 ## 3. API

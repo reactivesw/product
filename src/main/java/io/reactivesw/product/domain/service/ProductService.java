@@ -1,7 +1,11 @@
 package io.reactivesw.product.domain.service;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
 
@@ -11,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 

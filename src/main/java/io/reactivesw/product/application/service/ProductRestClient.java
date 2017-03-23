@@ -68,19 +68,27 @@ public class ProductRestClient {
    */
   public List<InventoryEntryView> getInventoryBySkus(List<String> skus) {
     LOG.debug("enter getInventoryBySkus, sku is : {}", skus);
-    String url = inventoryUri;
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-        .queryParam("skuNames", String.join(",", skus));
+    List<InventoryEntryView> result = Lists.newArrayList();
 
-    ResponseEntity<InventoryEntryView[]> result = restTemplate.exchange(
-        builder.build().encode().toUri(),
-        HttpMethod.GET,
-        null,
-        InventoryEntryView[].class);
+    if (skus != null && !skus.isEmpty()) {
 
-    LOG.debug("end getInventoryBySkus");
+      String url = inventoryUri;
 
-    return Lists.newArrayList(result.getBody());
+      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+          .queryParam("skuNames", String.join(",", skus));
+
+      ResponseEntity<InventoryEntryView[]> inventoryResult = restTemplate.exchange(
+          builder.build().encode().toUri(),
+          HttpMethod.GET,
+          null,
+          InventoryEntryView[].class);
+
+      LOG.debug("end getInventoryBySkus");
+
+      result = Lists.newArrayList(inventoryResult.getBody());
+    }
+
+    return result;
   }
 }
