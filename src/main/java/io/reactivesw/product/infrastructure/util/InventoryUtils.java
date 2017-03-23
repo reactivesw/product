@@ -1,6 +1,7 @@
 package io.reactivesw.product.infrastructure.util;
 
 import io.reactivesw.product.application.model.CategoryProductView;
+import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.mapper.ProductVariantAvailabilityMapper;
 
@@ -46,7 +47,36 @@ public final class InventoryUtils {
     return categoryProductViews;
   }
 
+  /**
+   * Merge inventory to detail product detail product view.
+   *
+   * @param inventoryEntryViews the inventory entry views
+   * @param detailProductView   the detail product view
+   * @return the detail product view
+   */
+  public static DetailProductView mergeInventoryToDetailProduct(List<InventoryEntryView>
+                                                                    inventoryEntryViews,
+                                                                DetailProductView
+                                                                    detailProductView) {
+    detailProductView.getMasterVariant().setAvailable(getAvailable(detailProductView
+        .getMasterVariant().getSku(), inventoryEntryViews));
 
+    detailProductView.getVariants().stream().forEach(
+        variant -> {
+          variant.setAvailable(getAvailable(variant.getSku(), inventoryEntryViews));
+        }
+    );
+
+    return detailProductView;
+  }
+
+  /**
+   * Gets available.
+   *
+   * @param sku              the sku
+   * @param inventoryEntries the inventory entries
+   * @return the available
+   */
   private static boolean getAvailable(String sku, List<InventoryEntryView> inventoryEntries) {
     boolean result = false;
 

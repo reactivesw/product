@@ -36,6 +36,8 @@ public class ProductVariantView {
 
   private ProductVariantAvailabilityView availability;
 
+  private boolean available;
+
   private Boolean isMatchingVariant;
 
   @Deprecated

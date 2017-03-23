@@ -144,6 +144,13 @@ public class ProductApplication {
     ProductTypeView productTypeView = productRestClient.getProductType(productTypeId);
     result = DetailProductMapper.mergeProductType(productTypeView, result);
 
+    List<String> skuNames = SkuUtils.getSkuNames(productEntity);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+
+    if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
+      result = InventoryUtils.mergeInventoryToDetailProduct(inventoryEntries, result);
+    }
+
     LOG.debug("end getDetailProductBySku, result is : {}", result.toString());
 
     return result;
