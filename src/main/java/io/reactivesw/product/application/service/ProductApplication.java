@@ -5,7 +5,6 @@ import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.ProductTypeView;
-import io.reactivesw.product.application.model.QueryConditions;
 import io.reactivesw.product.application.model.mapper.CartProductMapper;
 import io.reactivesw.product.application.model.mapper.CategoryProductMapper;
 import io.reactivesw.product.application.model.mapper.DetailProductMapper;
@@ -14,7 +13,6 @@ import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.domain.service.ProductService;
 import io.reactivesw.product.infrastructure.util.InventoryUtils;
-import io.reactivesw.product.infrastructure.util.QueryConditionUtils;
 import io.reactivesw.product.infrastructure.util.SkuUtils;
 
 import org.slf4j.Logger;
@@ -78,8 +76,76 @@ public class ProductApplication {
   }
 
   /**
+   * Query product merchant list.
+   * TODO: 16/12/21 only for query product by category now.
+   * query example:
+   * categoryId:"1234567890"
+   *
+   * @param categoryId the query id
+   * @return the list
+   */
+  public List<CategoryProductView> queryCategoryProducts(String categoryId) {
+    LOG.debug("enter queryCategoryProducts, category id  is : {}.", categoryId);
+
+    List<Product> productEntities = productService.queryProductByCategory(categoryId);
+
+    List<CategoryProductView> result = CategoryProductMapper.mapToModel(productEntities);
+
+    List<String> skuNames = SkuUtils.getCategoryProductSkuNames(result);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+
+    if (inventoryEntries != null && !inventoryEntries.isEmpty()) {
+      result = InventoryUtils.mergeInventoryToCategoryProducts(inventoryEntries, result);
+    }
+
+    LOG.debug("end queryCategoryProducts, category {} has {} products.", categoryId, result.size());
+
+    return result;
+  }
+
+  /**
+   * Gets detail product by sku.
+   *
+   * @param sku the sku
+   * @return the detail product by sku
+   */
+  public DetailProductView getDetailProductBySku(String sku) {
+    LOG.debug("enter getDetailProductBySku, sku is : {}.", sku);
+
+    Product productEntity = productService.getProductBySku(sku);
+
+    DetailProductView result = DetailProductMapper.mapToModel(productEntity);
+
+    String productTypeId = getProductTypeId(productEntity);
+    ProductTypeView productTypeView = productRestClient.getProductType(productTypeId);
+    result = DetailProductMapper.mergeProductType(productTypeView, result);
+
+    List<String> skuNames = SkuUtils.getSkuNames(productEntity);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+
+    if (inventoryEntries != null && !inventoryEntries.isEmpty()) {
+      result = InventoryUtils.mergeInventoryToDetailProduct(inventoryEntries, result);
+    }
+
+    LOG.debug("end getDetailProductBySku, result is : {}.", result.toString());
+
+    return result;
+  }
+
+  /**
+   * get product typd id.
+   *
+   * @param product the Product
+   * @return String
+   */
+  private String getProductTypeId(Product product) {
+    return product.getProductType();
+  }
+
+  /**
    * get product variant by it's id.
-   * @param product product entity
+   *
+   * @param product   product entity
    * @param variantId variant id
    * @return ProductVariant
    */
@@ -95,73 +161,5 @@ public class ProductApplication {
     }
 
     return result;
-  }
-
-  /**
-   * Query product merchant list.
-   * TODO: 16/12/21 only for query product by category now.
-   * query example:
-   * categoryId:"1234567890"
-   *
-   * @param categoryId the query id
-   * @return the list
-   */
-  public List<CategoryProductView> queryCategoryProducts(String categoryId) {
-    LOG.debug("enter queryCategoryProducts, category id  is : {}", categoryId);
-
-//    String categoryId = QueryConditionUtils.getCategoryId(queryConditions);
-
-    List<Product> productEntities = productService.queryProductByCategory(categoryId);
-
-    List<CategoryProductView> result = CategoryProductMapper.mapToModel(productEntities);
-
-    List<String> skuNames = SkuUtils.getCategoryProductSkuNames(result);
-    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
-
-    if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
-      result = InventoryUtils.mergeInventoryToCategoryProducts(inventoryEntries, result);
-    }
-
-    LOG.debug("end queryCategoryProducts, category product number is : {}", result.size());
-
-    return result;
-  }
-
-  /**
-   * Gets detail product by sku.
-   *
-   * @param sku the sku
-   * @return the detail product by sku
-   */
-  public DetailProductView getDetailProductBySku(String sku) {
-    LOG.debug("enter getDetailProductBySku, sku is : {}", sku);
-
-    Product productEntity = productService.getProductBySku(sku);
-
-    DetailProductView result = DetailProductMapper.mapToModel(productEntity);
-
-    String productTypeId = getProductTypeId(productEntity);
-    ProductTypeView productTypeView = productRestClient.getProductType(productTypeId);
-    result = DetailProductMapper.mergeProductType(productTypeView, result);
-
-    List<String> skuNames = SkuUtils.getSkuNames(productEntity);
-    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
-
-    if (inventoryEntries != null && ! inventoryEntries.isEmpty()) {
-      result = InventoryUtils.mergeInventoryToDetailProduct(inventoryEntries, result);
-    }
-
-    LOG.debug("end getDetailProductBySku, result is : {}", result.toString());
-
-    return result;
-  }
-
-  /**
-   * get product typd id.
-   * @param product the Product
-   * @return String
-   */
-  private String getProductTypeId(Product product) {
-    return product.getProductType();
   }
 }
