@@ -22,6 +22,7 @@ public final class SkuUtils {
 
   /**
    * get all CategoryProductView's sku name.
+   *
    * @param productViews list of CategoryProductView
    * @return list of String
    */
@@ -29,8 +30,7 @@ public final class SkuUtils {
     List<String> result = productViews.stream().map(
         productView -> {
           return productView.getSku();
-        }
-    ).collect(Collectors.toList());
+        }).collect(Collectors.toList());
     return result;
   }
 
@@ -70,8 +70,7 @@ public final class SkuUtils {
       skuNames.addAll(productData.getVariants().parallelStream().map(
           variant -> {
             return variant.getSku();
-          }
-      ).collect(Collectors.toList()));
+          }).collect(Collectors.toList()));
     }
 
     return skuNames;

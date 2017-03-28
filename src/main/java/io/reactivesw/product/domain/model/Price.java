@@ -73,8 +73,9 @@ public class Price {
   /**
    * discounted.
    */
-//  @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-//  private ProductDiscountEntity discounted;
   @Column(name = "discounted_id")
   private String discountedId;
+
+//  @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+//  private ProductDiscountEntity discounted;
 }

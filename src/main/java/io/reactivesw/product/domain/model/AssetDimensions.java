@@ -9,8 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AssetDimensions {
+  /**
+   * the width.
+   */
+  private float width;
 
-  private float w;
-  
-  private float h;
+  /**
+   * the height.
+   */
+  private float height;
 }

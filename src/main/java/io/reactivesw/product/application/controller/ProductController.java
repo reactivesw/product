@@ -48,22 +48,20 @@ public class ProductController {
 
   /**
    * Query product projections list.
-   * <p>
    * queryconditions example :
    * "where"="categoryId:\"c42e4efb-7de7-4f3d-adac-554b84bda1b5\""
-   *
+   * TODO: 16/12/21 only for query product by category now
    * @param categoryId the query conditions
    * @return the list
    */
-// TODO: 16/12/21 only for query product by category now
   @GetMapping(CATEGORY_PRODUCT_ROOT)
   public PagedQueryResult<CategoryProductView> queryCategoryProducts(@RequestParam("categoryId")
-                                                                           String categoryId) {
+                                                                         String categoryId) {
     LOG.debug("enter queryCategoryProducts, category id  is : {}", categoryId);
 
     PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
-    List<CategoryProductView> categoryProductViews = productApplication.queryCategoryProducts
-        (categoryId);
+    List<CategoryProductView> categoryProductViews =
+        productApplication.queryCategoryProducts(categoryId);
     result.setCount(categoryProductViews.size());
     result.setResults(categoryProductViews);
     LOG.debug("end queryCategoryProducts, category product number is : {}",

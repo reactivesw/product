@@ -28,11 +28,14 @@ import javax.persistence.Version;
 @Table(name = "product")
 public class Product {
 
+  /**
+   * id.
+   */
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid2")
   @Column(name = "id")
-  protected String id;
+  private String id;
 
   /**
    * key value.

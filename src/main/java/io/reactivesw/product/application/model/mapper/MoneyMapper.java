@@ -6,8 +6,13 @@ import io.reactivesw.product.domain.model.MoneyValue;
 /**
  * Created by umasuo on 16/12/8.
  */
-public class MoneyMapper {
+public final class MoneyMapper {
 
+  /**
+   * Instantiates a new Money mapper.
+   */
+  private MoneyMapper() {
+  }
 
   /**
    * Entity to model money.
@@ -15,10 +20,10 @@ public class MoneyMapper {
    * @param entity the entity
    * @return the money
    */
-  public static Money entityToModel(MoneyValue entity) {
-    io.reactivesw.model.Money model = null;
+  public static Money toModel(MoneyValue entity) {
+    Money model = null;
     if (entity != null) {
-      model = new io.reactivesw.model.Money();
+      model = new Money();
 
       model.setCentAmount(entity.getCentAmount());
       model.setCurrencyCode(entity.getCurrencyCode());

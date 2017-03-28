@@ -1,11 +1,7 @@
 package io.reactivesw.product.domain.service;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.product.domain.model.Product;
-import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
 
@@ -15,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -76,14 +71,14 @@ public class ProductService {
 
     List<Product> products = productRepository.findAll();
 
-    Predicate<ProductVariant> p = productVariant -> StringUtils.equals(productVariant.getSku(),
-        sku);
+    Predicate<ProductVariant> predicate =
+        productVariant -> StringUtils.equals(productVariant.getSku(), sku);
 
     Product productEntity = products.parallelStream().filter(
         product ->
             StringUtils.equals(sku, product.getMasterData().getCurrent().getMasterVariant()
                 .getSku())
-                || product.getMasterData().getCurrent().getVariants().stream().anyMatch(p)
+                || product.getMasterData().getCurrent().getVariants().stream().anyMatch(predicate)
     ).findAny().orElse(null);
 
     if (productEntity == null) {

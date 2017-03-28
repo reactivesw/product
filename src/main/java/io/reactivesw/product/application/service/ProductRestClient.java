@@ -26,13 +26,13 @@ public class ProductRestClient {
    * product type service uri.
    */
   @Value("${producttype.service.uri}")
-  private String productTypeUri;
+  private transient String productTypeUri;
 
   /**
    * inventory service uri.
    */
   @Value("${inventory.service.uri}")
-  private String inventoryUri;
+  private transient String inventoryUri;
 
   /**
    * log.

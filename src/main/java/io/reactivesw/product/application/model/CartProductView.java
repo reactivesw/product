@@ -8,8 +8,6 @@ import lombok.ToString;
 
 import java.util.List;
 
-import javax.persistence.Column;
-
 /**
  * Created by Davis on 17/3/22.
  */

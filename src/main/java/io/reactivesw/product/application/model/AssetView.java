@@ -13,13 +13,28 @@ import java.util.List;
 @Getter
 @Setter
 public class AssetView {
+  /**
+   * the id.
+   */
   private String id;
 
+  /**
+   * asset sources.
+   */
   private List<AssetSourceView> sources;
 
+  /**
+   * the name.
+   */
   private LocalizedString name;
 
+  /**
+   * the description.
+   */
   private LocalizedString description;
 
+  /**
+   * the tags.
+   */
   private List<String> tags;
 }

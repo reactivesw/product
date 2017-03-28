@@ -17,10 +17,10 @@ public class CategoryOrderHintView {
   /**
    * use category id as key.
    */
-  String key;
+  private String key;
 
   /**
-   * number, value between [0...1]
+   * number, value between [0...1].
    */
-  String order;
+  private String order;
 }

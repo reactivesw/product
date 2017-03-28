@@ -2,13 +2,24 @@ package io.reactivesw.product.application.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-//TOOD copy from sdk, should be TextType
-public final class StringAttributeType extends AttributeTypeBase {
-//    @JsonCreator
-    private StringAttributeType() {}
+/**
+ * The String attribute type.
+ */
+public final class StringAttributeType extends AbstractAttributeType {
+  /**
+   * private constructor.
+   */
+  private StringAttributeType() {
+    super();
+  }
 
-    @JsonCreator
-    public static StringAttributeType of() {
-        return new StringAttributeType();
-    }
+  /**
+   * build from json data.
+   *
+   * @return StringAttributeType
+   */
+  @JsonCreator
+  public static StringAttributeType build() {
+    return new StringAttributeType();
+  }
 }

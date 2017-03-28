@@ -68,7 +68,7 @@ public class ProductApplication {
 
     ProductVariant productVariant = getProductVariant(product, variantId);
 
-    CartProductView result = CartProductMapper.mapToModel(product, productVariant);
+    CartProductView result = CartProductMapper.toModel(product, productVariant);
 
     LOG.debug("end getProductById, the product is : {}", result.toString());
 
@@ -89,7 +89,7 @@ public class ProductApplication {
 
     List<Product> productEntities = productService.queryProductByCategory(categoryId);
 
-    List<CategoryProductView> result = CategoryProductMapper.mapToModel(productEntities);
+    List<CategoryProductView> result = CategoryProductMapper.toModel(productEntities);
 
     List<String> skuNames = SkuUtils.getCategoryProductSkuNames(result);
     List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
@@ -114,7 +114,7 @@ public class ProductApplication {
 
     Product productEntity = productService.getProductBySku(sku);
 
-    DetailProductView result = DetailProductMapper.mapToModel(productEntity);
+    DetailProductView result = DetailProductMapper.toModel(productEntity);
 
     String productTypeId = getProductTypeId(productEntity);
     ProductTypeView productTypeView = productRestClient.getProductType(productTypeId);
@@ -156,8 +156,9 @@ public class ProductApplication {
     if (variantId.equals(1)) {
       result = productData.getMasterVariant();
     } else {
-      Predicate<ProductVariant> p = productVariant -> productVariant.getId().equals(variantId);
-      result = productData.getVariants().stream().filter(p).findAny().get();
+      Predicate<ProductVariant> predicate =
+          productVariant -> productVariant.getId().equals(variantId);
+      result = productData.getVariants().stream().filter(predicate).findAny().get();
     }
 
     return result;

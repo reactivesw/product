@@ -175,7 +175,7 @@ public class Foo {		// This has a Cyclomatic Complexity = 12
                 fiddle();
             }
 7        } else if (e == f) {
-8           for (int n = 0; n < h; n++) {
+8           for (int n = 0; n < height; n++) {
                 fiddle();
             }
         } else{
@@ -231,7 +231,7 @@ public class Foo {    // This has a Cyclomatic Complexity = 12
                 fiddle();
             }
 7        } else if (e == f) {
-8           for (int n = 0; n < h; n++) {
+8           for (int n = 0; n < height; n++) {
                 fiddle();
             }
         } else{
@@ -288,7 +288,7 @@ public class Foo {    // This has a Cyclomatic Complexity = 9
                 fiddle();
             }
 7        } else if (e == f) {
-8           for (int n = 0; n < h; n++) {
+8           for (int n = 0; n < height; n++) {
                 fiddle();
             }
         } else{

@@ -2,7 +2,6 @@ package io.reactivesw.product.application.model;
 
 import io.reactivesw.model.LocalizedString;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,30 +14,30 @@ public class CategoryProductView {
   /**
    * The Id.
    */
-  public String id;
+  private String id;
 
   /**
    * The Name.
    */
-  public LocalizedString name;
+  private LocalizedString name;
 
   /**
    * The Sku.
    */
-  String sku;
+  private String sku;
 
   /**
    * The Price.
    */
-  PriceView price;
+  private PriceView price;
 
   /**
    * The Image url.
    */
-  String imageUrl;
+  private String imageUrl;
 
   /**
    * The Available.
    */
-  boolean available;
+  private boolean available;
 }

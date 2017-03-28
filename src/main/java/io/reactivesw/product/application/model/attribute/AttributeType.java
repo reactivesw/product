@@ -1,12 +1,11 @@
 package io.reactivesw.product.application.model.attribute;
 
-/**
- * Created by Davis on 16/11/16.
- */
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * Created by Davis on 16/11/16.
+ */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "name")
 @JsonSubTypes( {
     @JsonSubTypes.Type(value = BooleanAttributeType.class, name = "boolean"),
@@ -21,8 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = DateTimeAttributeType.class, name = "datetime"),
     @JsonSubTypes.Type(value = ReferenceAttributeType.class, name = "reference"),
     @JsonSubTypes.Type(value = SetAttributeType.class, name = "set"),
-    @JsonSubTypes.Type(value = NestedAttributeType.class, name = "nested")
-})
+    @JsonSubTypes.Type(value = NestedAttributeType.class, name = "nested")})
 public interface AttributeType {
 
 }

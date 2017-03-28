@@ -24,8 +24,8 @@ public final class DimensionsMapper {
       AssetDimensions entity) {
     AssetDimensionsView model = new AssetDimensionsView();
 
-    model.setH(entity.getH());
-    model.setW(entity.getW());
+    model.setHeight(entity.getHeight());
+    model.setWidth(entity.getWidth());
 
     return model;
   }
@@ -39,8 +39,8 @@ public final class DimensionsMapper {
   public static AssetDimensions modelToEntity(AssetDimensionsView model) {
     AssetDimensions entity = new AssetDimensions();
 
-    entity.setH(model.getH());
-    entity.setW(model.getW());
+    entity.setHeight(model.getHeight());
+    entity.setWidth(model.getWidth());
 
     return entity;
   }

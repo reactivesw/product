@@ -11,17 +11,23 @@ import java.util.Set;
 public final class LocalizedStringMapper {
 
   /**
+   * Instantiates a new Localized string mapper.
+   */
+  private LocalizedStringMapper() {
+  }
+
+  /**
    * Convert to localized string.
    * when localizedStringEntity is null return new LocalizedString.
    *
    * @param localizedStringEntities the localized string entity
    * @return the localized string
    */
-  public static LocalizedString mapToModelDefaultNew(Set<LocalizedStringValue>
-                                                                       localizedStringEntities) {
+  public static LocalizedString toModelDefaultNew(Set<LocalizedStringValue>
+                                                      localizedStringEntities) {
     LocalizedString localizedString = new LocalizedString();
     if (localizedStringEntities != null) {
-      localizedString = mapToModel(localizedStringEntities);
+      localizedString = toModel(localizedStringEntities);
     }
     return localizedString;
   }
@@ -32,8 +38,7 @@ public final class LocalizedStringMapper {
    * @param localizedStringEntities localizedStringEntities
    * @return LocalizedString
    */
-  private static LocalizedString mapToModel(Set<LocalizedStringValue>
-                                                              localizedStringEntities) {
+  private static LocalizedString toModel(Set<LocalizedStringValue> localizedStringEntities) {
     LocalizedString localizedString = new LocalizedString();
     for (LocalizedStringValue localizedStringEntity : localizedStringEntities) {
       localizedString.addKeyValue(localizedStringEntity.getLanguage(), localizedStringEntity

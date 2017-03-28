@@ -5,22 +5,22 @@ package io.reactivesw.product.application.model.attribute;
  */
 public enum AttributeConstraint {
   /**
-   *
+   * None attribute constraint.
    */
   None,
 
   /**
-   *
+   * Unique attribute constraint.
    */
   Unique,
 
   /**
-   *
+   * Combination unique attribute constraint.
    */
   CombinationUnique,
 
   /**
-   *
+   * Same for all attribute constraint.
    */
   SameForAll;
 }

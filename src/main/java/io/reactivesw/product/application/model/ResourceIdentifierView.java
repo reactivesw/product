@@ -18,9 +18,4 @@ public class ResourceIdentifierView {
    * The Id.
    */
   private String id;
-
-  /**
-   * The Key.
-   */
-//  private String key;
 }

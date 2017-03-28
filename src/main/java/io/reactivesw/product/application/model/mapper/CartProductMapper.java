@@ -12,7 +12,7 @@ public final class CartProductMapper {
   /**
    * Instantiates a new Cart product mapper.
    */
-  public CartProductMapper() {
+  private CartProductMapper() {
   }
 
   /**
@@ -22,15 +22,15 @@ public final class CartProductMapper {
    * @param variant the variant
    * @return the cart product view
    */
-  public static CartProductView mapToModel(Product product, ProductVariant variant) {
+  public static CartProductView toModel(Product product, ProductVariant variant) {
     CartProductView model = new CartProductView();
 
     ProductData productData = product.getMasterData().getCurrent();
 
     model.setProductId(product.getId());
-    model.setName(LocalizedStringMapper.mapToModelDefaultNew(productData.getName()));
-    model.setPrice(PriceMapper.mapToModel(variant.getPrices().get(0)));
-    model.setImages(ImageMapper.entityToModel(variant.getImages()));
+    model.setName(LocalizedStringMapper.toModelDefaultNew(productData.getName()));
+    model.setPrice(PriceMapper.toModel(variant.getPrices().get(0)));
+    model.setImages(ImageMapper.toModel(variant.getImages()));
     model.setSku(variant.getSku());
     model.setVariantId(variant.getId());
 

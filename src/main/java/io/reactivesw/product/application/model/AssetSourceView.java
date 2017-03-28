@@ -10,11 +10,23 @@ import lombok.Setter;
 @Setter
 public class AssetSourceView {
 
+  /**
+   * asset uri.
+   */
   private String uri;
 
+  /**
+   * the key.
+   */
   private String key;
 
+  /**
+   * asset dimensions.
+   */
   private AssetDimensionsView dimensions;
 
+  /**
+   * content type.
+   */
   private String contentType;
 }

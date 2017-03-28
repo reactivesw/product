@@ -63,7 +63,7 @@ Consider replacing Hashtable usage with the newer java.util.Map if thread safety
     <![CDATA[
 public class Foo {
 	void bar() {
-		Hashtable h = new Hashtable();
+		Hashtable height = new Hashtable();
 	}
 }
     ]]>

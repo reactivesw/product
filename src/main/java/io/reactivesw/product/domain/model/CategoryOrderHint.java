@@ -42,15 +42,4 @@ public class CategoryOrderHint {
    */
   @Column(name = "order_hint")
   private String orderHint;
-
-  /**
-   * Instantiates a new Category order hint entity.
-   *
-   * @param categoryId the category id
-   * @param orderHint  the order hint
-   */
-  public CategoryOrderHint(String categoryId, String orderHint) {
-    this.categoryId = categoryId;
-    this.orderHint = orderHint;
-  }
 }

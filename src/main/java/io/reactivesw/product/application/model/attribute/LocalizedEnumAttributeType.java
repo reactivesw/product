@@ -5,8 +5,14 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+/**
+ * The Localized enum attribute type.
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public final class LocalizedEnumAttributeType extends AttributeTypeBase {
+public final class LocalizedEnumAttributeType extends AbstractAttributeType {
+  /**
+   * Localized Enum Value list.
+   */
   private List<LocalizedEnumValue> values;
 }
