@@ -12,11 +12,23 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = false)
 public class ProductVariantAvailabilityView {
 
+  /**
+   * The Is on stock.
+   */
   private Boolean isOnStock;
 
+  /**
+   * The Restockable in days.
+   */
   private Integer restockableInDays;
 
+  /**
+   * The Available quantity.
+   */
   private Integer availableQuantity;
 
+  /**
+   * The Channels.
+   */
   private Map<String, ProductVariantAvailabilityView> channels;
 }

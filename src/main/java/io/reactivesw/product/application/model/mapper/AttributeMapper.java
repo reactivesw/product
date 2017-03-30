@@ -9,8 +9,13 @@ import java.util.stream.Collectors;
 /**
  * Created by Davis on 16/12/14.
  */
-public class AttributeMapper {
+public final class AttributeMapper {
 
+  /**
+   * Instantiates a new Attribute mapper.
+   */
+  private AttributeMapper() {
+  }
 
   /**
    * Entity to model list.
@@ -18,11 +23,10 @@ public class AttributeMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<AttributeView> mapToModel
-  (List<Attribute> entities) {
+  public static List<AttributeView> toModel(List<Attribute> entities) {
     return entities.stream().map(
         entity -> {
-          return mapToModel(entity);
+          return toModel(entity);
         }
     ).collect(Collectors.toList());
   }
@@ -33,7 +37,7 @@ public class AttributeMapper {
    * @param entity the entity
    * @return the attribute view
    */
-  public static AttributeView mapToModel(Attribute entity) {
+  public static AttributeView toModel(Attribute entity) {
     AttributeView model = new AttributeView();
 
     model.setName(entity.getName());

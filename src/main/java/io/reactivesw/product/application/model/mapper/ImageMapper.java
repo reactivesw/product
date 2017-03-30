@@ -9,17 +9,23 @@ import java.util.stream.Collectors;
 /**
  * Created by Davis on 16/12/14.
  */
-public class ImageMapper {
+public final class ImageMapper {
+  /**
+   * Instantiates a new Image mapper.
+   */
+  private ImageMapper() {
+  }
+
   /**
    * Entity to model list.
    *
    * @param entities the entities
    * @return the list
    */
-  public static List<ImageView> entityToModel(List<Image> entities) {
+  public static List<ImageView> toModel(List<Image> entities) {
     return entities.stream().map(
         entity -> {
-          return entityToModel(entity);
+          return toModel(entity);
         }
     ).collect(Collectors.toList());
   }
@@ -30,7 +36,7 @@ public class ImageMapper {
    * @param entity the entity
    * @return the image view
    */
-  public static ImageView entityToModel(Image entity) {
+  public static ImageView toModel(Image entity) {
     ImageView model = new ImageView();
 
     model.setUrl(entity.getUrl());

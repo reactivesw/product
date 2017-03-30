@@ -3,7 +3,7 @@ package io.reactivesw.product.infrastructure;
 /**
  * Created by umasuo on 16/12/20.
  */
-public final class ProductRouter {
+public final class Router {
 
   /**
    * product root.
@@ -48,8 +48,8 @@ public final class ProductRouter {
   /**
    * The constant CART_PRODUCT_VARIANT_PATH.
    */
-  public static final String CART_PRODUCT_VARIANT_PATH = PRODUCT_ROOT + CART_PRODUCT + "/{" +
-      PRODUCT_ID + "}";
+  public static final String CART_PRODUCT_VARIANT_PATH =
+      PRODUCT_ROOT + CART_PRODUCT + "/{" + PRODUCT_ID + "}";
 
   /**
    * The constant PRODUCT_HEALTH_CHECK.

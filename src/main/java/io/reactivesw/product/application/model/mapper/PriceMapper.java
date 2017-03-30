@@ -11,8 +11,13 @@ import java.util.stream.Collectors;
 /**
  * Created by Davis on 16/12/14.
  */
-public class PriceMapper {
+public final class PriceMapper {
 
+  /**
+   * Instantiates a new Price mapper.
+   */
+  private PriceMapper() {
+  }
 
   /**
    * Entity to model price view.
@@ -20,7 +25,7 @@ public class PriceMapper {
    * @param entity the entity
    * @return the price view
    */
-  public static PriceView mapToModel(Price entity) {
+  public static PriceView toModel(Price entity) {
     PriceView model = new PriceView();
 
     if (model.getChannel() != null) {
@@ -30,7 +35,7 @@ public class PriceMapper {
     model.setId(entity.getId());
     model.setValidFrom(entity.getValidFrom());
     model.setValidUntil(entity.getValidUntil());
-    model.setValue(MoneyMapper.entityToModel(entity.getValue()));
+    model.setValue(MoneyMapper.toModel(entity.getValue()));
     if (model.getCustomerGroup() != null) {
       model.setCustomerGroup(new Reference(ReferenceTypes.CUSTOMERGROUP.getType(), entity
           .getCustomerGroup()));
@@ -45,10 +50,10 @@ public class PriceMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<PriceView> mapToModel(List<Price> entities) {
+  public static List<PriceView> toModel(List<Price> entities) {
     return entities.stream().map(
         entity -> {
-          return mapToModel(entity);
+          return toModel(entity);
         }
     ).collect(Collectors.toList());
   }

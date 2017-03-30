@@ -27,36 +27,17 @@ public class LocalizedStringValue {
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid2")
   @Column(name = "id")
-  protected String id;
+  private String id;
 
   /**
    * language.
    */
   @Column
-  protected String language;
+  private String language;
 
   /**
    * text value.
    */
   @Column(columnDefinition = "text")
-  protected String text;
-
-  /**
-   * Instantiates a new Localized string entity.
-   */
-  public LocalizedStringValue() {
-    super();
-  }
-
-  /**
-   * Instantiates a new Localized string entity.
-   *
-   * @param language the language
-   * @param text     the text
-   */
-  public LocalizedStringValue(String language, String text) {
-    this.language = language;
-    this.text = text;
-  }
-
+  private String text;
 }

@@ -14,7 +14,7 @@ public final class DetailProductMapper {
   /**
    * Instantiates a new Detail product mapper.
    */
-  public DetailProductMapper() {
+  private DetailProductMapper() {
   }
 
   /**
@@ -23,25 +23,25 @@ public final class DetailProductMapper {
    * @param entity the entity
    * @return the detail product view
    */
-  public static DetailProductView mapToModel(Product entity) {
+  public static DetailProductView toModel(Product entity) {
     DetailProductView model = new DetailProductView();
 
     ProductData productData = entity.getMasterData().getCurrent();
 
     model.setId(entity.getId());
-    model.setName(LocalizedStringMapper.mapToModelDefaultNew(productData.getName()));
-    model.setDescription(LocalizedStringMapper.mapToModelDefaultNew(productData.getDescription
-        ()));
-    model.setMasterVariant(ProductVariantMapper.mapToModel(productData.getMasterVariant()));
-    model.setMetaDescription(LocalizedStringMapper.mapToModelDefaultNew(productData
+    model.setName(LocalizedStringMapper.toModelDefaultNew(productData.getName()));
+    model.setDescription(LocalizedStringMapper.toModelDefaultNew(productData.getDescription()));
+    model.setMasterVariant(ProductVariantMapper.toModel(productData.getMasterVariant()));
+    model.setMetaDescription(LocalizedStringMapper.toModelDefaultNew(productData
         .getMetaDescription()));
-    model.setMetaKeywords(LocalizedStringMapper.mapToModelDefaultNew(productData
+    model.setMetaKeywords(LocalizedStringMapper.toModelDefaultNew(productData
         .getMetaKeywords()));
-    model.setMetaTitle(LocalizedStringMapper.mapToModelDefaultNew(productData.getMetaTitle()));
+    model.setMetaTitle(LocalizedStringMapper.toModelDefaultNew(productData.getMetaTitle()));
     model.setProductType(null);
     model.setSearchKeyword(new SearchKeyword(productData.getSearchKeyWords(), null));
-    model.setVariants(ProductVariantMapper.mapToModel(productData.getVariants()));
-
+    if (productData.getVariants() != null) {
+      model.setVariants(ProductVariantMapper.toModel(productData.getVariants()));
+    }
     return model;
   }
 

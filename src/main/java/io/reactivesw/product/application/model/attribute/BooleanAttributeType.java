@@ -5,12 +5,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 /**
  * Type for product attributes which only allows {@code true} or {@code false} as value.
  */
-public final class BooleanAttributeType extends AttributeTypeBase {
+public final class BooleanAttributeType extends AbstractAttributeType {
 
-    private BooleanAttributeType() {}
+  /**
+   * private constructor.
+   */
+  private BooleanAttributeType() {
+    super();
+  }
 
-    @JsonCreator
-    public static BooleanAttributeType of() {
-        return new BooleanAttributeType();
-    }
+  /**
+   * build BooleanAttributeType from json data.
+   *
+   * @return BooleanAttributeType
+   */
+  @JsonCreator
+  public static BooleanAttributeType build() {
+    return new BooleanAttributeType();
+  }
 }

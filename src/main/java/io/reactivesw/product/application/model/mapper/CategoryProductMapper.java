@@ -15,18 +15,24 @@ import java.util.stream.Collectors;
  */
 public final class CategoryProductMapper {
   /**
+   * Instantiates a new Category product mapper.
+   */
+  private CategoryProductMapper() {
+  }
+
+  /**
    * Entity to model list.
    *
    * @param entities the entities
    * @return the list
    */
-  public static List<CategoryProductView> mapToModel(List<Product> entities) {
+  public static List<CategoryProductView> toModel(List<Product> entities) {
     List<CategoryProductView> models = Lists.newArrayList();
 
     models = entities.stream()
         .map(
             entity -> {
-              return mapToModel(entity);
+              return toModel(entity);
             }
         ).collect(Collectors.toList());
 
@@ -39,7 +45,7 @@ public final class CategoryProductMapper {
    * @param entity the entity
    * @return the product projection
    */
-  public static CategoryProductView mapToModel(Product entity) {
+  public static CategoryProductView toModel(Product entity) {
     CategoryProductView model = new CategoryProductView();
 
     ProductData productData = entity.getMasterData().getCurrent();
@@ -47,12 +53,12 @@ public final class CategoryProductMapper {
 
     model.setId(entity.getId());
     model.setSku(masterVariant.getSku());
-    model.setName(LocalizedStringMapper.mapToModelDefaultNew(productData.getName()));
+    model.setName(LocalizedStringMapper.toModelDefaultNew(productData.getName()));
     if (masterVariant.getImages() != null && !masterVariant.getImages().isEmpty()) {
       model.setImageUrl(masterVariant.getImages().get(0).getUrl());
     }
     if (masterVariant.getPrices() != null && !masterVariant.getPrices().isEmpty()) {
-      model.setPrice(PriceMapper.mapToModel(masterVariant.getPrices().get(0)));
+      model.setPrice(PriceMapper.toModel(masterVariant.getPrices().get(0)));
     }
     model.setAvailable(false);
 

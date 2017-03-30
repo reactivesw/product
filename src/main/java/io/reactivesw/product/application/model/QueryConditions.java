@@ -11,63 +11,53 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QueryConditions {
-
   /**
    * The Expand id.
    */
-  @Deprecated
-  String expandId;
+  private String expandId;
 
   /**
    * The Version.
    */
-  @Deprecated
-  Integer version;
+  private Integer version;
 
   /**
-   * name(en="Pro T-Shirt")
+   * example name(en="Pro T-Shirt").
    */
-  String where;
+  private String where;
 
   /**
    * name.em
    */
-  @Deprecated
-  String sort;
+  private String sort;
 
   /**
    * The Sort order.
    */
-  @Deprecated
-  String sortOrder;
+  private String sortOrder;
 
   /**
    * The Page.
    */
-  @Deprecated
-  String page;
+  private String page;
 
   /**
    * The Per page.
    */
-  @Deprecated
-  String perPage;
+  private String perPage;
 
   /**
    * The Expand.
    */
-  @Deprecated
-  String expand;
+  private String expand;
 
   /**
    * The Staged.
    */
-  @Deprecated
-  Boolean staged;
+  private Boolean staged;
 
   /**
    * The Staged id.
    */
-  @Deprecated
-  Boolean stagedId;
+  private Boolean stagedId;
 }

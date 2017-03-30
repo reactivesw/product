@@ -5,21 +5,12 @@ import io.reactivesw.product.application.model.DetailProductView;
 import io.reactivesw.product.application.model.InventoryEntryView;
 import io.reactivesw.product.application.model.mapper.ProductVariantAvailabilityMapper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
 
 /**
  * Created by Davis on 16/12/22.
  */
 public final class InventoryUtils {
-
-  /**
-   * log.
-   */
-  private static final Logger LOG = LoggerFactory.getLogger(InventoryUtils.class);
-
   /**
    * Instantiates a new ProductViewOld inventory update.
    */
@@ -33,9 +24,9 @@ public final class InventoryUtils {
    * @param categoryProductViews list of CategoryProductView
    * @return list of CategoryProductView
    */
-  public static List<CategoryProductView> mergeInventoryToCategoryProducts
-  (List<InventoryEntryView> inventoryEntryViews,
-   List<CategoryProductView> categoryProductViews) {
+  public static List<CategoryProductView> mergeInventoryToCategoryProducts(
+      List<InventoryEntryView> inventoryEntryViews,
+      List<CategoryProductView> categoryProductViews) {
 
     categoryProductViews.stream().forEach(
         categoryProductView -> {
@@ -61,11 +52,13 @@ public final class InventoryUtils {
     detailProductView.getMasterVariant().setAvailable(getAvailable(detailProductView
         .getMasterVariant().getSku(), inventoryEntryViews));
 
-    detailProductView.getVariants().stream().forEach(
-        variant -> {
-          variant.setAvailable(getAvailable(variant.getSku(), inventoryEntryViews));
-        }
-    );
+    if (detailProductView.getVariants() != null) {
+      detailProductView.getVariants().stream().forEach(
+          variant -> {
+            variant.setAvailable(getAvailable(variant.getSku(), inventoryEntryViews));
+          }
+      );
+    }
 
     return detailProductView;
   }

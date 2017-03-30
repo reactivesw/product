@@ -14,7 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AttributeView {
 
+  /**
+   * The Name.
+   */
   private String name;
 
+  /**
+   * The Value.
+   */
   private JsonNode value;
 }

@@ -10,7 +10,13 @@ import lombok.Setter;
 @Setter
 public class AssetDimensionsView {
 
-  private float w;
-  
-  private float h;
+  /**
+   * the width.
+   */
+  private float width;
+
+  /**
+   * the height.
+   */
+  private float height;
 }

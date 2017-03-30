@@ -10,37 +10,44 @@ import java.util.stream.Collectors;
 /**
  * Created by Davis on 16/12/14.
  */
-public class ProductVariantMapper {
+public final class ProductVariantMapper {
+
+  /**
+   * Instantiates a new Product variant mapper.
+   */
+  private ProductVariantMapper() {
+  }
+
   /**
    * Entity to model product variant.
    *
    * @param entity the entity
    * @return the product variant
    */
-  public static ProductVariantView mapToModel(ProductVariant entity) {
+  public static ProductVariantView toModel(ProductVariant entity) {
     ProductVariantView model = new ProductVariantView();
 
     model.setId(entity.getId());
     model.setKey(entity.getKey());
     model.setSku(entity.getSku());
     if (entity.getPrices() != null) {
-      model.setPrices(PriceMapper.mapToModel(entity.getPrices()));
+      model.setPrices(PriceMapper.toModel(entity.getPrices()));
+      model.setPrice(PriceMapper.toModel(entity.getPrices().get(0)));
     }
     if (entity.getAttributes() != null) {
-      model.setAttributes(AttributeMapper.mapToModel(entity.getAttributes()));
+      model.setAttributes(AttributeMapper.toModel(entity.getAttributes()));
     }
     if (entity.getImages() != null) {
-      model.setImages(ImageMapper.entityToModel(entity.getImages()));
+      model.setImages(ImageMapper.toModel(entity.getImages()));
     }
 
     //availability will be setted in InventoryUtils.mergeInventoryEntryToProduct
     //model.setAvailability();
 
     // TODO: 16/12/20
-//    model.setIsMatchingVariant();
-//    model.setPrice();
-//    model.setScopedPrice();
-//    model.setScopedPriceDiscounted();
+    //model.setIsMatchingVariant();
+    //model.setScopedPrice();
+    //model.setScopedPriceDiscounted();
 
     return model;
   }
@@ -51,10 +58,10 @@ public class ProductVariantMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<ProductVariantView> mapToModel(Set<ProductVariant> entities) {
+  public static List<ProductVariantView> toModel(Set<ProductVariant> entities) {
     return entities.stream().map(
         entity -> {
-          return mapToModel(entity);
+          return toModel(entity);
         }
     ).collect(Collectors.toList());
   }

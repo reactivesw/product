@@ -2,11 +2,24 @@ package io.reactivesw.product.application.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public final class MoneyAttributeType extends AttributeTypeBase {
-    private MoneyAttributeType() {}
+/**
+ * The Money attribute type.
+ */
+public final class MoneyAttributeType extends AbstractAttributeType {
+  /**
+   * private constructor.
+   */
+  private MoneyAttributeType() {
+    super();
+  }
 
-    @JsonIgnore
-    public static MoneyAttributeType of() {
-        return new MoneyAttributeType();
-    }
+  /**
+   * build MoneyAttributeType from json data.
+   *
+   * @return MoneyAttributeType
+   */
+  @JsonIgnore
+  public static MoneyAttributeType build() {
+    return new MoneyAttributeType();
+  }
 }

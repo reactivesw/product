@@ -2,11 +2,24 @@ package io.reactivesw.product.application.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public final class TimeAttributeType extends AttributeTypeBase {
-    private TimeAttributeType() {}
+/**
+ * The Time attribute type.
+ */
+public final class TimeAttributeType extends AbstractAttributeType {
+  /**
+   * private constructor.
+   */
+  private TimeAttributeType() {
+    super();
+  }
 
-    @JsonIgnore
-    public static TimeAttributeType of() {
-        return new TimeAttributeType();
-    }
+  /**
+   * build a new object.
+   *
+   * @return TimeAttributeType
+   */
+  @JsonIgnore
+  public static TimeAttributeType build() {
+    return new TimeAttributeType();
+  }
 }

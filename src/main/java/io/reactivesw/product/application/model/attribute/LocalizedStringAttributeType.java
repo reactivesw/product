@@ -2,11 +2,24 @@ package io.reactivesw.product.application.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public final class LocalizedStringAttributeType extends AttributeTypeBase {
-    private LocalizedStringAttributeType() {}
+/**
+ * The Localized string attribute type.
+ */
+public final class LocalizedStringAttributeType extends AbstractAttributeType {
+  /**
+   * private constructor.
+   */
+  private LocalizedStringAttributeType() {
+    super();
+  }
 
-    @JsonIgnore
-    public static LocalizedStringAttributeType of() {
-        return new LocalizedStringAttributeType();
-    }
+  /**
+   * build LocalizedStringAttributeType from json data.
+   *
+   * @return LocalizedStringAttributeType
+   */
+  @JsonIgnore
+  public static LocalizedStringAttributeType build() {
+    return new LocalizedStringAttributeType();
+  }
 }

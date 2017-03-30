@@ -2,11 +2,24 @@ package io.reactivesw.product.application.model.attribute;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public final class NumberAttributeType extends AttributeTypeBase {
-    private NumberAttributeType() {}
+/**
+ * The Number attribute type.
+ */
+public final class NumberAttributeType extends AbstractAttributeType {
+  /**
+   * private constructor.
+   */
+  private NumberAttributeType() {
+    super();
+  }
 
-    @JsonIgnore
-    public static NumberAttributeType of() {
-        return new NumberAttributeType();
-    }
+  /**
+   * build NumberAttributeType from json data.
+   *
+   * @return NumberAttributeType
+   */
+  @JsonIgnore
+  public static NumberAttributeType build() {
+    return new NumberAttributeType();
+  }
 }
