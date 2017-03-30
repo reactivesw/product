@@ -9,8 +9,6 @@ import io.reactivesw.product.application.model.ProductTypeView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -63,6 +61,7 @@ public class ProductRestClient {
 
   /**
    * get product inventory by sku names.
+   *
    * @param skus list of String
    * @return list of InventoryEntryView
    */
@@ -78,17 +77,14 @@ public class ProductRestClient {
       UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
           .queryParam("skuNames", String.join(",", skus));
 
-      ResponseEntity<InventoryEntryView[]> inventoryResult = restTemplate.exchange(
+      InventoryEntryView[] inventoryResult = restTemplate.getForObject(
           builder.build().encode().toUri(),
-          HttpMethod.GET,
-          null,
           InventoryEntryView[].class);
 
-      LOG.debug("end getInventoryBySkus");
-
-      result = Lists.newArrayList(inventoryResult.getBody());
+      result = Lists.newArrayList(inventoryResult);
     }
 
+    LOG.debug("end getInventoryBySkus");
     return result;
   }
 }

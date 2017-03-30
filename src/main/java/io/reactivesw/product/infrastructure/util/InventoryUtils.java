@@ -52,11 +52,13 @@ public final class InventoryUtils {
     detailProductView.getMasterVariant().setAvailable(getAvailable(detailProductView
         .getMasterVariant().getSku(), inventoryEntryViews));
 
-    detailProductView.getVariants().stream().forEach(
-        variant -> {
-          variant.setAvailable(getAvailable(variant.getSku(), inventoryEntryViews));
-        }
-    );
+    if (detailProductView.getVariants() != null) {
+      detailProductView.getVariants().stream().forEach(
+          variant -> {
+            variant.setAvailable(getAvailable(variant.getSku(), inventoryEntryViews));
+          }
+      );
+    }
 
     return detailProductView;
   }

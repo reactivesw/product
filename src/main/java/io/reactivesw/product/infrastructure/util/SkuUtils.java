@@ -45,10 +45,8 @@ public final class SkuUtils {
 
     ProductCatalogData masterData = product.getMasterData();
     ProductData currentData = masterData.getCurrent();
-    ProductData stagedData = masterData.getStaged();
 
     skuNames.addAll(getSkuNames(currentData));
-    skuNames.addAll(getSkuNames(stagedData));
 
     return ListUtils.removeDuplicateString(skuNames);
   }

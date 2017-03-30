@@ -2,16 +2,14 @@ package io.reactivesw.product.domain.service;
 
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.product.domain.model.Product;
-import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
+import io.reactivesw.product.infrastructure.util.SkuUtils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -71,14 +69,8 @@ public class ProductService {
 
     List<Product> products = productRepository.findAll();
 
-    Predicate<ProductVariant> predicate =
-        productVariant -> StringUtils.equals(productVariant.getSku(), sku);
-
-    Product productEntity = products.parallelStream().filter(
-        product ->
-            StringUtils.equals(sku, product.getMasterData().getCurrent().getMasterVariant()
-                .getSku())
-                || product.getMasterData().getCurrent().getVariants().stream().anyMatch(predicate)
+    Product productEntity = products.stream().filter(
+        product -> isMatchingSku(product, sku)
     ).findAny().orElse(null);
 
     if (productEntity == null) {
@@ -97,11 +89,11 @@ public class ProductService {
    * @return the product by id
    */
   public Product getProductById(String id) {
-    LOG.debug("enter getProductById, id is : {}", id);
+    LOG.debug("enter getCartProductById, id is : {}", id);
 
     Product result = getProductEntityById(id);
 
-    LOG.debug("end getProductById, get Product is : {}", result.toString());
+    LOG.debug("end getCartProductById, get Product is : {}", result.toString());
 
     return result;
   }
@@ -119,5 +111,19 @@ public class ProductService {
       throw new NotExistException("ProductViewOld Not Found");
     }
     return entity;
+  }
+
+  /**
+   * find out if product has the sku.
+   *
+   * @param product the Product
+   * @param sku     the sku
+   * @return boolean
+   */
+  private boolean isMatchingSku(Product product, String sku) {
+    boolean result = false;
+    List<String> skus = SkuUtils.getSkuNames(product);
+    result = skus.contains(sku);
+    return result;
   }
 }

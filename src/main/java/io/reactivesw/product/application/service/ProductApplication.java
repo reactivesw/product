@@ -61,8 +61,8 @@ public class ProductApplication {
    * @param id the id
    * @return the product
    */
-  public CartProductView getProductById(String id, Integer variantId) {
-    LOG.debug("enter getProductById, the id is : {}", id);
+  public CartProductView getCartProductById(String id, Integer variantId) {
+    LOG.debug("enter getCartProductById, the id is : {}", id);
 
     Product product = productService.getProductById(id);
 
@@ -70,7 +70,7 @@ public class ProductApplication {
 
     CartProductView result = CartProductMapper.toModel(product, productVariant);
 
-    LOG.debug("end getProductById, the product is : {}", result.toString());
+    LOG.debug("end getCartProductById, the product is : {}", result.toString());
 
     return result;
   }

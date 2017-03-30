@@ -39,8 +39,9 @@ public final class DetailProductMapper {
     model.setMetaTitle(LocalizedStringMapper.toModelDefaultNew(productData.getMetaTitle()));
     model.setProductType(null);
     model.setSearchKeyword(new SearchKeyword(productData.getSearchKeyWords(), null));
-    model.setVariants(ProductVariantMapper.toModel(productData.getVariants()));
-
+    if (productData.getVariants() != null) {
+      model.setVariants(ProductVariantMapper.toModel(productData.getVariants()));
+    }
     return model;
   }
 

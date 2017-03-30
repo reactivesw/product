@@ -3,7 +3,7 @@ package io.reactivesw.product.infrastructure;
 /**
  * Created by umasuo on 16/12/20.
  */
-public final class ProductRouter {
+public final class Router {
 
   /**
    * product root.

@@ -1,4 +1,4 @@
-package io.reactivesw.product.infrastructure.configuratioin;
+package io.reactivesw.product.infrastructure.configuration;
 
 import io.reactivesw.product.infrastructure.util.ZonedDateTimeAuditorAware;
 

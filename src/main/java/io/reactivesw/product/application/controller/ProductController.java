@@ -1,11 +1,11 @@
 package io.reactivesw.product.application.controller;
 
-import static io.reactivesw.product.infrastructure.ProductRouter.CART_PRODUCT_VARIANT_PATH;
-import static io.reactivesw.product.infrastructure.ProductRouter.CATEGORY_PRODUCT_ROOT;
-import static io.reactivesw.product.infrastructure.ProductRouter.DETAIL_PRODUCT_SKU;
-import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_ID;
-import static io.reactivesw.product.infrastructure.ProductRouter.SKU;
-import static io.reactivesw.product.infrastructure.ProductRouter.VARIANT_ID;
+import static io.reactivesw.product.infrastructure.Router.CART_PRODUCT_VARIANT_PATH;
+import static io.reactivesw.product.infrastructure.Router.CATEGORY_PRODUCT_ROOT;
+import static io.reactivesw.product.infrastructure.Router.DETAIL_PRODUCT_SKU;
+import static io.reactivesw.product.infrastructure.Router.PRODUCT_ID;
+import static io.reactivesw.product.infrastructure.Router.SKU;
+import static io.reactivesw.product.infrastructure.Router.VARIANT_ID;
 
 import io.reactivesw.product.application.model.CartProductView;
 import io.reactivesw.product.application.model.CategoryProductView;
@@ -101,7 +101,7 @@ public class ProductController {
     LOG.debug("enter getCartProductById, product id is : {}, variant id is : {}", productId,
         variantId);
 
-    CartProductView result = productApplication.getProductById(productId, variantId);
+    CartProductView result = productApplication.getCartProductById(productId, variantId);
 
     LOG.debug("end getCartProductById, result is : {}", result);
 

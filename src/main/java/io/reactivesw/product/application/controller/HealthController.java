@@ -1,6 +1,6 @@
 package io.reactivesw.product.application.controller;
 
-import static io.reactivesw.product.infrastructure.ProductRouter.PRODUCT_HEALTH_CHECK;
+import static io.reactivesw.product.infrastructure.Router.PRODUCT_HEALTH_CHECK;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
