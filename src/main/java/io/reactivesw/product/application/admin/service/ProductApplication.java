@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 /**
  * Product application class for admin web.
  */
-@Service
+@Service(value = "AdminProductApplication")
 public class ProductApplication {
   /**
    * log.

@@ -16,7 +16,7 @@ import javax.validation.Valid;
 /**
  * Product controller class for admin web.
  */
-@RestController
+@RestController(value = "AdminProductController")
 public class ProductController {
   /**
    * log.

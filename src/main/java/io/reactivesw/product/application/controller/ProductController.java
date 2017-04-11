@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by Davis on 16/12/14.
  */
-@RestController
+@RestController(value = "CustomerProductController")
 public class ProductController {
   /**
    * log.
