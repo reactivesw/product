@@ -8,7 +8,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Created by Davis on 16/12/14.
+ * ProductVariant Mapper class.
+ * Convert ProductVariant to ProductVariantView.
  */
 public final class ProductVariantMapper {
 
@@ -19,7 +20,7 @@ public final class ProductVariantMapper {
   }
 
   /**
-   * Entity to model product variant.
+   * Convert ProductVariant Entity to ProductVariantView.
    *
    * @param entity the entity
    * @return the product variant
@@ -53,7 +54,7 @@ public final class ProductVariantMapper {
   }
 
   /**
-   * Entity to model list.
+   * Convert List of ProductVariant Entity to List of ProductVariantView.
    *
    * @param entities the entities
    * @return the list

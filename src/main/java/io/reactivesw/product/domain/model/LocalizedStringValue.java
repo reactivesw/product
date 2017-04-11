@@ -40,4 +40,21 @@ public class LocalizedStringValue {
    */
   @Column(columnDefinition = "text")
   private String text;
+
+
+  /**
+   * Build localized string value.
+   *
+   * @param language the language
+   * @param text     the text
+   * @return the localized string value
+   */
+  public static LocalizedStringValue build(String language, String text) {
+    LocalizedStringValue value = new LocalizedStringValue();
+
+    value.setLanguage(language);
+    value.setText(text);
+
+    return value;
+  }
 }

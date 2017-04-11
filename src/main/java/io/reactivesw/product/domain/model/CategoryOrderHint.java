@@ -42,4 +42,19 @@ public class CategoryOrderHint {
    */
   @Column(name = "order_hint")
   private String orderHint;
+
+  /**
+   * Build category order hint.
+   *
+   * @param categoryId the category id
+   * @param orderHint  the order hint
+   * @return the category order hint
+   */
+  public static CategoryOrderHint build(String categoryId, String orderHint) {
+    CategoryOrderHint categoryOrderHint = new CategoryOrderHint();
+    categoryOrderHint.setCategoryId(categoryId);
+    categoryOrderHint.setOrderHint(orderHint);
+
+    return categoryOrderHint;
+  }
 }
