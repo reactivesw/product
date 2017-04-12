@@ -54,14 +54,15 @@ public class ProductApplication {
    * @return product view object
    */
   public ProductView createProduct(ProductDraft productDraft) {
-    LOG.debug("enter.");
+    LOG.debug("Enter.");
+    LOG.trace("ProductDraft: {}.", productDraft);
 
     ProductTypeValidator.validateReference(productDraft);
     String productTypeId = productDraft.getProductType().getId();
     ProductTypeView productType = productRestClient.getProductType(productTypeId);
 
     if (productType == null) {
-      LOG.debug("can not find product type by id : {}", productTypeId);
+      LOG.debug("Can not find product type by id : {}", productTypeId);
       throw new NotExistException("ProductTypeView Not Found");
     }
 
@@ -70,7 +71,8 @@ public class ProductApplication {
 
     ProductView result = productService.createProduct(productDraft);
 
-    LOG.debug("exit.");
+    LOG.debug("Exit.");
+    LOG.trace("created Product: {}.", result);
 
     return result;
   }

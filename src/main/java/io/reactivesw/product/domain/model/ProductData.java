@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -88,14 +89,14 @@ public class ProductData {
   /**
    * variants.
    */
-  @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-  private Set<ProductVariant> variants;
+  @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+  private List<ProductVariant> variants;
 
   /**
    * categoryOrderHints.
    */
-  @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-  private Set<CategoryOrderHint> categoryOrderHints;
+  @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+  private List<CategoryOrderHint> categoryOrderHints;
 
   /**
    * categories.

@@ -12,7 +12,7 @@ import lombok.Data;
 import java.time.ZonedDateTime;
 
 /**
- * Created by Davis on 16/11/17.
+ * Product View Model for admin-web.
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)

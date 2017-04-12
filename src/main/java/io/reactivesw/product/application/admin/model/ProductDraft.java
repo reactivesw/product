@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
- * Created by Davis on 16/11/17.
+ * Product Draft, used in admin-web, the request body when create product.
  */
 @Data
 @EqualsAndHashCode

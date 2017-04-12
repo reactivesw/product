@@ -4,7 +4,6 @@ import io.reactivesw.product.application.model.ProductVariantView;
 import io.reactivesw.product.domain.model.ProductVariant;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -59,7 +58,7 @@ public final class ProductVariantMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<ProductVariantView> toModel(Set<ProductVariant> entities) {
+  public static List<ProductVariantView> toModel(List<ProductVariant> entities) {
     return entities.stream().map(
         entity -> {
           return toModel(entity);

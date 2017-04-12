@@ -4,7 +4,9 @@ import io.reactivesw.product.application.model.AssetDimensionsView;
 import io.reactivesw.product.domain.model.AssetDimensions;
 
 /**
- * Created by Davis on 17/2/15.
+ * Dimensions Mapper class.
+ * Convert AssetDimensionsView to AssetDimensions Entity,
+ * or Convert AssetDimensions Entity to AssetDimensionsView.
  */
 public final class DimensionsMapper {
   /**
@@ -20,7 +22,7 @@ public final class DimensionsMapper {
    * @param entity the entity
    * @return the asset dimensions view
    */
-  public static AssetDimensionsView mapToModel(
+  public static AssetDimensionsView toModel(
       AssetDimensions entity) {
     AssetDimensionsView model = new AssetDimensionsView();
 
@@ -36,7 +38,7 @@ public final class DimensionsMapper {
    * @param model the model
    * @return the asset dimensions
    */
-  public static AssetDimensions modelToEntity(AssetDimensionsView model) {
+  public static AssetDimensions toEntity(AssetDimensionsView model) {
     AssetDimensions entity = new AssetDimensions();
 
     entity.setHeight(model.getHeight());

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Davis on 16/12/20.
+ * Attribute Utility class.
  */
 public final class AttributeUtils {
 
@@ -24,16 +24,14 @@ public final class AttributeUtils {
    * @param attributeConstraint  the attribute constraint
    * @return the attribute name by constraint
    */
-  public static List<String> getAttributeNameByConstraint(List<AttributeDefinition>
-                                                              attributeDefinitions,
-                                                          AttributeConstraint
-                                                              attributeConstraint) {
+  public static List<String> getAttributeNameByConstraint(
+      List<AttributeDefinition> attributeDefinitions,
+      AttributeConstraint attributeConstraint) {
+
     return attributeDefinitions.stream().filter(
-        attributeDefinition -> {
-          return attributeDefinition.getAttributeConstraint().equals(attributeConstraint);
-        }
-    ).map(attributeDefinition -> {
-      return attributeDefinition.getName();
-    }).collect(Collectors.toList());
+        attributeDefinition ->
+            attributeDefinition.getAttributeConstraint().equals(attributeConstraint)
+    ).map(attributeDefinition -> attributeDefinition.getName()
+    ).collect(Collectors.toList());
   }
 }

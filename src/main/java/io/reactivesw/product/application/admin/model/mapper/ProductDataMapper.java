@@ -36,7 +36,7 @@ public final class ProductDataMapper {
    * @param model the model
    * @return the product data
    */
-  public static ProductData modelToEntity(ProductDraft model) {
+  public static ProductData toEntity(ProductDraft model) {
     ProductData entity = new ProductData();
 
     entity.setName(LocalizedStringMapper.toEntityDefaultNew(model.getName()));
@@ -87,7 +87,7 @@ public final class ProductDataMapper {
    * @param entity the entity
    * @return the product data view
    */
-  public static ProductDataView entityToModel(ProductData entity) {
+  public static ProductDataView toModel(ProductData entity) {
     ProductDataView model = new ProductDataView();
 
     model.setName(LocalizedStringMapper.toModelDefaultNull(entity.getName()));
@@ -118,5 +118,4 @@ public final class ProductDataMapper {
     }
     return model;
   }
-
 }

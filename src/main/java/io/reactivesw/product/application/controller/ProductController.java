@@ -98,12 +98,12 @@ public class ProductController {
   public CartProductView getCartProductById(@PathVariable(PRODUCT_ID) String productId,
                                             @RequestParam(VARIANT_ID) Integer variantId) {
 
-    LOG.debug("enter getCartProductById, product id is : {}, variant id is : {}", productId,
+    LOG.debug("Enter. ProductId: {}, VariantId: {}.", productId,
         variantId);
 
     CartProductView result = productApplication.getCartProductById(productId, variantId);
 
-    LOG.debug("end getCartProductById, result is : {}", result);
+    LOG.debug("Exit. CartProduct: {}.", result);
 
     return result;
   }

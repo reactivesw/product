@@ -27,8 +27,8 @@ public final class ProductCatalogDataMapper {
 
     entity.setPublished(model.getPublish());
     entity.setStagedChanged(false);
-    entity.setCurrent(ProductDataMapper.modelToEntity(model));
-    entity.setStaged(ProductDataMapper.modelToEntity(model));
+    entity.setCurrent(ProductDataMapper.toEntity(model));
+    entity.setStaged(ProductDataMapper.toEntity(model));
 
     return entity;
   }
@@ -44,8 +44,8 @@ public final class ProductCatalogDataMapper {
 
     model.setPublished(entity.getPublished());
     model.setHasStagedChanges(entity.getStagedChanged());
-    model.setCurrent(ProductDataMapper.entityToModel(entity.getCurrent()));
-    model.setStaged(ProductDataMapper.entityToModel(entity.getStaged()));
+    model.setCurrent(ProductDataMapper.toModel(entity.getCurrent()));
+    model.setStaged(ProductDataMapper.toModel(entity.getStaged()));
 
     return model;
   }

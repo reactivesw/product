@@ -1,13 +1,12 @@
 package io.reactivesw.product.application.admin.model.mapper;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 
 import io.reactivesw.product.application.admin.model.ProductVariantDraft;
 import io.reactivesw.product.application.model.ProductVariantView;
 import io.reactivesw.product.domain.model.ProductVariant;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -25,13 +24,13 @@ public final class ProductVariantMapper {
 
   /**
    * Convert List of ProductVariantDraft to List of ProductVariant Entity.
-   * Set ProductVariant id.
+   * Set ProductVariant id start from 2 because master variant id is 1.
    *
    * @param models the models
-   * @return the set
+   * @return the list
    */
-  public static Set<ProductVariant> toEntity(List<ProductVariantDraft> models) {
-    Set entities = Sets.newHashSet();
+  public static List<ProductVariant> toEntity(List<ProductVariantDraft> models) {
+    List entities = Lists.newArrayList();
     for (int i = 0; i < models.size(); i++) {
       int id = i + 2;
       ProductVariant entity = toEntity(id, models.get(i));
@@ -86,9 +85,6 @@ public final class ProductVariantMapper {
       model.setImages(ImageMapper.toModel(entity.getImages()));
     }
 
-    //availability will be setted in ProductInventoryUtils.mergeInventoryEntryToProduct
-    //model.setAvailability();
-
     // TODO: 16/12/20
     // model.setIsMatchingVariant();
     // model.setPrice();
@@ -104,7 +100,7 @@ public final class ProductVariantMapper {
    * @param entities the entities
    * @return the list
    */
-  public static List<ProductVariantView> toModel(Set<ProductVariant> entities) {
+  public static List<ProductVariantView> toModel(List<ProductVariant> entities) {
     return entities.stream().map(
         entity -> {
           return toModel(entity);

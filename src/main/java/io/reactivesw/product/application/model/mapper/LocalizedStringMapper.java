@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by Davis on 16/11/30.
+ * LocalizedString Mapper class.
+ * Convert LocalizedString to LocalizedStringValue,
+ * or Convert LocalizedStringValue to LocalizedString.
  */
 public final class LocalizedStringMapper {
 
@@ -118,18 +120,17 @@ public final class LocalizedStringMapper {
    * convert LocalizedString  to Set of LocalizedStringValue.
    *
    * @param localizedString         LocalizedString
-   * @param localizedStringEntities Set of LocalizedStringValue
+   * @param entities Set of LocalizedStringValue
    * @return Set of LocalizedStringValue
    */
   private static Set<LocalizedStringValue> toEntity(LocalizedString localizedString,
-                                                    Set<LocalizedStringValue>
-                                                        localizedStringEntities) {
+                                                    Set<LocalizedStringValue> entities) {
     Set<Map.Entry<String, String>> localizedStrings = localizedString.getLocalized().entrySet();
     for (Map.Entry localizedValue : localizedStrings) {
-      localizedStringEntities.add(build(localizedValue));
+      entities.add(build(localizedValue));
     }
 
-    return localizedStringEntities;
+    return entities;
   }
 
 }

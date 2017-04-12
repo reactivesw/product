@@ -11,7 +11,7 @@ import java.util.List;
 import javax.validation.constraints.Pattern;
 
 /**
- * Created by Davis on 16/11/17.
+ * Product variant draft, used in admin-web when create product.
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

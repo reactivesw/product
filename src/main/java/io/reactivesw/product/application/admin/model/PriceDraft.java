@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 import java.time.ZonedDateTime;
 
 /**
- * Created by Davis on 16/11/17.
+ * Price draft, used in admin-web, the part of request body when create product.
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

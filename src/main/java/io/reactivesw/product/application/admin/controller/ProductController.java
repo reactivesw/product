@@ -46,11 +46,13 @@ public class ProductController {
    */
   @PostMapping
   public ProductView createProduct(@RequestBody @Valid ProductDraft productDraft) {
-    LOG.info("enter. Product draft name: {}.", productDraft.getName());
+    LOG.info("Enter. Product draft name: {}.", productDraft.getName());
+    LOG.trace("ProductDraft: {}.", productDraft);
 
     ProductView result = productApplication.createProduct(productDraft);
 
-    LOG.info("exit. Product id: {}", result.getId());
+    LOG.info("Exit. ProductId: {}.", result.getId());
+    LOG.trace("Created Product: {}.", result);
 
     return result;
   }

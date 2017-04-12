@@ -27,9 +27,8 @@ public final class ImageMapper {
    */
   public static List<ImageView> toModel(List<Image> entities) {
     return entities.stream().map(
-        entity -> {
-          return toModel(entity);
-        }
+        entity ->
+            toModel(entity)
     ).collect(Collectors.toList());
   }
 
@@ -59,9 +58,7 @@ public final class ImageMapper {
    */
   public static List<Image> toEntity(List<ImageView> models) {
     return models.stream().map(
-        model -> {
-          return toEntity(model);
-        }
+        model -> toEntity(model)
     ).collect(Collectors.toList());
   }
 
