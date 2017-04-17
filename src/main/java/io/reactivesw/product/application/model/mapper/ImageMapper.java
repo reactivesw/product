@@ -42,7 +42,7 @@ public final class ImageMapper {
     model.setUrl(entity.getUrl());
     model.setLabel(entity.getLabel());
     model.setDimensions(
-        DimensionsMapper.mapToModel(entity.getDimensions())
+        DimensionsMapper.toModel(entity.getDimensions())
     );
 
     return model;

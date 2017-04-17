@@ -26,7 +26,7 @@ import java.util.function.Predicate;
 /**
  * Created by Davis on 16/12/18.
  */
-@Service
+@Service(value = "CustomerProductApplication")
 public class ProductApplication {
   /**
    * log.

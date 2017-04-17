@@ -1,12 +1,10 @@
-package io.reactivesw.product.application.model.mapper;
+package io.reactivesw.product.application.admin.model.mapper;
 
 import io.reactivesw.product.application.model.AssetDimensionsView;
 import io.reactivesw.product.domain.model.AssetDimensions;
 
 /**
- * Dimensions Mapper class.
- * Convert AssetDimensionsView to AssetDimensions Entity,
- * or Convert AssetDimensions Entity to AssetDimensionsView.
+ * Created by Davis on 17/2/15.
  */
 public final class DimensionsMapper {
   /**
@@ -15,12 +13,11 @@ public final class DimensionsMapper {
   private DimensionsMapper() {
   }
 
-
   /**
-   * Map to model asset dimensions view.
+   * Entity to model io . reactivesw . product . controller . model . asset dimensions.
    *
    * @param entity the entity
-   * @return the asset dimensions view
+   * @return the io . reactivesw . product . controller . model . asset dimensions
    */
   public static AssetDimensionsView toModel(
       AssetDimensions entity) {

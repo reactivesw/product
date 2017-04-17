@@ -1,4 +1,4 @@
-# Product Service Rest API
+# Product Service Customer Rest API
 
 ## 1. Introduction
 
