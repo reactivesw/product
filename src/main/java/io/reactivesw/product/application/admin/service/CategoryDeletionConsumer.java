@@ -72,5 +72,6 @@ public class CategoryDeletionConsumer {
    */
   public void handleCategoryDeletion(List<String> categoryIds) {
     LOG.debug("Enter. CategoryIds: {}.", categoryIds);
+    // TODO: 17/4/19 remove category id from product entity.
   }
 }
