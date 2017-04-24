@@ -30,6 +30,8 @@ items:
             value: http://product-type/
           - name: inventory_service_uri
             value: http://inventory/
+          - name: io_reactivesw_message_topic_categorydeleted_subscriber
+            value: dev-product-category-deleted
           - name: spring_datasource_username
             valueFrom:
               secretKeyRef:
