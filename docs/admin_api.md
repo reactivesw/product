@@ -151,3 +151,30 @@ TODO
 | productId | String | product id, required |
 
 * response: ProductView
+
+## 4. Event Consumer Design
+
+### 4.1 Model Design
+
+
+| type | comment |
+|---|---|
+| List\<String\> | list of category id |
+
+
+### 4.2 Subscriptions
+
+Topic name is: `reactivesw-category-deleted`
+
+Subscription name is: `product-category-deleted`
+
+Use gcloud command to create this topic:
+
+```bash
+gcloud beta pubsub subscriptions create --topic reactivesw-category-deleted product-category-deleted
+```
+
+### 4.3 Process
+
+1. get category id list which is deleted.
+2. remove those id in product data.

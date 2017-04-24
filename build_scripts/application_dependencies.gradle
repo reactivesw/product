@@ -18,13 +18,20 @@ dependencies {
     // For commons collections and lang
     compile('org.apache.commons:commons-collections4:4.1')
     compile('org.apache.commons:commons-lang3:3.4')
-    // For google guava
-    compile('com.google.guava:guava:21.0')
+
     // For json web token
     compile("io.jsonwebtoken:jjwt:0.7.0")
 
     // Lombok
     compile('org.projectlombok:lombok:1.16.12')
 
-    compile("io.reactivesw:commons:0.0.1")
+    // For reactivesw commons lib
+    compile("io.reactivesw:commons:0.0.2")
+    //message client
+    compile("io.reactivesw:message-client:0.0.1")
+
+    // For google pubsub lib
+    compile('com.google.cloud:google-cloud-pubsub:0.11.0-alpha')
+    // For google collection lib
+    compile('com.google.guava:guava:21.0')
 }

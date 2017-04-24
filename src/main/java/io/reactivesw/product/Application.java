@@ -2,13 +2,16 @@ package io.reactivesw.product;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 /**
- * Created by Davis on 17/2/14.
+ * Application starter.
  */
 @SpringBootApplication(scanBasePackages = "io.reactivesw")
+@EnableScheduling
 public class Application {
+
   /**
    * The entry point of controller.
    *
