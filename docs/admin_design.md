@@ -101,8 +101,9 @@ To store different kinds of value, wo have to define the value as a json column.
 3. get product type view by product type id, if product type view is null, can not create this product.
 4. validate attribute constraint follow the rule described in 2.3.
 5. validate sku name: In a product, sku name should be unique.
-6. save this product and return this product.
-7. produce event: whoe and when to create this product.
+6. save this product.
+7. save event data: whoe and when to create this product.
+8. return this product.
 
 ### 3.2 Delete Product
 
@@ -110,7 +111,7 @@ To store different kinds of value, wo have to define the value as a json column.
 2. get product entity object by id.
 3. check whether id correspond with correct version or not.
 5. delete this product.
-6. produce event: who and when to delete this product.
+6. save event data: who and when to delete this product.
 
 ### 3.3 Update Product
 
@@ -118,7 +119,8 @@ To store different kinds of value, wo have to define the value as a json column.
 2. get product entity object by id.
 3. check whether id correspond with correct version or not.
 4. update product by action list, follow the rule described in 2.2.
-5. produce event: who and when to update this product.
+5. save event data: who and when to update this product.
+6. return this product.
 
 ### 3.4 Get Product Detail Information by Id
 
@@ -132,3 +134,118 @@ To store different kinds of value, wo have to define the value as a json column.
 2. convert product entity object to view object.
 3. put all view object into a `PageQueryObject` and count the size of view object.
 4. return `PageQueryObject`.
+
+## 4. Event Design
+
+### 4.1 Event Consumer
+
+#### 4.1.1 Model
+
+#### 4.1.2 Subscription
+
+* Topic name: `reactivesw-category-deleted`
+* Subscription name: `product-category-deleted`
+
+Use gcloud command to create the subscription:
+
+```shell
+gcloud beta pubsub subscriptions create --topic reactivesw-category-deleted product-category-deleted
+```
+
+#### 4.1.3 Workflow
+
+1. get list of CategoryId from event message.
+2. get product by those category id.
+3. remove those category and it's orderhint from product.
+
+### 4.2 Event Producer
+
+In product service, should produce 3 events:
+
+* create product event
+* delete product event
+* update product event
+
+#### 4.2.1 Create Product Event
+
+##### Model
+
+* event data
+
+| field name | field type | comment |
+|-|-|-|
+| customerId | String | the customer who create this product |
+| createdTime | ZonedDatetime | the time created this product |
+| productId | String | created product id |
+
+##### Topic
+
+Topic name: `reactivesw-product-created`
+
+Use gcloud command to create the topic:
+
+```shell
+gcloud beta pubsub topics create reactivesw-product-created
+```
+
+##### Workflow
+
+1. get list of event, when it's `Created` status or `Pending` status but created 1 minutes ago
+2. convert list of event to event message
+3. publish message
+4. delete event
+
+#### 4.2.2 Delete Product Event
+
+* event data
+
+| field name | field type | comment |
+|-|-|-|
+| customerId | String | the customer who deleted this product |
+| createdTime | ZonedDatetime | the time deleted this product |
+| productId | String | the product id |
+
+##### Topic
+
+Topic name: `reactivesw-product-deleted`
+
+Use gcloud command to create the topic:
+
+```shell
+gcloud beta pubsub topics create reactivesw-product-deleted
+```
+
+##### Workflow
+
+1. get list of event, when it's `Created` status or `Pending` status but created 1 minutes ago
+2. convert list of event to event message
+3. publish message
+4. delete event
+
+#### 4.2.3 Update Product Event
+
+* event data
+
+| field name | field type | comment |
+|-|-|-|
+| customerId | String | the customer who updated this product |
+| createdTime | ZonedDatetime | the time updated this product |
+| productId | String | the product id |
+| actions | List\<String\> | update actions |
+
+##### Topic
+
+Topic name: `reactivesw-product-updated`
+
+Use gcloud command to create the topic:
+
+```shell
+gcloud beta pubsub topics create reactivesw-product-updated
+```
+
+##### Workflow
+
+1. get list of event, when it's `Created` status or `Pending` status but created 1 minutes ago
+2. convert list of event to event message
+3. publish message
+4. delete event
