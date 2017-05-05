@@ -35,14 +35,17 @@ A variant should meet the following conditions:
 ### 2.3 Create product
 
 1. new product should match the rules described in 2.1 and 2.2.
+2. when create a product, should record this event: who and when create this product.
 
 ### 2.4 Delete product
 
 1. use product id and version to delete product, if version not match, can not success.
+2. when delete a product, should record this event: who and when delete this product.
 
 ### 2.5 Update product
 
 1. when update a product, update it's stagged information, when change the publish status to true, copy the stagged information into current information.
+2. when update a product, should record this event: who and when update this product.
 
 ### 2.6 Get product detail information
 
