@@ -81,11 +81,54 @@ Except the 4 constraint, there are 2 special constraint:
 
 When create a product, must match above rule, here is validation rule:
 
-
+1. validate the reqiured attribute, if missing required attribute, can not create this product.
+2. validate the attribute name, to find that if contains all attribute in product.
+3. validate unique attribute.
+4. validate combination unique attribute.
+5. validate same for all attribute.
 
 ### 2.4 Multi Attribute Value
 
+Attribute value can be multiple, like string, enum, date, money and so on.
+To store different kinds of value, wo have to define the value as a json column.
+
 ## 3. Workflow
 
-## 4. Event Design
+### 3.1 Create Product
 
+1. get product draft object.
+2. validate product type: if product type is null or id is blank, can not create this product.
+3. get product type view by product type id, if product type view is null, can not create this product.
+4. validate attribute constraint follow the rule described in 2.3.
+5. validate sku name: In a product, sku name should be unique.
+6. save this product and return this product.
+7. produce event: whoe and when to create this product.
+
+### 3.2 Delete Product
+
+1. get product id and version.
+2. get product entity object by id.
+3. check whether id correspond with correct version or not.
+5. delete this product.
+6. produce event: who and when to delete this product.
+
+### 3.3 Update Product
+
+1. get product id and update action list.
+2. get product entity object by id.
+3. check whether id correspond with correct version or not.
+4. update product by action list, follow the rule described in 2.2.
+5. produce event: who and when to update this product.
+
+### 3.4 Get Product Detail Information by Id
+
+1. get product id.
+2. get product entity object by id.
+3. convert entity to view and return result.
+
+### 3.5 Get All Products
+
+1. get all products from database.
+2. convert product entity object to view object.
+3. put all view object into a `PageQueryObject` and count the size of view object.
+4. return `PageQueryObject`.
