@@ -20,6 +20,7 @@ A product should meet the following conditions:
 2. Product's name and description should be multi-language.
 3. Product should have a master variant and other different variants, a variant is model which store the main information about product like price, attribute, image etc.
 4. Product can be associated to only one producttype, which defines the attributes used with product.
+5. Product should have current status and stagged status, customer can only get current status information.
 
 ### 2.2 Basic requirement about variant
 
@@ -33,11 +34,19 @@ A variant should meet the following conditions:
 
 ### 2.3 Create product
 
+1. new product should match the rules described in 2.1 and 2.2.
+
 ### 2.4 Delete product
+
+1. use product id and version to delete product, if version not match, can not success.
 
 ### 2.5 Update product
 
+1. when update a product, update it's stagged information, when change the publish status to true, copy the stagged information into current information.
+
 ### 2.6 Get product detail information
+
+1. use product id to get detail information.
 
 ### 2.7 Get all product
 
