@@ -130,6 +130,22 @@ public class ProductService {
   }
 
   /**
+   * Save product.
+   *
+   * @param entity the entity
+   * @return the product
+   */
+  public Product save(Product entity) {
+    LOG.debug("Enter. ProductId: {}.", entity.getId());
+    LOG.trace("Product: {}.", entity);
+
+    Product savedEntity = productRepository.save(entity);
+
+    LOG.debug("Exit");
+    return savedEntity;
+  }
+
+  /**
    * Gets product entity by id.
    *
    * @param id the id

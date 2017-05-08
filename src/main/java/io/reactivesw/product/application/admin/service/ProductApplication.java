@@ -3,6 +3,7 @@ package io.reactivesw.product.application.admin.service;
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.admin.model.ProductView;
+import io.reactivesw.product.application.admin.model.mapper.ProductMapper;
 import io.reactivesw.product.application.model.ProductTypeView;
 import io.reactivesw.product.application.service.ProductRestClient;
 import io.reactivesw.product.domain.model.Product;
@@ -92,26 +93,46 @@ public class ProductApplication {
     return result;
   }
 
+  /**
+   * Update product.
+   *
+   * @param id      the id
+   * @param version the version
+   * @param actions the actions
+   * @return the product view
+   */
   public ProductView update(String id, Integer version, List<UpdateAction> actions) {
     LOG.debug("Enter. ProductId: {}, version: {}, actions: {}.", id, version, actions);
 
     Product product = productService.getProductById(id);
     VersionValidator.validate(product, version);
 
-    Product updatedEntity = updateProductEntity(product, actions);
+    Product updatedProduct = updateProductEntity(product, actions);
 
-    
+    ProductView result = ProductMapper.toModel(updatedProduct);
 
-    LOG.trace("Updated Product: {}.");
+    LOG.trace("Updated Product: {}.", result);
     LOG.debug("Exit.");
+
+    return result;
   }
 
+  /**
+   * Update product entity.
+   *
+   * @param entity  the product entity
+   * @param actions the actions
+   * @return product
+   */
   @Transactional
   private Product updateProductEntity(Product entity, List<UpdateAction> actions) {
+    LOG.debug("Enter. ProductId: {}, actions: {}.", entity.getId(), actions);
     actions.parallelStream().forEach(action -> {
       updaterService.handle(entity, action);
     });
 
-    return productService
+    Product updatedProduct = productService.save(entity);
+    LOG.debug("Exit. ProductId: {}.", updatedProduct.getId());
+    return updatedProduct;
   }
 }
