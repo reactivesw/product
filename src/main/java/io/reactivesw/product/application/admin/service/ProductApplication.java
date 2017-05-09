@@ -127,7 +127,7 @@ public class ProductApplication {
   @Transactional
   private Product updateProductEntity(Product entity, List<UpdateAction> actions) {
     LOG.debug("Enter. ProductId: {}, actions: {}.", entity.getId(), actions);
-    actions.parallelStream().forEach(action -> {
+    actions.stream().forEach(action -> {
       updaterService.handle(entity, action);
     });
 

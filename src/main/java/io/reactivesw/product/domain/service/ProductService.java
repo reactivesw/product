@@ -141,7 +141,7 @@ public class ProductService {
 
     Product savedEntity = productRepository.save(entity);
 
-    LOG.debug("Exit");
+    LOG.debug("Exit.");
     return savedEntity;
   }
 

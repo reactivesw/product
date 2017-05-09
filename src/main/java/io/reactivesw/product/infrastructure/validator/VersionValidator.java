@@ -6,8 +6,6 @@ import io.reactivesw.product.domain.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Objects;
-
 /**
  * Validator class for version.
  */
@@ -31,7 +29,7 @@ public final class VersionValidator {
    * @throws ConflictException if version not equal
    */
   public static void validate(Product entity, Integer version) {
-    if (!Objects.equals(entity.getVersion(), version)) {
+    if (!version.equals(entity.getVersion())) {
       LOG.debug("Version not match, input version: {}, entity version: {}.",
           version, entity.getVersion());
       throw new ConflictException("Version not match.");
