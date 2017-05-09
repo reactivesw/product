@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ProductService {
+
   /**
    * log.
    */
@@ -164,7 +165,7 @@ public class ProductService {
    * find out if product has the sku.
    *
    * @param product the Product
-   * @param sku     the sku
+   * @param sku the sku
    * @return boolean
    */
   private boolean isMatchingSku(Product product, String sku) {
@@ -172,5 +173,16 @@ public class ProductService {
     List<String> skus = SkuUtils.getSkuNames(product);
     result = skus.contains(sku);
     return result;
+  }
+
+  /**
+   * Delete product by id.
+   *
+   * @param id product id
+   */
+  public void deleteProductById(String id) {
+    LOG.debug("Enter. ProductId: {}, version: {}.", id);
+    productRepository.delete(id);
+    LOG.debug("Exit. Deleted productId: {}.", id);
   }
 }

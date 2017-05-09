@@ -23,6 +23,9 @@ io:
   reactivesw:
     message:
       brokerType: google
+      topic:
+        categorydeleted:
+          subscriber: dev-product-category-deleted
       google:
         project:
           id: reactivesw-project

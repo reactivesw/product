@@ -2,6 +2,7 @@ package io.reactivesw.product.domain.service
 
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
+import io.reactivesw.exception.ConflictException
 import io.reactivesw.exception.NotExistException
 import io.reactivesw.product.domain.model.*
 import io.reactivesw.product.infrastructure.repository.ProductRepository
@@ -106,4 +107,16 @@ class ProductServiceTest extends Specification {
         then:
         thrown(NotExistException)
     }
+
+    def "Test3.3: delete product by id, and response should be void"() {
+        given: "prepare data"
+        productRepository.findOne(id) >> product
+
+        when: "call function to delete product"
+        productService.deleteProductById(id)
+
+        then:
+        true
+    }
+
 }
