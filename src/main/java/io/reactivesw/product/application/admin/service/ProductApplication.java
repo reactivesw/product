@@ -54,11 +54,11 @@ public class ProductApplication {
    *
    * @param productService the product service
    * @param productRestClient the product rest client
-   * @param updaterService    the updater service
+   * @param updaterService the updater service
    */
   @Autowired
   public ProductApplication(ProductService productService, ProductRestClient productRestClient,
-                            UpdaterService updaterService) {
+      UpdaterService updaterService) {
     this.productService = productService;
     this.productRestClient = productRestClient;
     this.updaterService = updaterService;
@@ -103,7 +103,7 @@ public class ProductApplication {
   public void deleteProductById(String id, Integer version) {
     LOG.debug("Enter. ProductId: {}, version: {}.", id, version);
     Product entity = productService.getProductById(id);
-    productService.validateVersion(version, entity);
+    VersionValidator.validate(entity, version);
     productService.deleteProductById(id);
     LOG.trace("Deleted product: {}.", entity);
     LOG.debug("Exit. Deleted productId: {}, version: {}.", id, version);
@@ -112,7 +112,7 @@ public class ProductApplication {
   /**
    * Update product.
    *
-   * @param id      the id
+   * @param id the id
    * @param version the version
    * @param actions the actions
    * @return the product view
@@ -136,7 +136,7 @@ public class ProductApplication {
   /**
    * Update product entity.
    *
-   * @param entity  the product entity
+   * @param entity the product entity
    * @param actions the actions
    * @return product
    */
