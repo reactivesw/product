@@ -119,28 +119,4 @@ class ProductServiceTest extends Specification {
         true
     }
 
-    def "Test3.4: validate version with correct id and entity, and response should be void"() {
-        given: "prepare data"
-        def version = 1
-        product.setVersion(version)
-
-        when: "call function to validate version"
-        productService.validateVersion(version, product)
-
-        then:
-        true
-    }
-
-    def "Test3.5: validate version with incorrect id and entity, should throw a conflictException"() {
-        given: "prepare data"
-        def version = 1
-        product.setVersion(version + 1)
-
-        when: "call function to validate version"
-        productService.validateVersion(version, product)
-
-        then: "should throw a conflictException"
-        thrown(ConflictException)
-    }
-
 }

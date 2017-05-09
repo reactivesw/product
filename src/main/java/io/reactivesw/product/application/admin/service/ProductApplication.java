@@ -104,7 +104,7 @@ public class ProductApplication {
   public void deleteProductById(String id, Integer version) {
     LOG.debug("Enter. ProductId: {}, version: {}.", id, version);
     Product entity = productService.getProductById(id);
-    productService.validateVersion(version, entity);
+    VersionValidator.validate(entity, version);
     productService.deleteProductById(id);
     LOG.trace("Deleted product: {}.", entity);
     LOG.debug("Exit. Deleted productId: {}, version: {}.", id, version);

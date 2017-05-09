@@ -1,6 +1,5 @@
 package io.reactivesw.product.domain.service;
 
-import io.reactivesw.exception.ConflictException;
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.admin.model.ProductView;
@@ -174,20 +173,6 @@ public class ProductService {
     List<String> skus = SkuUtils.getSkuNames(product);
     result = skus.contains(sku);
     return result;
-  }
-
-  /**
-   * Validate whether version matches or not.
-   *
-   * @param version version
-   * @param entity product
-   */
-  public void validateVersion(Integer version, Product entity) {
-    if (!entity.getVersion().equals(version)) {
-      LOG.debug("Version not match, input version: {}, entity version: {}.", version,
-          entity.getVersion());
-      throw new ConflictException("Version not match");
-    }
   }
 
   /**
