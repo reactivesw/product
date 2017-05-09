@@ -31,7 +31,7 @@ public class SetAttribute implements UpdateAction {
   private JsonNode value;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

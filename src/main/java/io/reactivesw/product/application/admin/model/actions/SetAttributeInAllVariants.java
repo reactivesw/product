@@ -26,7 +26,7 @@ public class SetAttributeInAllVariants implements UpdateAction {
   private JsonNode value;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

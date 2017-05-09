@@ -19,7 +19,7 @@ public class RemovePrice implements UpdateAction {
   private String priceId;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

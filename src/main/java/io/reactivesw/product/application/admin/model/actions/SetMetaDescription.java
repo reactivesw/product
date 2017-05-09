@@ -20,7 +20,7 @@ public class SetMetaDescription implements UpdateAction {
   private LocalizedString metaDescription;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

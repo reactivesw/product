@@ -27,7 +27,7 @@ public class SetPrices implements UpdateAction {
   private List<PriceDraft> prices;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

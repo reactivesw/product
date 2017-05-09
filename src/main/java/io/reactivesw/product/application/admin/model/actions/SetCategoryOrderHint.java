@@ -25,7 +25,7 @@ public class SetCategoryOrderHint implements UpdateAction {
   private String orderHint;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

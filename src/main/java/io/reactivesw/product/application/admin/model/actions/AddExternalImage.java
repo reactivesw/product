@@ -26,7 +26,7 @@ public class AddExternalImage implements UpdateAction {
   private ImageView image;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

@@ -44,7 +44,7 @@ public class AddVariant implements UpdateAction {
   private List<AttributeView> attributes;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

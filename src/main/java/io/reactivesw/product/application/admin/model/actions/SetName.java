@@ -20,7 +20,7 @@ public class SetName implements UpdateAction {
   private LocalizedString name;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

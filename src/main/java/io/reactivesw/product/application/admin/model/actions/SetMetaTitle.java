@@ -20,7 +20,7 @@ public class SetMetaTitle implements UpdateAction {
   private LocalizedString metaTitle;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

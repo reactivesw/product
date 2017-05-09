@@ -20,7 +20,7 @@ public class RemoveFromCategory implements UpdateAction {
   private Reference category;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

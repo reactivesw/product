@@ -25,7 +25,7 @@ public class AddPrice implements UpdateAction {
   private PriceDraft price;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

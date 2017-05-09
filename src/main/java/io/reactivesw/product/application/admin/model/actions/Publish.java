@@ -9,7 +9,7 @@ import io.reactivesw.product.infrastructure.util.UpdateActionUtils;
 public class Publish implements UpdateAction {
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

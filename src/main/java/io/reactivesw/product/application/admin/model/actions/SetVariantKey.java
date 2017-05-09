@@ -24,7 +24,7 @@ public class SetVariantKey implements UpdateAction {
   private String key;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

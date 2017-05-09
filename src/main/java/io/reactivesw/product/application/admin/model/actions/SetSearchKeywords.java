@@ -20,7 +20,7 @@ public class SetSearchKeywords implements UpdateAction {
   private SearchKeyword searchKeywords;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

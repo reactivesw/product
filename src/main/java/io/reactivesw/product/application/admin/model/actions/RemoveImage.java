@@ -25,7 +25,7 @@ public class RemoveImage implements UpdateAction {
   private String imageUrl;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

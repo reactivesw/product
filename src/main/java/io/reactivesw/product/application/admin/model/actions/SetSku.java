@@ -24,7 +24,7 @@ public class SetSku implements UpdateAction {
   private String sku;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

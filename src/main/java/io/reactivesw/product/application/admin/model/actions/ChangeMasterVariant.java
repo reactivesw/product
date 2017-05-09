@@ -19,7 +19,7 @@ public class ChangeMasterVariant implements UpdateAction {
   private Integer variantId;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

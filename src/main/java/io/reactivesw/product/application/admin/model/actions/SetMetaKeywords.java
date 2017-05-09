@@ -20,7 +20,7 @@ public class SetMetaKeywords implements UpdateAction {
   private LocalizedString metaKeywords;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

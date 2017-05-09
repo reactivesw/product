@@ -20,7 +20,7 @@ public class SetDescription implements UpdateAction {
   private LocalizedString description;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */

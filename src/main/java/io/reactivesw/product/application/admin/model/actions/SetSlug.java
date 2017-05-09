@@ -20,7 +20,7 @@ public class SetSlug implements UpdateAction {
   private LocalizedString slug;
 
   /**
-   * get update service name.
+   * Get update service name.
    *
    * @return update service name
    */
