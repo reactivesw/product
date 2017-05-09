@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @ToString
 public class CartProductView {
+
   /**
    * product id.
    */

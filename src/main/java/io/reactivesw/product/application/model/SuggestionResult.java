@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SuggestionResult {
+
   /**
    * The Search keywords.
    */

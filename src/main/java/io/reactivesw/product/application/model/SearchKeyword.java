@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchKeyword {
+
   /**
    * Text to return in the result of a suggest query.
    */

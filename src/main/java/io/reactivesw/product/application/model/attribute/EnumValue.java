@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public final class EnumValue {
+
   /**
    * key.
    */

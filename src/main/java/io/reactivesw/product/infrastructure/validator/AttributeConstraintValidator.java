@@ -20,10 +20,10 @@ public final class AttributeConstraintValidator {
    * Validate attribute.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft         the product draft
+   * @param productDraft the product draft
    */
   public static void validate(List<AttributeDefinition> attributeDefinitions,
-                              ProductDraft productDraft) {
+      ProductDraft productDraft) {
     if (attributeDefinitions != null) {
       //1. require的attribute
       RequireAttributeValidator.validate(attributeDefinitions, productDraft);

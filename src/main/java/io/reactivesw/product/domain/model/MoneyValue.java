@@ -23,6 +23,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "money")
 public class MoneyValue {
+
   /**
    * id.
    */

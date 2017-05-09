@@ -11,6 +11,7 @@ import java.util.List;
  * Created by Davis on 16/12/22.
  */
 public final class InventoryUtils {
+
   /**
    * Instantiates a new ProductViewOld inventory update.
    */
@@ -20,7 +21,7 @@ public final class InventoryUtils {
   /**
    * merge inventory to category product.
    *
-   * @param inventoryEntryViews  list of InventoryEntryView
+   * @param inventoryEntryViews list of InventoryEntryView
    * @param categoryProductViews list of CategoryProductView
    * @return list of CategoryProductView
    */
@@ -42,13 +43,13 @@ public final class InventoryUtils {
    * Merge inventory to detail product detail product view.
    *
    * @param inventoryEntryViews the inventory entry views
-   * @param detailProductView   the detail product view
+   * @param detailProductView the detail product view
    * @return the detail product view
    */
   public static DetailProductView mergeInventoryToDetailProduct(List<InventoryEntryView>
-                                                                    inventoryEntryViews,
-                                                                DetailProductView
-                                                                    detailProductView) {
+      inventoryEntryViews,
+      DetailProductView
+          detailProductView) {
     detailProductView.getMasterVariant().setAvailable(getAvailable(detailProductView
         .getMasterVariant().getSku(), inventoryEntryViews));
 
@@ -66,7 +67,7 @@ public final class InventoryUtils {
   /**
    * Gets available.
    *
-   * @param sku              the sku
+   * @param sku the sku
    * @param inventoryEntries the inventory entries
    * @return the available
    */

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
  * ProductType validator class, validateReference the ProductType is null.
  */
 public final class ProductTypeValidator {
+
   /**
    * log.
    */

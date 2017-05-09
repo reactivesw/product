@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/23.
  */
 public final class SkuUtils {
+
   /**
    * Instantiates a new ProductViewOld update.
    */

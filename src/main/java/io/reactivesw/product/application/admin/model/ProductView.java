@@ -17,6 +17,7 @@ import java.time.ZonedDateTime;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductView {
+
   /**
    * The unique ID of the product.
    */

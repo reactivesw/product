@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The Date time attribute type.
  */
 public final class DateTimeAttributeType extends AbstractAttributeType {
+
   /**
    * private constructor.
    */

@@ -9,6 +9,7 @@ import io.reactivesw.product.domain.model.AssetDimensions;
  * or Convert AssetDimensions Entity to AssetDimensionsView.
  */
 public final class DimensionsMapper {
+
   /**
    * Instantiates a new Dimensions mapper.
    */

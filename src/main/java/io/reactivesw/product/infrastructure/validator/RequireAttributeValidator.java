@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/20.
  */
 public final class RequireAttributeValidator {
+
   /**
    * log.
    */
@@ -32,11 +33,11 @@ public final class RequireAttributeValidator {
    * Validate product require attribute.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft         the product draft
+   * @param productDraft the product draft
    */
   public static void validate(List<AttributeDefinition>
-                                  attributeDefinitions,
-                              ProductDraft productDraft) {
+      attributeDefinitions,
+      ProductDraft productDraft) {
     List<String> requireAttributeNames = getRequireAttributeNames(attributeDefinitions);
 
     if (requireAttributeNames.isEmpty()) {
@@ -67,7 +68,7 @@ public final class RequireAttributeValidator {
    * @return List of String
    */
   private static List<String> getRequireAttributeNames(List<AttributeDefinition>
-                                                           attributeDefinitions) {
+      attributeDefinitions) {
     List<String> requireAttributeNames = Lists.newArrayList();
     if (attributeDefinitions != null) {
       requireAttributeNames = attributeDefinitions.stream()
@@ -86,10 +87,10 @@ public final class RequireAttributeValidator {
    * Validate require attribute.
    *
    * @param requireAttributeNames the require attribute names
-   * @param attributes            the attributes
+   * @param attributes the attributes
    */
   private static void validateRequireAttribute(List<String> requireAttributeNames,
-                                               List<AttributeView> attributes) {
+      List<AttributeView> attributes) {
     List<String> attributeNames = attributes.stream().map(
         attribute -> {
           return attribute.getName();

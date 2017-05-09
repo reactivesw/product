@@ -9,6 +9,7 @@ import io.reactivesw.product.domain.model.ProductVariant;
  * Created by Davis on 17/3/22.
  */
 public final class CartProductMapper {
+
   /**
    * Instantiates a new Cart product mapper.
    */

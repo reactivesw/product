@@ -5,6 +5,7 @@ import io.reactivesw.message.client.core.DefaultConsumerFactory;
 import io.reactivesw.message.client.core.Message;
 import io.reactivesw.message.client.utils.serializer.JsonDeserializer;
 import io.reactivesw.product.infrastructure.configuration.EventConfig;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

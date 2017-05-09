@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public final class LocalizedEnumAttributeType extends AbstractAttributeType {
+
   /**
    * Localized Enum Value list.
    */

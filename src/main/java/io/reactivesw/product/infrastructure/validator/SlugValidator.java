@@ -13,6 +13,7 @@ import java.util.List;
  * Created by Davis on 16/12/23.
  */
 public final class SlugValidator {
+
   /**
    * log.
    */
@@ -27,7 +28,7 @@ public final class SlugValidator {
   /**
    * validateNull slug.
    *
-   * @param slug     the slug.
+   * @param slug the slug.
    * @param products the products.
    */
   public static void validate(String slug, List<Product> products) {
@@ -43,7 +44,7 @@ public final class SlugValidator {
   /**
    * validateNull slug.
    *
-   * @param slug    the slug
+   * @param slug the slug
    * @param product the product
    */
   private static void validate(String slug, Product product) {

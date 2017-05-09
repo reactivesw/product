@@ -4,6 +4,7 @@ package io.reactivesw.product.application.model.attribute;
  * attribute type base class.
  */
 abstract class AbstractAttributeType implements AttributeType {
+
   /**
    * constructor.
    */

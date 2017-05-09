@@ -42,7 +42,7 @@ public final class ProductVariantMapper {
   /**
    * Convert ProductVariantDraft to ProductVariant Entity.
    *
-   * @param id    the id
+   * @param id the id
    * @param model the model
    * @return the product variant entity
    */
