@@ -90,8 +90,8 @@ public class ProductApplication {
     Product entity = productService.getProductById(id);
     productService.validateVersion(version, entity);
     productService.deleteProductById(id);
-    LOG.debug("Exit. Deleted productId: {}, version: {}.", id, version);
     LOG.trace("Deleted product: {}.", entity);
+    LOG.debug("Exit. Deleted productId: {}, version: {}.", id, version);
   }
 
 }
