@@ -2,6 +2,7 @@ package io.reactivesw.product.domain.service
 
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
+import io.reactivesw.exception.ConflictException
 import io.reactivesw.exception.NotExistException
 import io.reactivesw.product.domain.model.*
 import io.reactivesw.product.infrastructure.repository.ProductRepository
@@ -106,4 +107,40 @@ class ProductServiceTest extends Specification {
         then:
         thrown(NotExistException)
     }
+
+    def "Test3.3: delete product by id, and response should be void"() {
+        given: "prepare data"
+        productRepository.findOne(id) >> product
+
+        when: "call function to delete product"
+        productService.deleteProductById(id)
+
+        then:
+        true
+    }
+
+    def "Test3.4: validate version with correct id and entity, and response should be void"() {
+        given: "prepare data"
+        def version = 1
+        product.setVersion(version)
+
+        when: "call function to validate version"
+        productService.validateVersion(version, product)
+
+        then:
+        true
+    }
+
+    def "Test3.5: validate version with incorrect id and entity, should throw a conflictException"() {
+        given: "prepare data"
+        def version = 1
+        product.setVersion(version + 1)
+
+        when: "call function to validate version"
+        productService.validateVersion(version, product)
+
+        then: "should throw a conflictException"
+        thrown(ConflictException)
+    }
+
 }

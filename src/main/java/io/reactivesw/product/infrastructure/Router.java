@@ -56,5 +56,8 @@ public final class Router {
    */
   public static final String PRODUCT_HEALTH_CHECK = PRODUCT_ROOT + "health";
 
+  /**
+   * The constant PRODUCT_WITH_ID.
+   */
   public static final String PRODUCT_WITH_ID = PRODUCT_ROOT + "/{" + PRODUCT_ID + "}";
 }

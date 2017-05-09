@@ -174,6 +174,11 @@ public class ProductService {
     }
   }
 
+  /**
+   * Delete product by id.
+   *
+   * @param id product id
+   */
   public void deleteProductById(String id) {
     LOG.debug("Enter. ProductId: {}, version: {}.", id);
     productRepository.delete(id);
