@@ -54,11 +54,11 @@ public class ProductApplication {
    *
    * @param productService the product service
    * @param productRestClient the product rest client
-   * @param updaterService    the updater service
+   * @param updaterService the updater service
    */
   @Autowired
   public ProductApplication(ProductService productService, ProductRestClient productRestClient,
-                            UpdaterService updaterService) {
+      UpdaterService updaterService) {
     this.productService = productService;
     this.productRestClient = productRestClient;
     this.updaterService = updaterService;
@@ -95,6 +95,7 @@ public class ProductApplication {
   }
 
   /**
+   * <<<<<<< HEAD
    * Delete product by id.
    *
    * @param id id
@@ -112,7 +113,7 @@ public class ProductApplication {
   /**
    * Update product.
    *
-   * @param id      the id
+   * @param id the id
    * @param version the version
    * @param actions the actions
    * @return the product view
@@ -136,7 +137,7 @@ public class ProductApplication {
   /**
    * Update product entity.
    *
-   * @param entity  the product entity
+   * @param entity the product entity
    * @param actions the actions
    * @return product
    */
