@@ -95,7 +95,6 @@ public class ProductApplication {
   }
 
   /**
-   * <<<<<<< HEAD
    * Delete product by id.
    *
    * @param id id
