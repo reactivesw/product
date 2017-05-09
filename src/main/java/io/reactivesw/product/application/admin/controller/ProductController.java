@@ -4,6 +4,7 @@ import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.admin.model.ProductView;
 import io.reactivesw.product.application.admin.service.ProductApplication;
 import io.reactivesw.product.infrastructure.Router;
+import io.reactivesw.product.infrastructure.update.UpdateRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,5 +79,25 @@ public class ProductController {
     productApplication.deleteProductById(id, version);
 
     LOG.info("Exit. ProductId: {}, version: {}.", id, version);
+  }
+
+  /**
+   * Update product.
+   *
+   * @param id the id
+   * @param updateRequest the update request
+   * @return the product view
+   */
+  @PutMapping(Router.PRODUCT_WITH_ID)
+  public ProductView update(@PathVariable(Router.PRODUCT_ID) String id,
+      @RequestBody @Valid UpdateRequest updateRequest) {
+    LOG.info("Enter. ProductId: {}, update request: {}.", id, updateRequest);
+
+    ProductView result =
+        productApplication.update(id, updateRequest.getVersion(), updateRequest.getActions());
+
+    LOG.trace("Updated product: {}.", result);
+    LOG.info("Exit.");
+    return result;
   }
 }
