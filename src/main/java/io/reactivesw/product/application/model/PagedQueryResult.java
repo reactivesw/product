@@ -9,6 +9,7 @@ import java.util.List;
  */
 @Data
 public class PagedQueryResult<T> {
+
   /**
    * The Offset.
    */

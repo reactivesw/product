@@ -38,6 +38,7 @@ public enum ReferenceTypes {
 
   /**
    * private constructor.
+   *
    * @param value enum value
    */
   private ReferenceTypes(String value) {

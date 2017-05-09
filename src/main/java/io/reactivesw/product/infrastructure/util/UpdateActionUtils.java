@@ -133,7 +133,7 @@ public final class UpdateActionUtils {
   /**
    * The constant PUBLISH.
    */
-  public static final String PUBLISH = "publish";
+  public static final String PUBLISH = "Publish";
 
   /**
    * The constant UNPUBLISH.

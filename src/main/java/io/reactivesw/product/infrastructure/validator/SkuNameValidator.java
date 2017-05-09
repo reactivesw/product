@@ -19,6 +19,7 @@ import java.util.Set;
  * Created by Davis on 16/12/23.
  */
 public final class SkuNameValidator {
+
   /**
    * log.
    */
@@ -51,7 +52,7 @@ public final class SkuNameValidator {
    * Validate sku name.
    *
    * @param productDraft the product draft
-   * @param products     the products
+   * @param products the products
    */
   public static void validate(ProductDraft productDraft, List<Product> products) {
     List<String> skuNames = ProductDraftUtils.getSkuNames(productDraft);

@@ -21,7 +21,7 @@ public final class AttributeUtils {
    * Gets attribute name by constraint.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param attributeConstraint  the attribute constraint
+   * @param attributeConstraint the attribute constraint
    * @return the attribute name by constraint
    */
   public static List<String> getAttributeNameByConstraint(

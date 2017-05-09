@@ -11,6 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class QueryConditions {
+
   /**
    * The Expand id.
    */

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  * or convert Attribute Model to Attribute Entity.
  */
 public final class AttributeMapper {
+
   /**
    * Instantiates a new Attribute mapper.
    */

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/21.
  */
 public final class CategoryProductMapper {
+
   /**
    * Instantiates a new Category product mapper.
    */

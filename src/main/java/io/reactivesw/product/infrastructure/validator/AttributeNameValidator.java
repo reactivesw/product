@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/20.
  */
 public final class AttributeNameValidator {
+
   /**
    * log.
    */
@@ -25,16 +26,17 @@ public final class AttributeNameValidator {
   /**
    * private constructor.
    */
-  private AttributeNameValidator() {}
-  
+  private AttributeNameValidator() {
+  }
+
   /**
    * validateNull attribute name.
    *
    * @param attributeDefinitions List of AttributeDefinition
-   * @param productDraft         ProductDraft
+   * @param productDraft ProductDraft
    */
   public static void validate(List<AttributeDefinition> attributeDefinitions,
-                              ProductDraft productDraft) {
+      ProductDraft productDraft) {
     List<String> attributeNames = getAttributeDefinitionNames(attributeDefinitions);
 
     List<List<String>> attributeDraftNames = getAllAttributeNames(productDraft);
@@ -56,7 +58,7 @@ public final class AttributeNameValidator {
    * @return the attribute definition names
    */
   private static List<String> getAttributeDefinitionNames(List<AttributeDefinition>
-                                                              attributeDefinitions) {
+      attributeDefinitions) {
     return attributeDefinitions.stream().map(
         attributeDefinition -> {
           return attributeDefinition.getName();

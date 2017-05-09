@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
  * Object for update product.
  */
 public class UpdateRequest {
+
   /**
    * The expected version of the category on which the changes should be applied.
    * If the expected version does not match the actual version, a 409 Conflict will be returned.

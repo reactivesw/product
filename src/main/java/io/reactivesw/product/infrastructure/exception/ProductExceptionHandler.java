@@ -18,15 +18,15 @@ public class ProductExceptionHandler extends ExceptionHandler implements Handler
   /**
    * resolve exception.
    *
-   * @param request  the HttpServletRequest
+   * @param request the HttpServletRequest
    * @param response the HttpServletResponse
-   * @param handler  the Object
-   * @param ex       the Exception
+   * @param handler the Object
+   * @param ex the Exception
    * @return ModelAndView
    */
   @Override
   public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
-                                       Object handler, Exception ex) {
+      Object handler, Exception ex) {
     setResponse(request, response, handler, ex);
     return new ModelAndView();
   }

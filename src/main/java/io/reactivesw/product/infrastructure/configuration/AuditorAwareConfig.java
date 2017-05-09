@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @Configuration
 @EnableJpaAuditing
 public class AuditorAwareConfig {
+
   /**
    * Auditor provider zoned date time auditor aware.
    *

@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ProductService {
+
   /**
    * log.
    */
@@ -164,7 +165,7 @@ public class ProductService {
    * find out if product has the sku.
    *
    * @param product the Product
-   * @param sku     the sku
+   * @param sku the sku
    * @return boolean
    */
   private boolean isMatchingSku(Product product, String sku) {

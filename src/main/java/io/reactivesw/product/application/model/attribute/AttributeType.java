@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * Created by Davis on 16/11/16.
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "name")
-@JsonSubTypes( {
+@JsonSubTypes({
     @JsonSubTypes.Type(value = BooleanAttributeType.class, name = "boolean"),
     @JsonSubTypes.Type(value = StringAttributeType.class, name = "text"),
     @JsonSubTypes.Type(value = LocalizedStringAttributeType.class, name = "ltext"),

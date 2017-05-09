@@ -19,6 +19,7 @@ import java.util.Set;
  * Created by Davis on 16/12/20.
  */
 public final class UniqueAttributeValidator {
+
   /**
    * log.
    */
@@ -34,11 +35,11 @@ public final class UniqueAttributeValidator {
    * Validate product unique attribuate.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft         the product draft
+   * @param productDraft the product draft
    */
   public static void validate(List<AttributeDefinition>
-                                  attributeDefinitions,
-                              ProductDraft productDraft) {
+      attributeDefinitions,
+      ProductDraft productDraft) {
     List<String> uniqueAttributes = AttributeUtils.getAttributeNameByConstraint(
         attributeDefinitions,
         AttributeConstraint.Unique);
@@ -54,7 +55,7 @@ public final class UniqueAttributeValidator {
    * Validate unique attribute.
    *
    * @param attributeName the attribute name
-   * @param productDraft  the product draft
+   * @param productDraft the product draft
    */
   private static void validateUniqueAttribute(String attributeName, ProductDraft productDraft) {
     // TODO: 16/12/19 List<String> should be List<JsonNode>

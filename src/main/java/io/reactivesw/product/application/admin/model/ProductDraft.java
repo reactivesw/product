@@ -20,6 +20,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @EqualsAndHashCode
 public class ProductDraft {
+
   /**
    * User-specific unique identifier for the product.
    */

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  * or Convert List of CategoryOrderHint Entity to List of CategoryOrderHintView.
  */
 public final class CategoryOrderHintsMapper {
+
   /**
    * Instantiates a new Category order hints mapper.
    */

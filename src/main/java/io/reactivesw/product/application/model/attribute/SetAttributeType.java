@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The type Set attribute type.
  */
 public final class SetAttributeType extends AbstractAttributeType {
+
   /**
    * attribute type.
    */

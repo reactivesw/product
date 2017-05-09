@@ -14,7 +14,8 @@ public final class ListUtils {
   /**
    * Instantiates a new List update.
    */
-  private ListUtils() {}
+  private ListUtils() {
+  }
 
   /**
    * Remove duplicate string from list.

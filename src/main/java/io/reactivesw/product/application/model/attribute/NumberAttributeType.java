@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The Number attribute type.
  */
 public final class NumberAttributeType extends AbstractAttributeType {
+
   /**
    * private constructor.
    */

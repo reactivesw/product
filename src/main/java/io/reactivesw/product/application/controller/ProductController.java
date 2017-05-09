@@ -27,6 +27,7 @@ import java.util.List;
  */
 @RestController(value = "CustomerProductController")
 public class ProductController {
+
   /**
    * log.
    */
@@ -51,12 +52,13 @@ public class ProductController {
    * queryconditions example :
    * "where"="categoryId:\"c42e4efb-7de7-4f3d-adac-554b84bda1b5\""
    * TODO: 16/12/21 only for query product by category now
+   *
    * @param categoryId the query conditions
    * @return the list
    */
   @GetMapping(CATEGORY_PRODUCT_ROOT)
   public PagedQueryResult<CategoryProductView> queryCategoryProducts(@RequestParam("categoryId")
-                                                                         String categoryId) {
+      String categoryId) {
     LOG.debug("enter queryCategoryProducts, category id  is : {}", categoryId);
 
     PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
@@ -96,7 +98,7 @@ public class ProductController {
    */
   @GetMapping(CART_PRODUCT_VARIANT_PATH)
   public CartProductView getCartProductById(@PathVariable(PRODUCT_ID) String productId,
-                                            @RequestParam(VARIANT_ID) Integer variantId) {
+      @RequestParam(VARIANT_ID) Integer variantId) {
 
     LOG.debug("Enter. ProductId: {}, VariantId: {}.", productId,
         variantId);

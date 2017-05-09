@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * Validator class for version.
  */
 public final class VersionValidator {
+
   /**
    * Logger.
    */
@@ -24,7 +25,7 @@ public final class VersionValidator {
   /**
    * Validate entity version.
    *
-   * @param entity  the entity
+   * @param entity the entity
    * @param version the version
    * @throws ConflictException if version not equal
    */

@@ -28,6 +28,7 @@ import java.util.function.Predicate;
  */
 @Service(value = "CustomerProductApplication")
 public class ProductApplication {
+
   /**
    * log.
    */
@@ -47,7 +48,7 @@ public class ProductApplication {
    * Instantiates a new Product application.
    *
    * @param productRestClient the product rest client
-   * @param productService    the product service
+   * @param productService the product service
    */
   @Autowired
   public ProductApplication(ProductRestClient productRestClient, ProductService productService) {
@@ -145,7 +146,7 @@ public class ProductApplication {
   /**
    * get product variant by it's id.
    *
-   * @param product   product entity
+   * @param product product entity
    * @param variantId variant id
    * @return ProductVariant
    */

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/20.
  */
 public final class SameForAllAttributeValidator {
+
   /**
    * log.
    */
@@ -32,10 +33,10 @@ public final class SameForAllAttributeValidator {
    * Validate same for all attribute.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft         the product draft
+   * @param productDraft the product draft
    */
   public static void validate(List<AttributeDefinition> attributeDefinitions,
-                              ProductDraft productDraft) {
+      ProductDraft productDraft) {
     List<String> attributeNames = AttributeUtils.getAttributeNameByConstraint(attributeDefinitions,
         AttributeConstraint.SameForAll);
 
@@ -50,7 +51,7 @@ public final class SameForAllAttributeValidator {
    * Validate same for all attribute.
    *
    * @param attributeName the attribute name
-   * @param productDraft  the product draft
+   * @param productDraft the product draft
    */
   private static void validate(String attributeName, ProductDraft productDraft) {
     List<AttributeView> masterAttributes = productDraft.getMasterVariant().getAttributes();

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/14.
  */
 public final class ImageMapper {
+
   /**
    * Instantiates a new Image mapper.
    */

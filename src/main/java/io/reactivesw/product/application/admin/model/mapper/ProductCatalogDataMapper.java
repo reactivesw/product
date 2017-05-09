@@ -10,6 +10,7 @@ import io.reactivesw.product.domain.model.ProductCatalogData;
  * or Convert ProductCatalogData Entity to ProductCatalogDataView.
  */
 public final class ProductCatalogDataMapper {
+
   /**
    * Instantiates a new Product catalog data mapper.
    */

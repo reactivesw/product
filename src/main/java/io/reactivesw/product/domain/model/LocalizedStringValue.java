@@ -46,7 +46,7 @@ public class LocalizedStringValue {
    * Build localized string value.
    *
    * @param language the language
-   * @param text     the text
+   * @param text the text
    * @return the localized string value
    */
   public static LocalizedStringValue build(String language, String text) {

@@ -48,7 +48,7 @@ public final class DetailProductMapper {
   /**
    * Merge product type detail product view.
    *
-   * @param productType   the product type
+   * @param productType the product type
    * @param detailProduct the detail product
    * @return the detail product view
    */

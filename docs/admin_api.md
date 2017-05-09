@@ -172,8 +172,8 @@ TODO
 | sku | String | optional |
 | key | String | optional |
 | prices | List\<Price\> | optional |
-| iamges | List\<Image\> | optional |
-| attributes | List\<Object\> | optional. The custom attributes of the master variant. Each attribute is a JSON object where a field name corresponds to the name of a product attribute defined on the referenced ProductType and the value being a valid JSON value for that attribute. |
+| images | List\<ImageView\> | optional |
+| attributes | List\<AttributeView\> | optional. The custom attributes of the master variant. Each attribute is a JSON object where a field name corresponds to the name of a product attribute defined on the referenced ProductType and the value being a valid JSON value for that attribute. |
 
 
 #### Remove ProductVariant
@@ -303,7 +303,7 @@ Adds external image url with meta-information to the product variant.
 |---|---|---|
 | action | String | required, set as `addExternalImage` |
 | variantId | Integer | required. This is the variant id in this product. |
-| iamge | Image | required |
+| image | ImageView | required |
 
 #### Remove Image
 

@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * or Convert ProductData Entity to ProductDataView.
  */
 public final class ProductDataMapper {
+
   /**
    * master variant id.
    */

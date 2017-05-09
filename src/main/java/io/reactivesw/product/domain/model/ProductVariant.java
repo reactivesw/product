@@ -30,6 +30,7 @@ import javax.persistence.Table;
     @Parameter(name = JSONBUserType.CLASS, value = "java.util.List")}
 )
 public class ProductVariant {
+
   /**
    * id for the entity.
    */

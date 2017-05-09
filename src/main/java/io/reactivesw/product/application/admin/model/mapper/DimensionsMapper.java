@@ -7,6 +7,7 @@ import io.reactivesw.product.domain.model.AssetDimensions;
  * Created by Davis on 17/2/15.
  */
 public final class DimensionsMapper {
+
   /**
    * Instantiates a new Dimensions mapper.
    */

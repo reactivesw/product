@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The Localized string attribute type.
  */
 public final class LocalizedStringAttributeType extends AbstractAttributeType {
+
   /**
    * private constructor.
    */

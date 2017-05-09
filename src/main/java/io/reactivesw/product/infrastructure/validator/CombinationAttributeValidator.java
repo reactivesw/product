@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
  * Created by Davis on 16/12/20.
  */
 public final class CombinationAttributeValidator {
+
   /**
    * log.
    */
@@ -35,10 +36,10 @@ public final class CombinationAttributeValidator {
    * Validate combination unique attribute.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft         the product draft
+   * @param productDraft the product draft
    */
   public static void validate(List<AttributeDefinition> attributeDefinitions,
-                              ProductDraft productDraft) {
+      ProductDraft productDraft) {
     List<String> combinationUniqueAttribute = AttributeUtils.getAttributeNameByConstraint(
         attributeDefinitions, AttributeConstraint.CombinationUnique);
 
@@ -82,12 +83,12 @@ public final class CombinationAttributeValidator {
   /**
    * Get combination attribute value.
    *
-   * @param variantDraft               ProductVariantDraft
+   * @param variantDraft ProductVariantDraft
    * @param combinationUniqueAttribute combination unique attribute name
    * @return attribute value list
    */
   private static List<String> getCombinationAttributes(ProductVariantDraft variantDraft,
-                                                       List<String> combinationUniqueAttribute) {
+      List<String> combinationUniqueAttribute) {
     return variantDraft.getAttributes().stream()
         .filter(
             attribute -> combinationUniqueAttribute.contains(attribute.getName())
@@ -99,11 +100,11 @@ public final class CombinationAttributeValidator {
   /**
    * Validate combination unique attribute.
    *
-   * @param attributes     the attributes
+   * @param attributes the attributes
    * @param attributeLists the attribute lists
    */
   private static void validateCombinationAttribute(List<String> attributes,
-                               List<List<String>> attributeLists) {
+      List<List<String>> attributeLists) {
     int correctNumber = 1;
     int result = 0;
     for (List list : attributeLists) {

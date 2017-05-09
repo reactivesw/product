@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  * The String attribute type.
  */
 public final class StringAttributeType extends AbstractAttributeType {
+
   /**
    * private constructor.
    */

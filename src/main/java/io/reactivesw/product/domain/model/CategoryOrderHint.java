@@ -47,7 +47,7 @@ public class CategoryOrderHint {
    * Build category order hint.
    *
    * @param categoryId the category id
-   * @param orderHint  the order hint
+   * @param orderHint the order hint
    * @return the category order hint
    */
   public static CategoryOrderHint build(String categoryId, String orderHint) {

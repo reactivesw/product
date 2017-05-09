@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Component
 public class ProductRestClient {
+
   /**
    * product type service uri.
    */

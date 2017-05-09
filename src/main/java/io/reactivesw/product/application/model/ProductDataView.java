@@ -17,6 +17,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDataView {
+
   /**
    * the name.
    */
