@@ -3,21 +3,27 @@ package io.reactivesw.product.application.admin.controller;
 import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.admin.model.ProductView;
 import io.reactivesw.product.application.admin.service.ProductApplication;
+import io.reactivesw.product.infrastructure.Router;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Product controller class for admin web.
  */
 @RestController(value = "AdminProductController")
 public class ProductController {
+
   /**
    * log.
    */
@@ -55,5 +61,21 @@ public class ProductController {
     LOG.trace("Created Product: {}.", result);
 
     return result;
+  }
+
+  /**
+   * Delete product by id.
+   *
+   * @param id product id
+   * @param version product version
+   */
+  @DeleteMapping(Router.PRODUCT_WITH_ID)
+  public void deleteProductById(@PathVariable(value = Router.PRODUCT_ID) String id,
+      @RequestParam @NotNull Integer version) {
+    LOG.info("Enter. ProductId: {}, version: {}.", id, version);
+
+    productApplication.deleteProductById(id, version);
+
+    LOG.info("Exit. ProductId: {}, version: {}.", id, version);
   }
 }

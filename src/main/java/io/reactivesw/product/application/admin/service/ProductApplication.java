@@ -5,6 +5,7 @@ import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.admin.model.ProductView;
 import io.reactivesw.product.application.model.ProductTypeView;
 import io.reactivesw.product.application.service.ProductRestClient;
+import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.service.ProductService;
 import io.reactivesw.product.infrastructure.validator.AttributeConstraintValidator;
 import io.reactivesw.product.infrastructure.validator.ProductTypeValidator;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service(value = "AdminProductApplication")
 public class ProductApplication {
+
   /**
    * log.
    */
@@ -38,7 +40,7 @@ public class ProductApplication {
   /**
    * Instantiates a new Product application.
    *
-   * @param productService    the product service
+   * @param productService the product service
    * @param productRestClient the product rest client
    */
   @Autowired
@@ -76,4 +78,20 @@ public class ProductApplication {
 
     return result;
   }
+
+  /**
+   * Delete product by id.
+   *
+   * @param id id
+   * @param version version
+   */
+  public void deleteProductById(String id, Integer version) {
+    LOG.debug("Enter. ProductId: {}, version: {}.", id, version);
+    Product entity = productService.getProductById(id);
+    productService.validateVersion(version, entity);
+    productService.deleteProductById(id);
+    LOG.debug("Exit. Deleted productId: {}, version: {}.", id, version);
+    LOG.trace("Deleted product: {}.", entity);
+  }
+
 }
