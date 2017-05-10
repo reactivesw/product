@@ -162,7 +162,7 @@ TODO
 | field name | field type | comments |
 |---|---|---|
 | action | String | required, set as `setSlug` |
-| slug | LocalizedString | required. Every slug must be unique across a project, but a product can have the same slug for different languages. Allowed are alphabetic, numeric, underscore (_) and hyphen (-) characters. Maximum size is 256. |
+| slug | String | required. Every slug must be unique across a project, but a product can have the same slug for different languages. Allowed are alphabetic, numeric, underscore (_) and hyphen (-) characters. Maximum size is 256. |
 
 #### Add ProductVariant
 

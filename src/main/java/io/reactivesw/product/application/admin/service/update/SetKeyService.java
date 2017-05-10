@@ -29,11 +29,10 @@ public class SetKeyService implements Updater<Product, UpdateAction> {
    */
   @Override
   public void handle(Product product, UpdateAction updateAction) {
-    // TODO: 17/5/10  
-    LOG.debug("Enter. ProductId: {}.", product.getId());
+    LOG.debug("Enter. ProductId: {}, update action: {}.", product.getId(), updateAction);
 
-    SetKey key = (SetKey) updateAction;
-    product.setKey(key.getKey());
+    SetKey action = (SetKey) updateAction;
+    product.setKey(action.getKey());
 
     LOG.trace("Updated product: {}.", product);
     LOG.debug("Exit.");
