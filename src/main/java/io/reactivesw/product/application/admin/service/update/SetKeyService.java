@@ -1,4 +1,4 @@
-package io.reactivesw.product.domain.service.update;
+package io.reactivesw.product.application.admin.service.update;
 
 import io.reactivesw.model.Updater;
 import io.reactivesw.product.application.admin.model.actions.SetKey;
