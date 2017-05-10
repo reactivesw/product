@@ -22,13 +22,14 @@ public class SetKeyService implements Updater<Product, UpdateAction> {
   private static final Logger LOG = LoggerFactory.getLogger(SetKeyService.class);
 
   /**
-   * Handle.
+   * Set Key.
    *
    * @param product the product
-   * @param updateAction the update action
+   * @param updateAction the SetKey action
    */
   @Override
   public void handle(Product product, UpdateAction updateAction) {
+    // TODO: 17/5/10  
     LOG.debug("Enter. ProductId: {}.", product.getId());
 
     SetKey key = (SetKey) updateAction;
