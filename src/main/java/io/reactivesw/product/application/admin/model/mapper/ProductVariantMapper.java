@@ -76,7 +76,7 @@ public final class ProductVariantMapper {
     model.setKey(entity.getKey());
     model.setSku(entity.getSku());
     if (entity.getPrices() != null) {
-      model.setPrices(PriceMapper.entityToModel(entity.getPrices()));
+      model.setPrices(PriceMapper.toModel(entity.getPrices()));
     }
     if (entity.getAttributes() != null) {
       model.setAttributes(AttributeMapper.toModel(entity.getAttributes()));

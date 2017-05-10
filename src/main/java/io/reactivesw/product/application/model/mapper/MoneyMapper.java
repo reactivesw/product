@@ -4,7 +4,7 @@ import io.reactivesw.model.Money;
 import io.reactivesw.product.domain.model.MoneyValue;
 
 /**
- * Created by umasuo on 16/12/8.
+ * The type Money mapper.
  */
 public final class MoneyMapper {
 
@@ -31,4 +31,19 @@ public final class MoneyMapper {
     return model;
   }
 
+  /**
+   * To entity money value.
+   *
+   * @param model the model
+   * @return the money value
+   */
+  public static MoneyValue toEntity(Money model) {
+    MoneyValue entity = null;
+    if (model != null) {
+      entity = new MoneyValue();
+      entity.setCentAmount(model.getCentAmount());
+      entity.setCurrencyCode(model.getCurrencyCode());
+    }
+    return entity;
+  }
 }

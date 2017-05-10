@@ -1,10 +1,15 @@
 package io.reactivesw.product.application.admin.service.update;
 
 import io.reactivesw.model.Updater;
+import io.reactivesw.product.application.admin.model.actions.SetSku;
 import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.update.UpdateAction;
 import io.reactivesw.product.infrastructure.util.UpdateActionUtils;
+import io.reactivesw.product.infrastructure.util.VariantUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +19,11 @@ import org.springframework.stereotype.Service;
 public class SetSkuService implements Updater<Product, UpdateAction> {
 
   /**
+   * Logger.
+   */
+  private static final Logger LOG = LoggerFactory.getLogger(SetSkuService.class);
+
+  /**
    * Set sku.
    *
    * @param product the product entity
@@ -21,6 +31,19 @@ public class SetSkuService implements Updater<Product, UpdateAction> {
    */
   @Override
   public void handle(Product product, UpdateAction updateAction) {
-    // TODO: 17/5/10
+    LOG.debug("Enter. ProductId: {}, update action: {}.", product.getId(), updateAction);
+
+    SetSku action = (SetSku) updateAction;
+    ProductVariant variant = VariantUtils.getStagedVariant(product, action.getVariantId());
+
+    variant.setSku(action.getSku());
+    // TODO: 17/5/10 what about there is inventory entry associated with this sku?
+    // 1. change sku name and send an event about it.
+    // 2. refuse this change.
+
+    product.getMasterData().setStagedChanged(true);
+
+    LOG.trace("Updated product: {}.", product);
+    LOG.debug("Exit.");
   }
 }

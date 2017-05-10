@@ -211,6 +211,7 @@ TODO
 | field name | field type | comments |
 |---|---|---|
 | action | String | required, set as `changePrice` |
+| variantId | Integer | required. This is the variant id in this product. |
 | priceId | String | required, Id of the `Price` |
 | price | PriceDraft | required |
 
@@ -219,6 +220,7 @@ TODO
 | field name | field type | comments |
 |---|---|---|
 | action | String | required, set as `removePrice` |
+| variantId | Integer | required. This is the variant id in this product. |
 | priceId | String | required, Id of the `Price` |
 
 #### Set Attribute
