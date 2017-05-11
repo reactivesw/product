@@ -4,12 +4,14 @@ import io.reactivesw.model.Updater;
 import io.reactivesw.product.application.admin.model.actions.SetSku;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.domain.model.ProductVariant;
+import io.reactivesw.product.domain.service.SkuService;
 import io.reactivesw.product.infrastructure.update.UpdateAction;
 import io.reactivesw.product.infrastructure.util.UpdateActionUtils;
 import io.reactivesw.product.infrastructure.util.VariantUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,6 +26,12 @@ public class SetSkuService implements Updater<Product, UpdateAction> {
   private static final Logger LOG = LoggerFactory.getLogger(SetSkuService.class);
 
   /**
+   * The Sku service.
+   */
+  @Autowired
+  private transient SkuService skuService;
+
+  /**
    * Set sku.
    *
    * @param product the product entity
@@ -34,6 +42,9 @@ public class SetSkuService implements Updater<Product, UpdateAction> {
     LOG.debug("Enter. ProductId: {}, update action: {}.", product.getId(), updateAction);
 
     SetSku action = (SetSku) updateAction;
+
+    skuService.validateSkuName(action.getSku());
+
     ProductVariant variant = VariantUtils.getStagedVariant(product, action.getVariantId());
 
     variant.setSku(action.getSku());

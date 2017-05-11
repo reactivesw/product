@@ -3,6 +3,7 @@ package io.reactivesw.product.application.admin.model.mapper;
 import com.google.common.collect.Lists;
 
 import io.reactivesw.product.application.admin.model.ProductVariantDraft;
+import io.reactivesw.product.application.admin.model.actions.AddVariant;
 import io.reactivesw.product.application.model.ProductVariantView;
 import io.reactivesw.product.domain.model.ProductVariant;
 
@@ -48,6 +49,30 @@ public final class ProductVariantMapper {
    * @return the product variant entity
    */
   public static ProductVariant toEntity(int id, ProductVariantDraft model) {
+    ProductVariant entity = new ProductVariant();
+
+    entity.setId(id);
+    entity.setKey(model.getKey());
+    entity.setSku(model.getSku());
+    entity.setImages(ImageMapper.toEntity(model.getImages()));
+    if (model.getPrices() != null) {
+      entity.setPrices(PriceMapper.toEntity(model.getPrices()));
+    }
+    if (model.getAttributes() != null) {
+      entity.setAttributes(AttributeMapper.toEntity(model.getAttributes()));
+    }
+
+    return entity;
+  }
+
+  /**
+   * Build ProductVariant entity.
+   *
+   * @param id the id
+   * @param model the model
+   * @return the product variant
+   */
+  public static ProductVariant build(int id, AddVariant model) {
     ProductVariant entity = new ProductVariant();
 
     entity.setId(id);

@@ -2,6 +2,7 @@ package io.reactivesw.product.infrastructure.validator;
 
 import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
+import io.reactivesw.product.domain.model.Product;
 
 import java.util.List;
 
@@ -37,5 +38,15 @@ public final class AttributeConstraintValidator {
       SameForAllAttributeValidator.validate(attributeDefinitions, productDraft);
       //6. none 不需要考虑
     }
+  }
+
+  /**
+   * Validate.
+   *
+   * @param attributeDefinitions the attribute definitions
+   * @param product the product
+   */
+  public static void validate(List<AttributeDefinition> attributeDefinitions, Product product) {
+    // TODO: 17/5/11 reference to method above
   }
 }

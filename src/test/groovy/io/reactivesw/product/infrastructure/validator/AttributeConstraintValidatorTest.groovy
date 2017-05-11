@@ -9,6 +9,7 @@ import io.reactivesw.product.application.admin.model.ProductVariantDraft
 import io.reactivesw.product.application.model.attribute.AttributeConstraint
 import io.reactivesw.product.application.model.attribute.AttributeDefinition
 import io.reactivesw.product.application.model.attribute.AttributeView
+import io.reactivesw.product.domain.model.Product
 import spock.lang.Specification
 
 /**
@@ -101,6 +102,14 @@ class AttributeConstraintValidatorTest extends Specification {
     def "Test1.2: attribute definitions is null"() {
         when:
         AttributeConstraintValidator.validate(null, productDraft)
+
+        then:
+        true
+    }
+
+    def "Test2: test for product"() {
+        when:
+        AttributeConstraintValidator.validate(null, new Product())
 
         then:
         true

@@ -59,8 +59,22 @@ public final class SkuNameValidator {
     List<String> productSkuNames = ProductUtils.getSkuNames(products);
     productSkuNames.retainAll(skuNames);
     if (!productSkuNames.isEmpty()) {
-      LOG.debug("sku name has exists");
+      LOG.debug("Sku name is exists.");
       throw new ConflictException("sku name has exists");
+    }
+  }
+
+  /**
+   * Validate sku name.
+   *
+   * @param skuName the sku name
+   * @param products the products
+   */
+  public static void validate(String skuName, List<Product> products) {
+    List<String> productSkuNames = ProductUtils.getSkuNames(products);
+    if (productSkuNames.contains(skuName)) {
+      LOG.debug("Sku name has exists.");
+      throw new ConflictException("Sku name should be unique.");
     }
   }
 }
