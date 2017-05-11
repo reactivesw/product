@@ -185,6 +185,8 @@ TODO
 
 #### Change Master Variant
 
+Sets the given variant as the new master variant. The previous master variant is added to the back of the list of variants.
+
 | field name | field type | comments |
 |---|---|---|
 | action | String | required, set as `changeMasterVariant` |
@@ -260,7 +262,6 @@ Adds / Removes / Changes a custom attribute in all variants at the same time. It
 |---|---|---|
 | action | String | required, set as `addToCategory` |
 | category | Reference | required |
-| orderHint | String | optional, a number between 0 and 1. |
 
 #### Set Category Order Hint
 
@@ -268,7 +269,8 @@ Adds / Removes / Changes a custom attribute in all variants at the same time. It
 |---|---|---|
 | action | String | required, set as `setCategoryOrderHint` |
 | categoryId | String | required. Id of a Category the product belongs to. |
-| orderHint | String | optional, a number between 0 and 1. If left blank, the category order hint is unset/removed. |
+| previousOrderHint | String | required, NotNull |
+| nextOrderHint | String | if product is changed to be the last one, this parameter should be empty, otherwise, required |
 
 #### Remove from Category
 

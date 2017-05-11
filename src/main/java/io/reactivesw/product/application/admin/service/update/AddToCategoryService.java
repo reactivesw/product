@@ -1,10 +1,15 @@
 package io.reactivesw.product.application.admin.service.update;
 
 import io.reactivesw.model.Updater;
+import io.reactivesw.product.application.admin.model.actions.AddToCategory;
+import io.reactivesw.product.domain.model.CategoryOrderHint;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.update.UpdateAction;
 import io.reactivesw.product.infrastructure.util.UpdateActionUtils;
+import io.reactivesw.product.infrastructure.validator.CategoryValidator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +19,11 @@ import org.springframework.stereotype.Service;
 public class AddToCategoryService implements Updater<Product, UpdateAction> {
 
   /**
+   * Logger.
+   */
+  private static final Logger LOG = LoggerFactory.getLogger(AddToCategoryService.class);
+
+  /**
    * Add to category.
    *
    * @param product the product entity
@@ -21,6 +31,25 @@ public class AddToCategoryService implements Updater<Product, UpdateAction> {
    */
   @Override
   public void handle(Product product, UpdateAction updateAction) {
-    // TODO: 17/5/10
+    LOG.debug("Enter. ProductId: {}, update action: {}.", product.getId(), updateAction);
+
+    AddToCategory action = (AddToCategory) updateAction;
+
+    CategoryValidator.validateCategory(action.getCategory());
+    String categoryId = action.getCategory().getId();
+
+    if (product.getMasterData().getStaged().getCategories().contains(categoryId)) {
+      LOG.debug("Category list has contained this categoryId: {}.", categoryId);
+      return;
+    }
+
+    product.getMasterData().getStaged().getCategories().add(categoryId);
+    product.getMasterData().getStaged().getCategoryOrderHints()
+        .add(CategoryOrderHint.build(categoryId));
+
+    product.getMasterData().setStagedChanged(true);
+
+    LOG.trace("Updated product: {}.", product);
+    LOG.debug("Exit.");
   }
 }

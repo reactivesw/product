@@ -1,11 +1,14 @@
 package io.reactivesw.product.application.model.mapper;
 
+import com.google.common.collect.Sets;
+
 import io.reactivesw.model.LocalizedString;
 import io.reactivesw.product.domain.model.LocalizedStringValue;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * LocalizedString Mapper class.
@@ -18,6 +21,26 @@ public final class LocalizedStringMapper {
    * Instantiates a new Localized string mapper.
    */
   private LocalizedStringMapper() {
+  }
+
+  /**
+   * Copy from set of LocalizedStringValue.
+   *
+   * @param entities the entities
+   * @return the set
+   */
+  public static Set<LocalizedStringValue> copyFrom(Set<LocalizedStringValue> entities) {
+    Set<LocalizedStringValue> result = Sets.newHashSet();
+
+    Consumer<LocalizedStringValue> consumer = value ->
+        result.add(LocalizedStringValue.build(value.getLanguage(), value.getText()));
+
+    if (entities != null) {
+      entities.stream().forEach(consumer);
+    }
+
+    return result;
+
   }
 
   /**
@@ -132,5 +155,4 @@ public final class LocalizedStringMapper {
 
     return entities;
   }
-
 }

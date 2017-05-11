@@ -49,4 +49,19 @@ public final class MoneyMapper {
     return model;
   }
 
+  /**
+   * Copy from money.
+   *
+   * @param entity the entity
+   * @return the money
+   */
+  public static MoneyValue copyFrom(MoneyValue entity) {
+    MoneyValue result = new MoneyValue();
+
+    result.setCurrencyCode(entity.getCurrencyCode());
+    result.setCentAmount(entity.getCentAmount());
+
+    return result;
+  }
+
 }

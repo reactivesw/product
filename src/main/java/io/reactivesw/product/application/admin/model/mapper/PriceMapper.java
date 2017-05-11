@@ -1,5 +1,7 @@
 package io.reactivesw.product.application.admin.model.mapper;
 
+import com.google.common.collect.Lists;
+
 import io.reactivesw.model.Reference;
 import io.reactivesw.product.application.admin.model.PriceDraft;
 import io.reactivesw.product.application.model.PriceView;
@@ -7,6 +9,7 @@ import io.reactivesw.product.domain.model.Price;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -122,5 +125,43 @@ public final class PriceMapper {
     if (model.getCustomerGroup() != null) {
       entity.setCustomerGroup(model.getCustomerGroup().getId());
     }
+  }
+
+  /**
+   * Copy from list of Price.
+   *
+   * @param entities the entities
+   * @return the list
+   */
+  public static List<Price> copyFrom(List<Price> entities) {
+    List<Price> result = Lists.newArrayList();
+
+    Consumer<Price> consumer = price -> result.add(copyFrom(price));
+
+    if (entities != null) {
+      entities.stream().forEach(consumer);
+    }
+
+    return result;
+  }
+
+  /**
+   * Copy from price.
+   *
+   * @param entity the entity
+   * @return the price
+   */
+  private static Price copyFrom(Price entity) {
+    Price result = new Price();
+
+    result.setValue(MoneyMapper.copyFrom(entity.getValue()));
+    result.setCountry(entity.getCountry());
+    result.setCustomerGroup(entity.getCustomerGroup());
+    result.setChannel(entity.getChannel());
+    result.setValidFrom(entity.getValidFrom());
+    result.setValidUntil(entity.getValidUntil());
+    result.setDiscountedId(entity.getDiscountedId());
+
+    return result;
   }
 }

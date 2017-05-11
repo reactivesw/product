@@ -1,5 +1,7 @@
 package io.reactivesw.product.domain.model;
 
+import io.reactivesw.product.infrastructure.util.OrderHintUtils;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -42,6 +44,21 @@ public class CategoryOrderHint {
    */
   @Column(name = "order_hint")
   private String orderHint;
+
+  /**
+   * Build category order hint.
+   *
+   * @param categoryId the category id
+   * @return the category order hint
+   */
+  public static CategoryOrderHint build(String categoryId) {
+    CategoryOrderHint categoryOrderHint = new CategoryOrderHint();
+
+    categoryOrderHint.setCategoryId(categoryId);
+    categoryOrderHint.setOrderHint(OrderHintUtils.createOrderHint());
+
+    return categoryOrderHint;
+  }
 
   /**
    * Build category order hint.

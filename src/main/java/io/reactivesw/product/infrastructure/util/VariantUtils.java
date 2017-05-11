@@ -20,10 +20,37 @@ public final class VariantUtils {
   private static final Logger LOG = LoggerFactory.getLogger(VariantUtils.class);
 
   /**
+   * The constant MASTER_VARIANT_ID.
+   */
+  public static final Integer MASTER_VARIANT_ID = 1;
+
+  /**
+   * The constant VARIANT_ID_INTERVAL.
+   */
+  public static final Integer VARIANT_ID_INTERVAL = 1;
+
+  /**
    * Instantiates a new Variant utils.
    */
   private VariantUtils() {
   }
+
+  /**
+   * Create new variant id in staged integer.
+   *
+   * @param product the product
+   * @return the integer
+   */
+  public static Integer createNewVariantIdInStaged(Product product) {
+    Integer result = null;
+
+    ProductData staged = product.getMasterData().getStaged();
+    Integer biggestVariantId = getBiggestVariantId(staged);
+    result = biggestVariantId + VARIANT_ID_INTERVAL;
+
+    return result;
+  }
+
 
   /**
    * Gets staged variant.
@@ -35,17 +62,7 @@ public final class VariantUtils {
   public static ProductVariant getStagedVariant(Product product, Integer variantId) {
     ProductVariant result = null;
     ProductData staged = product.getMasterData().getStaged();
-    if (variantId.equals(1)) {
-      result = staged.getMasterVariant();
-    } else {
-      Predicate<ProductVariant> predicate = productVariant -> productVariant.getId()
-          .equals(variantId);
-      result = staged.getVariants().stream().filter(predicate).findAny().orElse(null);
-    }
-
-    if (result == null) {
-      LOG.debug("Can not find variant: {} in product: {}.", variantId, product.getId());
-    }
+    result = getProductVariant(product, variantId, staged);
 
     return result;
   }
@@ -60,16 +77,48 @@ public final class VariantUtils {
   public static ProductVariant getCurrentVariant(Product product, Integer variantId) {
     ProductVariant result = null;
     ProductData current = product.getMasterData().getCurrent();
-    if (variantId.equals(1)) {
-      result = current.getMasterVariant();
+    result = getProductVariant(product, variantId, current);
+
+    return result;
+  }
+
+  /**
+   * Gets product variant.
+   *
+   * @param product the product
+   * @param variantId the variant id
+   * @param productData the productData
+   * @return the product variant
+   */
+  private static ProductVariant getProductVariant(Product product, Integer variantId,
+      ProductData productData) {
+    ProductVariant result = null;
+    if (variantId.equals(MASTER_VARIANT_ID)) {
+      result = productData.getMasterVariant();
     } else {
-      Predicate<ProductVariant> predicate = productVariant -> productVariant.getId()
-          .equals(variantId);
-      result = current.getVariants().stream().filter(predicate).findAny().orElse(null);
+      Predicate<ProductVariant> predicate = productVariant ->
+          productVariant.getId().equals(variantId);
+      result = productData.getVariants().stream().filter(predicate).findAny().orElse(null);
     }
 
     if (result == null) {
       LOG.debug("Can not find variant: {} in product: {}.", variantId, product.getId());
+    }
+    return result;
+  }
+
+  /**
+   * Get the biggest variant id from ProductData.
+   *
+   * @param productData the ProductData entity
+   * @return Integer
+   */
+  private static Integer getBiggestVariantId(ProductData productData) {
+    Integer result = productData.getMasterVariant().getId();
+    if (productData.getVariants() != null && !productData.getVariants().isEmpty()) {
+      result = productData.getVariants().stream().map(
+          ProductVariant::getId).max(Integer::compare)
+          .get();
     }
 
     return result;

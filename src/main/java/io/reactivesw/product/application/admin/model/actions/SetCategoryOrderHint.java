@@ -19,10 +19,18 @@ public class SetCategoryOrderHint implements UpdateAction {
   private String categoryId;
 
   /**
-   * The orderHint.
+   * The previousOrderHint.
    * A number between 0 and 1.
+   * Should not be blank.
    */
-  private String orderHint;
+  private String previousOrderHint;
+
+  /**
+   * The nextOrderHint.
+   * A number between 0 and 1.
+   * If this is blank, means that change product to the last one.
+   */
+  private String nextOrderHint;
 
   /**
    * Get update service name.

@@ -119,4 +119,28 @@ public final class ProductDataMapper {
     }
     return model;
   }
+
+  /**
+   * Copy from product data.
+   *
+   * @param entity the entity
+   * @return the product data
+   */
+  public static ProductData copyFrom(ProductData entity) {
+    ProductData result = new ProductData();
+
+    result.setName(LocalizedStringMapper.copyFrom(entity.getName()));
+    result.setDescription(LocalizedStringMapper.copyFrom(entity.getDescription()));
+    result.setSlug(entity.getSlug());
+    result.setMetaTitle(LocalizedStringMapper.copyFrom(entity.getMetaTitle()));
+    result.setMetaDescription(LocalizedStringMapper.copyFrom(entity.getMetaDescription()));
+    result.setMetaKeywords(LocalizedStringMapper.copyFrom(entity.getMetaKeywords()));
+    result.setSearchKeyWords(entity.getSearchKeyWords());
+    result.setMasterVariant(ProductVariantMapper.copyFrom(entity.getMasterVariant()));
+    result.setVariants(ProductVariantMapper.copyFrom(entity.getVariants()));
+    result.setCategoryOrderHints(CategoryOrderHintsMapper.copyFrom(entity.getCategoryOrderHints()));
+    result.setCategories(entity.getCategories());
+
+    return result;
+  }
 }

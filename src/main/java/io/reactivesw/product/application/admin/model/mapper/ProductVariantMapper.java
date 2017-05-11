@@ -7,6 +7,7 @@ import io.reactivesw.product.application.model.ProductVariantView;
 import io.reactivesw.product.domain.model.ProductVariant;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -106,5 +107,44 @@ public final class ProductVariantMapper {
           return toModel(entity);
         }
     ).collect(Collectors.toList());
+  }
+
+
+  /**
+   * Copy from product variant.
+   *
+   * @param entity the entity
+   * @return the product variant
+   */
+  public static ProductVariant copyFrom(ProductVariant entity) {
+    ProductVariant result = new ProductVariant();
+
+    result.setId(entity.getId());
+    result.setSku(entity.getSku());
+    result.setKey(entity.getKey());
+    result.setPrices(PriceMapper.copyFrom(entity.getPrices()));
+    result.setAttributes(AttributeMapper.copyFrom(entity.getAttributes()));
+    result.setImages(ImageMapper.copyFrom(entity.getImages()));
+    result.setAssetIds(entity.getAssetIds());
+
+    return result;
+  }
+
+  /**
+   * Copy from list of ProductVariant.
+   *
+   * @param entities the entities
+   * @return the list
+   */
+  public static List<ProductVariant> copyFrom(List<ProductVariant> entities) {
+    List<ProductVariant> result = Lists.newArrayList();
+
+    Consumer<ProductVariant> consumer = productVariant -> result.add(copyFrom(productVariant));
+
+    if (entities != null) {
+      entities.stream().forEach(consumer);
+    }
+
+    return result;
   }
 }
