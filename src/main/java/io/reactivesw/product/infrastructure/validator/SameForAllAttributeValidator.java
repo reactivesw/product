@@ -1,10 +1,11 @@
 package io.reactivesw.product.infrastructure.validator;
 
 import io.reactivesw.exception.ParametersException;
-import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.model.attribute.AttributeConstraint;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
-import io.reactivesw.product.application.model.attribute.AttributeView;
+import io.reactivesw.product.domain.model.Attribute;
+import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.infrastructure.util.AttributeUtils;
 
 import org.slf4j.Logger;
@@ -21,7 +22,8 @@ public final class SameForAllAttributeValidator {
   /**
    * log.
    */
-  private static final Logger LOG = LoggerFactory.getLogger(SameForAllAttributeValidator.class);
+  private static final Logger LOG =
+      LoggerFactory.getLogger(SameForAllAttributeValidator.class);
 
   /**
    * private constructor.
@@ -33,16 +35,17 @@ public final class SameForAllAttributeValidator {
    * Validate same for all attribute.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft the product draft
+   * @param product the Product entity
    */
-  public static void validate(List<AttributeDefinition> attributeDefinitions,
-      ProductDraft productDraft) {
+  public static void validate(List<AttributeDefinition> attributeDefinitions, Product product) {
     List<String> attributeNames = AttributeUtils.getAttributeNameByConstraint(attributeDefinitions,
         AttributeConstraint.SameForAll);
 
+    ProductData staged = product.getMasterData().getStaged();
+
     attributeNames.forEach(
         attributeName -> {
-          validate(attributeName, productDraft);
+          validate(attributeName, staged);
         }
     );
   }
@@ -51,10 +54,10 @@ public final class SameForAllAttributeValidator {
    * Validate same for all attribute.
    *
    * @param attributeName the attribute name
-   * @param productDraft the product draft
+   * @param productData the ProductData entity
    */
-  private static void validate(String attributeName, ProductDraft productDraft) {
-    List<AttributeView> masterAttributes = productDraft.getMasterVariant().getAttributes();
+  private static void validate(String attributeName, ProductData productData) {
+    List<Attribute> masterAttributes = productData.getMasterVariant().getAttributes();
     // TODO: 16/12/19 attributeValue should be JsonNode type
     String attributeValue = "";
     if (masterAttributes != null) {
@@ -71,8 +74,8 @@ public final class SameForAllAttributeValidator {
     }
 
     String finalAttributeValue = attributeValue;
-    if (productDraft.getVariants() != null) {
-      productDraft.getVariants().stream()
+    if (productData.getVariants() != null) {
+      productData.getVariants().stream()
           .forEach(productVariantDraft -> {
             productVariantDraft.getAttributes().forEach(
                 attribute -> {

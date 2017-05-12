@@ -3,10 +3,11 @@ package io.reactivesw.product.infrastructure.validator;
 import com.google.common.collect.Lists;
 
 import io.reactivesw.exception.ParametersException;
-import io.reactivesw.product.application.admin.model.ProductDraft;
-import io.reactivesw.product.application.admin.model.ProductVariantDraft;
 import io.reactivesw.product.application.model.attribute.AttributeConstraint;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
+import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
+import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.util.AttributeUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -24,7 +25,8 @@ public final class CombinationAttributeValidator {
   /**
    * log.
    */
-  private static final Logger LOG = LoggerFactory.getLogger(CombinationAttributeValidator.class);
+  private static final Logger LOG =
+      LoggerFactory.getLogger(CombinationAttributeValidator.class);
 
   /**
    * private constructor.
@@ -36,10 +38,9 @@ public final class CombinationAttributeValidator {
    * Validate combination unique attribute.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft the product draft
+   * @param product the Product entity
    */
-  public static void validate(List<AttributeDefinition> attributeDefinitions,
-      ProductDraft productDraft) {
+  public static void validate(List<AttributeDefinition> attributeDefinitions, Product product) {
     List<String> combinationUniqueAttribute = AttributeUtils.getAttributeNameByConstraint(
         attributeDefinitions, AttributeConstraint.CombinationUnique);
 
@@ -51,17 +52,19 @@ public final class CombinationAttributeValidator {
 
     List<List<String>> attributes = Lists.newArrayList();
 
-    if (productDraft.getMasterVariant() != null
-        && productDraft.getMasterVariant().getAttributes() != null) {
+    ProductData staged = product.getMasterData().getStaged();
+
+    if (staged.getMasterVariant() != null
+        && staged.getMasterVariant().getAttributes() != null) {
       List<String> masterAttributes =
-          getCombinationAttributes(productDraft.getMasterVariant(), combinationUniqueAttribute);
+          getCombinationAttributes(staged.getMasterVariant(), combinationUniqueAttribute);
       if (!masterAttributes.isEmpty()) {
         attributes.add(masterAttributes);
       }
     }
 
-    if (productDraft.getVariants() != null) {
-      List<List<String>> variantAttributes = productDraft.getVariants().stream().filter(
+    if (staged.getVariants() != null) {
+      List<List<String>> variantAttributes = staged.getVariants().stream().filter(
           productVariantDraft -> productVariantDraft.getAttributes() != null
       ).map(
           productVariantDraft -> {
@@ -83,13 +86,13 @@ public final class CombinationAttributeValidator {
   /**
    * Get combination attribute value.
    *
-   * @param variantDraft ProductVariantDraft
+   * @param variant the ProductVariant entity
    * @param combinationUniqueAttribute combination unique attribute name
    * @return attribute value list
    */
-  private static List<String> getCombinationAttributes(ProductVariantDraft variantDraft,
+  private static List<String> getCombinationAttributes(ProductVariant variant,
       List<String> combinationUniqueAttribute) {
-    return variantDraft.getAttributes().stream()
+    return variant.getAttributes().stream()
         .filter(
             attribute -> combinationUniqueAttribute.contains(attribute.getName())
         ).map(attribute -> {

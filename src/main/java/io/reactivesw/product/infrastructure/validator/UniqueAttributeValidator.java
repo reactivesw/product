@@ -4,9 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import io.reactivesw.exception.ParametersException;
-import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.model.attribute.AttributeConstraint;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
+import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.infrastructure.util.AttributeUtils;
 
 import org.slf4j.Logger;
@@ -35,18 +36,18 @@ public final class UniqueAttributeValidator {
    * Validate product unique attribuate.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft the product draft
+   * @param product the Product entity
    */
-  public static void validate(List<AttributeDefinition>
-      attributeDefinitions,
-      ProductDraft productDraft) {
+  public static void validate(List<AttributeDefinition> attributeDefinitions, Product product) {
     List<String> uniqueAttributes = AttributeUtils.getAttributeNameByConstraint(
         attributeDefinitions,
         AttributeConstraint.Unique);
 
+    ProductData staged = product.getMasterData().getStaged();
+
     uniqueAttributes.stream().forEach(
         uniqueAttribute -> {
-          validateUniqueAttribute(uniqueAttribute, productDraft);
+          validateUniqueAttribute(uniqueAttribute, staged);
         }
     );
   }
@@ -55,14 +56,14 @@ public final class UniqueAttributeValidator {
    * Validate unique attribute.
    *
    * @param attributeName the attribute name
-   * @param productDraft the product draft
+   * @param productData the ProductData entity
    */
-  private static void validateUniqueAttribute(String attributeName, ProductDraft productDraft) {
+  private static void validateUniqueAttribute(String attributeName, ProductData productData) {
     // TODO: 16/12/19 List<String> should be List<JsonNode>
     List<String> attributes = Lists.newArrayList();
 
-    if (productDraft.getVariants() != null) {
-      productDraft.getVariants().stream().forEach(
+    if (productData.getVariants() != null) {
+      productData.getVariants().stream().forEach(
           productVariantDraft -> {
             productVariantDraft.getAttributes().stream().filter(
                 attribute -> attribute.getName().equals(attributeName)
@@ -75,9 +76,9 @@ public final class UniqueAttributeValidator {
       );
     }
 
-    if (productDraft.getMasterVariant() != null
-        && productDraft.getMasterVariant().getAttributes() != null) {
-      productDraft.getMasterVariant().getAttributes().stream().filter(
+    if (productData.getMasterVariant() != null
+        && productData.getMasterVariant().getAttributes() != null) {
+      productData.getMasterVariant().getAttributes().stream().filter(
           attribute -> attribute.getName().equals(attributeName)
       ).forEach(
           attribute -> {

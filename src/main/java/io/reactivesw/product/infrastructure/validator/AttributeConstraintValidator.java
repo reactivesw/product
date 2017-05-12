@@ -1,6 +1,5 @@
 package io.reactivesw.product.infrastructure.validator;
 
-import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
 import io.reactivesw.product.domain.model.Product;
 
@@ -18,35 +17,24 @@ public final class AttributeConstraintValidator {
   }
 
   /**
-   * Validate attribute.
-   *
-   * @param attributeDefinitions the attribute definitions
-   * @param productDraft the product draft
-   */
-  public static void validate(List<AttributeDefinition> attributeDefinitions,
-      ProductDraft productDraft) {
-    if (attributeDefinitions != null) {
-      //1. require的attribute
-      RequireAttributeValidator.validate(attributeDefinitions, productDraft);
-      //2. attribute name
-      AttributeNameValidator.validate(attributeDefinitions, productDraft);
-      //3. unique 比对一下所有都不相同
-      UniqueAttributeValidator.validate(attributeDefinitions, productDraft);
-      //4. combination unique 组合不相同,需要比对
-      CombinationAttributeValidator.validate(attributeDefinitions, productDraft);
-      //5. same for all
-      SameForAllAttributeValidator.validate(attributeDefinitions, productDraft);
-      //6. none 不需要考虑
-    }
-  }
-
-  /**
    * Validate.
    *
    * @param attributeDefinitions the attribute definitions
    * @param product the product
    */
   public static void validate(List<AttributeDefinition> attributeDefinitions, Product product) {
-    // TODO: 17/5/11 reference to method above
+    if (attributeDefinitions != null) {
+      //1. require的attribute
+      RequireAttributeValidator.validate(attributeDefinitions, product);
+      //2. attribute name
+      AttributeNameValidator.validate(attributeDefinitions, product);
+      //3. unique 比对一下所有都不相同
+      UniqueAttributeValidator.validate(attributeDefinitions, product);
+      //4. combination unique 组合不相同,需要比对
+      CombinationAttributeValidator.validate(attributeDefinitions, product);
+      //5. same for all
+      SameForAllAttributeValidator.validate(attributeDefinitions, product);
+      //6. none 不需要考虑
+    }
   }
 }
