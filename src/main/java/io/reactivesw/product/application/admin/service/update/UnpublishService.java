@@ -34,6 +34,7 @@ public class UnpublishService implements Updater<Product, UpdateAction> {
 
     if (updateAction instanceof Unpublish) {
       product.getMasterData().setCurrent(null);
+      product.getMasterData().setPublished(false);
     }
 
     LOG.trace("Updated product: {}.", product);

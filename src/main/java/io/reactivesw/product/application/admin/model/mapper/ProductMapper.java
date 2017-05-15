@@ -38,7 +38,7 @@ public final class ProductMapper {
     if (model.getTaxCategory() != null) {
       entity.setTaxCategory(model.getTaxCategory().getId());
     }
-    entity.setMasterData(ProductCatalogDataMapper.modelToEntity(model));
+    entity.setMasterData(ProductCatalogDataMapper.toEntityOnlyStaged(model));
 
     return entity;
   }
@@ -69,7 +69,7 @@ public final class ProductMapper {
     }
     // model.setState(entity.getState());
     // model.setReviewRatingStatistics();
-    model.setMasterData(ProductCatalogDataMapper.entityToModel(entity.getMasterData()));
+    model.setMasterData(ProductCatalogDataMapper.toModel(entity.getMasterData()));
 
     return model;
   }
