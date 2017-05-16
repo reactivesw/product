@@ -1,14 +1,9 @@
 package io.reactivesw.product.domain.service;
 
 import io.reactivesw.exception.NotExistException;
-import io.reactivesw.product.application.admin.model.ProductDraft;
-import io.reactivesw.product.application.admin.model.ProductView;
-import io.reactivesw.product.application.admin.model.mapper.ProductMapper;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
 import io.reactivesw.product.infrastructure.util.SkuUtils;
-import io.reactivesw.product.infrastructure.validator.SkuNameValidator;
-import io.reactivesw.product.infrastructure.validator.SlugValidator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,26 +41,19 @@ public class ProductService {
   /**
    * Create product.
    *
-   * @param productDraft the product draft
+   * @param product the Product entity
    * @return the product
    */
   @Transactional
-  public ProductView createProduct(ProductDraft productDraft) {
-    LOG.debug("enter createProduct, ProductDraft is : {}", productDraft.toString());
+  public Product save(Product product) {
+    LOG.debug("Enter.");
+    LOG.trace("Product: {}.", product);
 
-    List<Product> products = productRepository.findAll();
-    SlugValidator.validate(productDraft.getSlug(), products);
-    SkuNameValidator.validate(productDraft, products);
+    Product savedEntity = productRepository.save(product);
 
-    Product entity = ProductMapper.toEntity(productDraft);
+    LOG.debug("Exit.");
 
-    Product savedEntity = productRepository.save(entity);
-
-    ProductView result = ProductMapper.toModel(savedEntity);
-
-    LOG.debug("end createProduct, created ProductView is : {}", result.toString());
-
-    return result;
+    return savedEntity;
   }
 
   /**
@@ -131,19 +119,16 @@ public class ProductService {
   }
 
   /**
-   * Save product.
+   * Gets all products.
    *
-   * @param entity the entity
-   * @return the product
+   * @return the all products
    */
-  public Product save(Product entity) {
-    LOG.debug("Enter. ProductId: {}.", entity.getId());
-    LOG.trace("Product: {}.", entity);
+  public List<Product> getAllProducts() {
+    LOG.debug("Enter.");
+    List<Product> products = productRepository.findAll();
 
-    Product savedEntity = productRepository.save(entity);
-
-    LOG.debug("Exit.");
-    return savedEntity;
+    LOG.debug("Exit. Product count: {}.", products.size());
+    return products;
   }
 
   /**

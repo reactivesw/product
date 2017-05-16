@@ -5,6 +5,7 @@ import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.application.model.SearchKeyword;
 import io.reactivesw.product.application.model.mapper.LocalizedStringMapper;
+import io.reactivesw.product.domain.model.CategoryOrderHint;
 import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
@@ -72,6 +73,14 @@ public final class ProductDataMapper {
               }
           ).collect(Collectors.toSet())
       );
+
+      entity.setCategoryOrderHints(
+          model.getCategories().stream().map(
+              category -> {
+                return CategoryOrderHint.build(category.getId());
+              }
+          ).collect(Collectors.toList())
+      );
     }
 
     if (model.getCategoryOrderHints() != null && !model.getCategoryOrderHints().isEmpty()) {
@@ -118,5 +127,29 @@ public final class ProductDataMapper {
           entity.getCategoryOrderHints()));
     }
     return model;
+  }
+
+  /**
+   * Copy from product data.
+   *
+   * @param entity the entity
+   * @return the product data
+   */
+  public static ProductData copyFrom(ProductData entity) {
+    ProductData result = new ProductData();
+
+    result.setName(LocalizedStringMapper.copyFrom(entity.getName()));
+    result.setDescription(LocalizedStringMapper.copyFrom(entity.getDescription()));
+    result.setSlug(entity.getSlug());
+    result.setMetaTitle(LocalizedStringMapper.copyFrom(entity.getMetaTitle()));
+    result.setMetaDescription(LocalizedStringMapper.copyFrom(entity.getMetaDescription()));
+    result.setMetaKeywords(LocalizedStringMapper.copyFrom(entity.getMetaKeywords()));
+    result.setSearchKeyWords(entity.getSearchKeyWords());
+    result.setMasterVariant(ProductVariantMapper.copyFrom(entity.getMasterVariant()));
+    result.setVariants(ProductVariantMapper.copyFrom(entity.getVariants()));
+    result.setCategoryOrderHints(CategoryOrderHintsMapper.copyFrom(entity.getCategoryOrderHints()));
+    result.setCategories(entity.getCategories());
+
+    return result;
   }
 }

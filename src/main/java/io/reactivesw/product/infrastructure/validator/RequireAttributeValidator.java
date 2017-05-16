@@ -3,9 +3,10 @@ package io.reactivesw.product.infrastructure.validator;
 import com.google.common.collect.Lists;
 
 import io.reactivesw.exception.ParametersException;
-import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.model.attribute.AttributeDefinition;
-import io.reactivesw.product.application.model.attribute.AttributeView;
+import io.reactivesw.product.domain.model.Attribute;
+import io.reactivesw.product.domain.model.Product;
+import io.reactivesw.product.domain.model.ProductData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,26 +34,21 @@ public final class RequireAttributeValidator {
    * Validate product require attribute.
    *
    * @param attributeDefinitions the attribute definitions
-   * @param productDraft the product draft
+   * @param product the Product entity
    */
-  public static void validate(List<AttributeDefinition>
-      attributeDefinitions,
-      ProductDraft productDraft) {
+  public static void validate(List<AttributeDefinition> attributeDefinitions, Product product) {
     List<String> requireAttributeNames = getRequireAttributeNames(attributeDefinitions);
 
     if (requireAttributeNames.isEmpty()) {
       return;
     }
 
-    if (productDraft.getMasterVariant() == null) {
-      throwExceptionForRequire();
-    }
+    ProductData staged = product.getMasterData().getStaged();
 
-    validateRequireAttribute(requireAttributeNames,
-        productDraft.getMasterVariant().getAttributes());
+    validateRequireAttribute(requireAttributeNames, staged.getMasterVariant().getAttributes());
 
-    if (productDraft.getVariants() != null && !productDraft.getVariants().isEmpty()) {
-      productDraft.getVariants().stream().forEach(
+    if (staged.getVariants() != null && ! staged.getVariants().isEmpty()) {
+      staged.getVariants().stream().forEach(
           productVariantDraft -> {
             validateRequireAttribute(requireAttributeNames, productVariantDraft
                 .getAttributes());
@@ -90,7 +86,7 @@ public final class RequireAttributeValidator {
    * @param attributes the attributes
    */
   private static void validateRequireAttribute(List<String> requireAttributeNames,
-      List<AttributeView> attributes) {
+      List<Attribute> attributes) {
     List<String> attributeNames = attributes.stream().map(
         attribute -> {
           return attribute.getName();

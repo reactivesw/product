@@ -78,4 +78,35 @@ class SkuNameValidatorTest extends Specification {
         then:
         thrown(ConflictException)
     }
+
+    def "Test3.1: validate that sku is not exist"() {
+        given:
+        ProductVariant variant = new ProductVariant(sku: masterSku)
+        ProductData currentProduct = new ProductData(masterVariant: variant)
+        ProductCatalogData masterData = new ProductCatalogData(current: currentProduct)
+        Product product = new Product(masterData: masterData)
+        List products = Lists.newArrayList(product)
+        def skuName = "skuName"
+
+        when:
+        SkuNameValidator.validate(skuName, products)
+
+        then:
+        true
+    }
+
+    def "Test3.2: validate that sku is exist"() {
+        given:
+        ProductVariant variant = new ProductVariant(sku: masterSku)
+        ProductData currentProduct = new ProductData(masterVariant: variant)
+        ProductCatalogData masterData = new ProductCatalogData(current: currentProduct)
+        Product product = new Product(masterData: masterData)
+        List products = Lists.newArrayList(product)
+
+        when:
+        SkuNameValidator.validate(masterSku, products)
+
+        then:
+        thrown(ConflictException)
+    }
 }

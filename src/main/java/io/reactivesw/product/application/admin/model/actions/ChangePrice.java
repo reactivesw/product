@@ -15,6 +15,11 @@ import lombok.Setter;
 public class ChangePrice implements UpdateAction {
 
   /**
+   * Variant Id for product.
+   */
+  private Integer variantId;
+
+  /**
    * Price Id.
    */
   private String priceId;

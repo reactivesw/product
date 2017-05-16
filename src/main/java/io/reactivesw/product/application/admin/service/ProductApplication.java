@@ -13,13 +13,13 @@ import io.reactivesw.product.infrastructure.update.UpdaterService;
 import io.reactivesw.product.infrastructure.validator.AttributeConstraintValidator;
 import io.reactivesw.product.infrastructure.validator.ProductTypeValidator;
 import io.reactivesw.product.infrastructure.validator.SkuNameValidator;
+import io.reactivesw.product.infrastructure.validator.SlugValidator;
 import io.reactivesw.product.infrastructure.validator.VersionValidator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -83,12 +83,18 @@ public class ProductApplication {
       throw new NotExistException("ProductTypeView Not Found");
     }
 
-    AttributeConstraintValidator.validate(productType.getAttributes(), productDraft);
+    Product entity = ProductMapper.toEntity(productDraft);
+    AttributeConstraintValidator.validate(productType.getAttributes(), entity);
+
     SkuNameValidator.validate(productDraft);
 
-    ProductView result = productService.createProduct(productDraft);
+    List<Product> products = productService.getAllProducts();
+    SlugValidator.validate(productDraft.getSlug(), products);
+    SkuNameValidator.validate(productDraft, products);
 
-    LOG.debug("Exit.");
+    ProductView result = save(entity);
+
+    LOG.debug("Exit. Create productId: {}.", result.getId());
     LOG.trace("created Product: {}.", result);
 
     return result;
@@ -123,9 +129,7 @@ public class ProductApplication {
     Product product = productService.getProductById(id);
     VersionValidator.validate(product, version);
 
-    Product updatedProduct = updateProductEntity(product, actions);
-
-    ProductView result = ProductMapper.toModel(updatedProduct);
+    ProductView result = updateProductEntity(product, actions);
 
     LOG.trace("Updated Product: {}.", result);
     LOG.debug("Exit.");
@@ -140,15 +144,26 @@ public class ProductApplication {
    * @param actions the actions
    * @return product
    */
-  @Transactional
-  private Product updateProductEntity(Product entity, List<UpdateAction> actions) {
+  private ProductView updateProductEntity(Product entity, List<UpdateAction> actions) {
     LOG.debug("Enter. ProductId: {}, actions: {}.", entity.getId(), actions);
     actions.stream().forEach(action -> {
       updaterService.handle(entity, action);
     });
 
-    Product updatedProduct = productService.save(entity);
-    LOG.debug("Exit. ProductId: {}.", updatedProduct.getId());
-    return updatedProduct;
+    ProductView result = save(entity);
+    LOG.debug("Exit. ProductId: {}.", result.getId());
+    return result;
+  }
+
+
+  /**
+   * Save product.
+   *
+   * @param entity the entity
+   * @return the product view
+   */
+  private ProductView save(Product entity) {
+    Product savedProduct = productService.save(entity);
+    return ProductMapper.toModel(savedProduct);
   }
 }

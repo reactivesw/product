@@ -1,9 +1,12 @@
 package io.reactivesw.product.application.admin.model.mapper;
 
+import com.google.common.collect.Lists;
+
 import io.reactivesw.product.application.model.ImageView;
 import io.reactivesw.product.domain.model.Image;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -76,5 +79,39 @@ public final class ImageMapper {
     entity.setDimensions(DimensionsMapper.toEntity(model.getDimensions()));
 
     return entity;
+  }
+
+  /**
+   * Copy from list of Image.
+   *
+   * @param entities the entities
+   * @return the list
+   */
+  public static List<Image> copyFrom(List<Image> entities) {
+    List<Image> result = Lists.newArrayList();
+
+    Consumer<Image> consumer = image -> result.add(copyFrom(image));
+
+    if (entities != null) {
+      entities.stream().forEach(consumer);
+    }
+
+    return result;
+  }
+
+  /**
+   * Copy from image.
+   *
+   * @param entity the entity
+   * @return the image
+   */
+  private static Image copyFrom(Image entity) {
+    Image result = new Image();
+
+    result.setUrl(entity.getUrl());
+    result.setLabel(entity.getLabel());
+    result.setDimensions(entity.getDimensions());
+
+    return result;
   }
 }

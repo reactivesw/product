@@ -14,7 +14,6 @@ import lombok.Setter;
 @Getter
 public class AddExternalImage implements UpdateAction {
 
-
   /**
    * Variant Id for product.
    */

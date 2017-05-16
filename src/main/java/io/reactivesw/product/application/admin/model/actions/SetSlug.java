@@ -1,6 +1,5 @@
 package io.reactivesw.product.application.admin.model.actions;
 
-import io.reactivesw.model.LocalizedString;
 import io.reactivesw.product.infrastructure.update.UpdateAction;
 import io.reactivesw.product.infrastructure.util.UpdateActionUtils;
 
@@ -17,7 +16,7 @@ public class SetSlug implements UpdateAction {
   /**
    * Slug for product.
    */
-  private LocalizedString slug;
+  private String slug;
 
   /**
    * Get update service name.

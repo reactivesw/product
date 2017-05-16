@@ -23,12 +23,12 @@ public final class ProductCatalogDataMapper {
    * @param model the model
    * @return the product catalog data
    */
-  public static ProductCatalogData modelToEntity(ProductDraft model) {
+  public static ProductCatalogData toEntityOnlyStaged(ProductDraft model) {
     ProductCatalogData entity = new ProductCatalogData();
 
     entity.setPublished(model.getPublish());
     entity.setStagedChanged(false);
-    entity.setCurrent(ProductDataMapper.toEntity(model));
+    // entity.setCurrent(ProductDataMapper.toEntity(model));
     entity.setStaged(ProductDataMapper.toEntity(model));
 
     return entity;
@@ -40,12 +40,14 @@ public final class ProductCatalogDataMapper {
    * @param entity the entity
    * @return the product catalog data view
    */
-  public static ProductCatalogDataView entityToModel(ProductCatalogData entity) {
+  public static ProductCatalogDataView toModel(ProductCatalogData entity) {
     ProductCatalogDataView model = new ProductCatalogDataView();
 
     model.setPublished(entity.getPublished());
     model.setHasStagedChanges(entity.getStagedChanged());
-    model.setCurrent(ProductDataMapper.toModel(entity.getCurrent()));
+    if (entity.getCurrent() != null) {
+      model.setCurrent(ProductDataMapper.toModel(entity.getCurrent()));
+    }
     model.setStaged(ProductDataMapper.toModel(entity.getStaged()));
 
     return model;

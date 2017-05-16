@@ -20,11 +20,6 @@ public class AddToCategory implements UpdateAction {
   private Reference category;
 
   /**
-   * OrderHint, number between 0 and 1.
-   */
-  private String orderHint;
-
-  /**
    * Get update service name.
    *
    * @return update service name

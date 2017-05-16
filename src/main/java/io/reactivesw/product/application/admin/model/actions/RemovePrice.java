@@ -14,6 +14,11 @@ import lombok.Setter;
 public class RemovePrice implements UpdateAction {
 
   /**
+   * Variant Id for product.
+   */
+  private Integer variantId;
+
+  /**
    * Id of the price.
    */
   private String priceId;

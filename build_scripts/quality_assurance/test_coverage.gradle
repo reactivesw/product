@@ -38,6 +38,7 @@ jacocoTestReport {
                     '**/update/**',
                     '**/controller/**',
                     '**/util/**',
+                    '**/validator/**',
             ])
         })
     }
