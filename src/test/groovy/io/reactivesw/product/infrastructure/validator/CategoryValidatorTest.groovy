@@ -13,7 +13,7 @@ class CategoryValidatorTest extends Specification {
 
     def "Test1: category is ok"() {
         given:
-        Reference category = new Reference(ReferenceTypes.CATEGORY.toString(), "categoryId")
+        Reference category = new Reference(ReferenceTypes.CATEGORY.getType(), "categoryId")
 
         when:
         CategoryValidator.validateCategory(category)
@@ -35,7 +35,7 @@ class CategoryValidatorTest extends Specification {
 
     def "Test3: not a category reference"() {
         given:
-        Reference category = new Reference(ReferenceTypes.CART.toString(), "categoryId")
+        Reference category = new Reference(ReferenceTypes.CART.getType(), "categoryId")
 
         when:
         CategoryValidator.validateCategory(category)
@@ -46,7 +46,7 @@ class CategoryValidatorTest extends Specification {
 
     def "Test4: category id is blank"() {
         given:
-        Reference category = new Reference(ReferenceTypes.CART.toString(), "")
+        Reference category = new Reference(ReferenceTypes.CART.getType(), "")
 
         when:
         CategoryValidator.validateCategory(category)

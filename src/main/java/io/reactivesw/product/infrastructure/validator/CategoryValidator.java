@@ -31,7 +31,7 @@ public final class CategoryValidator {
    */
   public static void validateCategory(Reference category) {
     if (category == null
-        || !category.getTypeId().equals(ReferenceTypes.CATEGORY.toString())
+        || !category.getTypeId().equals(ReferenceTypes.CATEGORY.getType())
         || StringUtils.isBlank(category.getId())) {
       LOG.debug("Category reference is null.");
       throw new ParametersException("Category Reference is Null.");
