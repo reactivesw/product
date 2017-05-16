@@ -48,8 +48,7 @@ public final class SlugValidator {
    * @param product the product
    */
   private static void validate(String slug, Product product) {
-    if (StringUtils.equals(slug, product.getMasterData().getCurrent().getSlug())
-        || StringUtils.equals(slug, product.getMasterData().getStaged().getSlug())) {
+    if (StringUtils.equals(slug, product.getMasterData().getStaged().getSlug())) {
       LOG.debug("slug : {} has already exists", slug);
       throw new ConflictException("slug has already exists");
     }

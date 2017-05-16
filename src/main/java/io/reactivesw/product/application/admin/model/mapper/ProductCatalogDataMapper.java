@@ -28,7 +28,7 @@ public final class ProductCatalogDataMapper {
 
     entity.setPublished(model.getPublish());
     entity.setStagedChanged(false);
-//    entity.setCurrent(ProductDataMapper.toEntity(model));
+    // entity.setCurrent(ProductDataMapper.toEntity(model));
     entity.setStaged(ProductDataMapper.toEntity(model));
 
     return entity;
