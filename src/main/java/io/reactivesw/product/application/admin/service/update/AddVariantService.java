@@ -67,6 +67,7 @@ public class AddVariantService implements Updater<Product, UpdateAction> {
     }
 
     AttributeConstraintValidator.validate(productTypeView.getAttributes(), product);
+    product.getMasterData().setStagedChanged(true);
 
     LOG.trace("Updated product: {}.", product);
     LOG.debug("Exit.");
