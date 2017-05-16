@@ -45,8 +45,10 @@ public class ChangeMasterVariantService implements Updater<Product, UpdateAction
       return;
     }
 
-    setVariantAsMasterVariant(product, variantId);
     moveMasterVariantToVariants(product);
+    setVariantAsMasterVariant(product, variantId);
+
+    product.getMasterData().setStagedChanged(true);
 
     LOG.trace("Updated product: {}.", product);
     LOG.debug("Exit.");
