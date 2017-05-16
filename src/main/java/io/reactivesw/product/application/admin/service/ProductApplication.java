@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -93,9 +92,9 @@ public class ProductApplication {
     SlugValidator.validate(productDraft.getSlug(), products);
     SkuNameValidator.validate(productDraft, products);
 
-    ProductView result = productService.save(entity);
+    ProductView result = save(entity);
 
-    LOG.debug("Exit.");
+    LOG.debug("Exit. Create productId: {}.", result.getId());
     LOG.trace("created Product: {}.", result);
 
     return result;
@@ -145,15 +144,26 @@ public class ProductApplication {
    * @param actions the actions
    * @return product
    */
-  @Transactional
   private ProductView updateProductEntity(Product entity, List<UpdateAction> actions) {
     LOG.debug("Enter. ProductId: {}, actions: {}.", entity.getId(), actions);
     actions.stream().forEach(action -> {
       updaterService.handle(entity, action);
     });
 
-    ProductView updatedProduct = productService.save(entity);
-    LOG.debug("Exit. ProductId: {}.", updatedProduct.getId());
-    return updatedProduct;
+    ProductView result = save(entity);
+    LOG.debug("Exit. ProductId: {}.", result.getId());
+    return result;
+  }
+
+
+  /**
+   * Save product.
+   *
+   * @param entity the entity
+   * @return the product view
+   */
+  private ProductView save(Product entity) {
+    Product savedProduct = productService.save(entity);
+    return ProductMapper.toModel(savedProduct);
   }
 }

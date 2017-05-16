@@ -1,8 +1,6 @@
 package io.reactivesw.product.domain.service;
 
 import io.reactivesw.exception.NotExistException;
-import io.reactivesw.product.application.admin.model.ProductView;
-import io.reactivesw.product.application.admin.model.mapper.ProductMapper;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.repository.ProductRepository;
 import io.reactivesw.product.infrastructure.util.SkuUtils;
@@ -47,17 +45,15 @@ public class ProductService {
    * @return the product
    */
   @Transactional
-  public ProductView save(Product product) {
+  public Product save(Product product) {
     LOG.debug("Enter.");
     LOG.trace("Product: {}.", product);
 
     Product savedEntity = productRepository.save(product);
 
-    ProductView result = ProductMapper.toModel(savedEntity);
-
     LOG.debug("Exit.");
 
-    return result;
+    return savedEntity;
   }
 
   /**

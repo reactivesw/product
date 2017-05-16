@@ -4,6 +4,7 @@ import io.reactivesw.model.Updater;
 import io.reactivesw.product.application.admin.model.actions.SetSlug;
 import io.reactivesw.product.domain.model.Product;
 import io.reactivesw.product.infrastructure.update.UpdateAction;
+import io.reactivesw.product.infrastructure.util.UpdateActionUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 /**
  * The type Set slug service.
  */
-@Service
+@Service(UpdateActionUtils.SET_SLUG)
 public class SetSlugService implements Updater<Product, UpdateAction> {
 
   /**

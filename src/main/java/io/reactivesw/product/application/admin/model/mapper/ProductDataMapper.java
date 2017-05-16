@@ -5,6 +5,7 @@ import io.reactivesw.product.application.admin.model.ProductDraft;
 import io.reactivesw.product.application.model.ProductDataView;
 import io.reactivesw.product.application.model.SearchKeyword;
 import io.reactivesw.product.application.model.mapper.LocalizedStringMapper;
+import io.reactivesw.product.domain.model.CategoryOrderHint;
 import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.infrastructure.util.ReferenceTypes;
@@ -71,6 +72,14 @@ public final class ProductDataMapper {
                 return category.getId();
               }
           ).collect(Collectors.toSet())
+      );
+
+      entity.setCategoryOrderHints(
+          model.getCategories().stream().map(
+              category -> {
+                return CategoryOrderHint.build(category.getId());
+              }
+          ).collect(Collectors.toList())
       );
     }
 
