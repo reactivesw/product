@@ -1,5 +1,7 @@
 package io.reactivesw.product.application.service;
 
+import com.google.common.collect.Lists;
+
 import io.reactivesw.product.application.model.CartProductView;
 import io.reactivesw.product.application.model.CategoryProductView;
 import io.reactivesw.product.application.model.DetailProductView;
@@ -13,6 +15,7 @@ import io.reactivesw.product.domain.model.ProductData;
 import io.reactivesw.product.domain.model.ProductVariant;
 import io.reactivesw.product.domain.service.ProductService;
 import io.reactivesw.product.infrastructure.util.InventoryUtils;
+import io.reactivesw.product.infrastructure.util.SearchUtils;
 import io.reactivesw.product.infrastructure.util.SkuUtils;
 
 import org.slf4j.Logger;
@@ -60,6 +63,7 @@ public class ProductApplication {
    * Get prodcut by id.
    *
    * @param id the id
+   * @param variantId the variant id
    * @return the product
    */
   public CartProductView getCartProductById(String id, Integer variantId) {
@@ -92,12 +96,7 @@ public class ProductApplication {
 
     List<CategoryProductView> result = CategoryProductMapper.toModel(productEntities);
 
-    List<String> skuNames = SkuUtils.getCategoryProductSkuNames(result);
-    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
-
-    if (inventoryEntries != null && !inventoryEntries.isEmpty()) {
-      result = InventoryUtils.mergeInventoryToCategoryProducts(inventoryEntries, result);
-    }
+    mergeInventory(result);
 
     LOG.debug("end queryCategoryProducts, category {} has {} products.", categoryId, result.size());
 
@@ -134,6 +133,29 @@ public class ProductApplication {
   }
 
   /**
+   * Search products.
+   *
+   * @param searchWords the search words
+   * @return the list
+   */
+  public List<CategoryProductView> searchProduct(String searchWords) {
+    LOG.debug("Enter. SearchWords: {}.", searchWords);
+    List<CategoryProductView> result = Lists.newArrayList();
+
+    List<Product> products = productService.getAllProducts();
+
+    if (products != null && !products.isEmpty()) {
+      result = SearchUtils.searchProduct(searchWords.trim(), products);
+      mergeInventory(result);
+    }
+
+    LOG.trace("Matching product: {}.", result);
+    LOG.debug("Exit. Result count: {}.", result.size());
+
+    return result;
+  }
+
+  /**
    * get product typd id.
    *
    * @param product the Product
@@ -163,5 +185,20 @@ public class ProductApplication {
     }
 
     return result;
+  }
+
+  /**
+   * Query inventory by sku name and merge to CategoryProductView.
+   *
+   * @param productViews list of CategoryProductView
+   * @return list of CategoryProductView after merged
+   */
+  private void mergeInventory(List<CategoryProductView> productViews) {
+    List<String> skuNames = SkuUtils.getCategoryProductSkuNames(productViews);
+    List<InventoryEntryView> inventoryEntries = productRestClient.getInventoryBySkus(skuNames);
+
+    if (inventoryEntries != null && !inventoryEntries.isEmpty()) {
+      InventoryUtils.mergeInventoryToCategoryProducts(inventoryEntries, productViews);
+    }
   }
 }

@@ -73,6 +73,28 @@ public class ProductController {
   }
 
   /**
+   * Search category products.
+   *
+   * @param searchWords the search words
+   * @return the paged query result
+   */
+  @GetMapping(CATEGORY_PRODUCT_ROOT)
+  public PagedQueryResult<CategoryProductView> searchCategoryProducts(@RequestParam("searchWords")
+      String searchWords) {
+    LOG.info("Enter. SearchWords: {}.", searchWords);
+
+    List<CategoryProductView> categoryProductViews = productApplication.searchProduct(searchWords);
+
+    PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
+    result.setCount(categoryProductViews.size());
+    result.setResults(categoryProductViews);
+
+    LOG.info("Exit. Result count: {}.", categoryProductViews.size());
+
+    return result;
+  }
+
+  /**
    * Gets detail product by sku.
    *
    * @param sku the sku

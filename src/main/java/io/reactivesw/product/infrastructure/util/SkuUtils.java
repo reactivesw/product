@@ -28,10 +28,13 @@ public final class SkuUtils {
    * @return list of String
    */
   public static List<String> getCategoryProductSkuNames(List<CategoryProductView> productViews) {
-    List<String> result = productViews.stream().map(
-        productView -> {
-          return productView.getSku();
-        }).collect(Collectors.toList());
+    List<String> result = null;
+    if (productViews != null) {
+      result = productViews.stream().map(
+          productView -> {
+            return productView.getSku();
+          }).collect(Collectors.toList());
+    }
     return result;
   }
 

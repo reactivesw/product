@@ -160,4 +160,40 @@ class ProductApplicationTest extends Specification {
         then:
         result != null
     }
+
+    def "Test4.1: search product"() {
+        given:
+        productService.getAllProducts() >> Lists.newArrayList(product)
+        def searchWords = "product-sku-11"
+
+        when:
+        def result = productApplication.searchProduct(searchWords)
+
+        then:
+        result != null
+    }
+
+    def "Test4.2: search product and products is null"() {
+        given:
+        productService.getAllProducts() >> null
+        def searchWords = "product-sku-11"
+
+        when:
+        def result = productApplication.searchProduct(searchWords)
+
+        then:
+        result.isEmpty()
+    }
+
+    def "Test4.3: search product and products is empty"() {
+        given:
+        productService.getAllProducts() >> Lists.newArrayList()
+        def searchWords = "product-sku-11"
+
+        when:
+        def result = productApplication.searchProduct(searchWords)
+
+        then:
+        result.isEmpty()
+    }
 }
