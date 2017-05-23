@@ -1,9 +1,9 @@
 package io.reactivesw.product.infrastructure.util;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+
 import java.util.List;
 import java.util.stream.Collectors;
-
-import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 /**
  * The type Fuzzy match utils.
