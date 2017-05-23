@@ -60,6 +60,7 @@ class ProductApplicationTest extends Specification {
 
         ProductCatalogData masterData = new ProductCatalogData();
         masterData.current = currentData
+        masterData.published = true
 
         product.masterData = masterData
         product.id = productId

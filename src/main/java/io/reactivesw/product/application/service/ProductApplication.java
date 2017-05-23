@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by Davis on 16/12/18.
@@ -145,7 +146,10 @@ public class ProductApplication {
     List<Product> products = productService.getAllProducts();
 
     if (products != null && !products.isEmpty()) {
-      result = SearchUtils.searchProduct(searchWords.trim(), products);
+      Predicate<Product> predicate = product -> product.getMasterData().getCurrent() != null;
+      List<Product> comparedProducts =
+          products.stream().filter(predicate).collect(Collectors.toList());
+      result = SearchUtils.searchProduct(searchWords.trim(), comparedProducts);
       mergeInventory(result);
     }
 
