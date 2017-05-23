@@ -65,4 +65,31 @@ public final class CategoryProductMapper {
 
     return model;
   }
+
+
+  /**
+   * Convert to CategoryProductView.
+   *
+   * @param entity the entity
+   * @param variant the variant
+   * @return the category product view
+   */
+  public static CategoryProductView toModel(Product entity, ProductVariant variant) {
+    CategoryProductView model = new CategoryProductView();
+
+    ProductData productData = entity.getMasterData().getCurrent();
+
+    model.setId(entity.getId());
+    model.setSku(variant.getSku());
+    model.setName(LocalizedStringMapper.toModelDefaultNew(productData.getName()));
+    if (variant.getImages() != null && !variant.getImages().isEmpty()) {
+      model.setImageUrl(variant.getImages().get(0).getUrl());
+    }
+    if (variant.getPrices() != null && !variant.getPrices().isEmpty()) {
+      model.setPrice(PriceMapper.toModel(variant.getPrices().get(0)));
+    }
+    model.setAvailable(false);
+
+    return model;
+  }
 }

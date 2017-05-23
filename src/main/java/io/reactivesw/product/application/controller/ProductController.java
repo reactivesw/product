@@ -4,6 +4,8 @@ import static io.reactivesw.product.infrastructure.Router.CART_PRODUCT_VARIANT_P
 import static io.reactivesw.product.infrastructure.Router.CATEGORY_PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.Router.DETAIL_PRODUCT_SKU;
 import static io.reactivesw.product.infrastructure.Router.PRODUCT_ID;
+import static io.reactivesw.product.infrastructure.Router.SEARCH;
+import static io.reactivesw.product.infrastructure.Router.SEARCH_WORDS;
 import static io.reactivesw.product.infrastructure.Router.SKU;
 import static io.reactivesw.product.infrastructure.Router.VARIANT_ID;
 
@@ -68,6 +70,28 @@ public class ProductController {
     result.setResults(categoryProductViews);
     LOG.debug("end queryCategoryProducts, category product number is : {}",
         categoryProductViews.size());
+
+    return result;
+  }
+
+  /**
+   * Search category products.
+   *
+   * @param searchWords the search words
+   * @return the paged query result
+   */
+  @GetMapping(SEARCH)
+  public PagedQueryResult<CategoryProductView> searchCategoryProducts(@RequestParam(SEARCH_WORDS)
+      String searchWords) {
+    LOG.info("Enter. SearchWords: {}.", searchWords);
+
+    List<CategoryProductView> categoryProductViews = productApplication.searchProduct(searchWords);
+
+    PagedQueryResult<CategoryProductView> result = new PagedQueryResult<>();
+    result.setCount(categoryProductViews.size());
+    result.setResults(categoryProductViews);
+
+    LOG.info("Exit. Result count: {}.", categoryProductViews.size());
 
     return result;
   }

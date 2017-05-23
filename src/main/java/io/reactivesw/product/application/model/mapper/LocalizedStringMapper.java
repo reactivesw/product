@@ -1,11 +1,13 @@
 package io.reactivesw.product.application.model.mapper;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import io.reactivesw.model.LocalizedString;
 import io.reactivesw.product.domain.model.LocalizedStringValue;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -21,6 +23,21 @@ public final class LocalizedStringMapper {
    * Instantiates a new Localized string mapper.
    */
   private LocalizedStringMapper() {
+  }
+
+  /**
+   * Gets all text.
+   *
+   * @param entities the entities
+   * @return the all text
+   */
+  public static List<String> getAllText(Set<LocalizedStringValue> entities) {
+    List<String> result = Lists.newArrayList();
+
+    Consumer<LocalizedStringValue> consumer = value -> result.add(value.getText());
+    entities.stream().forEach(consumer);
+
+    return result;
   }
 
   /**
