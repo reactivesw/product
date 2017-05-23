@@ -16,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * The type Search utils.
@@ -44,7 +46,8 @@ public final class SearchUtils {
 
     products.stream().forEach(consumer);
 
-    return result;
+    Predicate<CategoryProductView> predicate = categoryProductView -> categoryProductView != null;
+    return result.stream().filter(predicate).collect(Collectors.toList());
   }
 
   /**

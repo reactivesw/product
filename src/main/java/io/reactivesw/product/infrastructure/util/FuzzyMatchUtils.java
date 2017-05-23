@@ -1,9 +1,9 @@
 package io.reactivesw.product.infrastructure.util;
 
-import me.xdrop.fuzzywuzzy.FuzzySearch;
-import me.xdrop.fuzzywuzzy.model.ExtractedResult;
-
 import java.util.List;
+import java.util.stream.Collectors;
+
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 /**
  * The type Fuzzy match utils.
@@ -30,10 +30,14 @@ public final class FuzzyMatchUtils {
    */
   public static boolean isFuzzyMatch(String searchWords, List<String> comparedWords) {
     boolean result = false;
-    ExtractedResult extractedResult = FuzzySearch.extractOne(searchWords, comparedWords);
-    if (extractedResult != null && extractedResult.getScore() >= RATIO) {
+    int maxRatio = comparedWords.stream().map(
+        string -> FuzzySearch.tokenSortRatio(searchWords, string)
+    ).collect(Collectors.toList()).stream().max(Integer::compare).get();
+
+    if (maxRatio >= RATIO) {
       result = true;
     }
+
     return result;
   }
 }

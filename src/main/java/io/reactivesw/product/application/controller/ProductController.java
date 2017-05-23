@@ -4,6 +4,8 @@ import static io.reactivesw.product.infrastructure.Router.CART_PRODUCT_VARIANT_P
 import static io.reactivesw.product.infrastructure.Router.CATEGORY_PRODUCT_ROOT;
 import static io.reactivesw.product.infrastructure.Router.DETAIL_PRODUCT_SKU;
 import static io.reactivesw.product.infrastructure.Router.PRODUCT_ID;
+import static io.reactivesw.product.infrastructure.Router.SEARCH;
+import static io.reactivesw.product.infrastructure.Router.SEARCH_WORDS;
 import static io.reactivesw.product.infrastructure.Router.SKU;
 import static io.reactivesw.product.infrastructure.Router.VARIANT_ID;
 
@@ -78,8 +80,8 @@ public class ProductController {
    * @param searchWords the search words
    * @return the paged query result
    */
-  @GetMapping(CATEGORY_PRODUCT_ROOT)
-  public PagedQueryResult<CategoryProductView> searchCategoryProducts(@RequestParam("searchWords")
+  @GetMapping(SEARCH)
+  public PagedQueryResult<CategoryProductView> searchCategoryProducts(@RequestParam(SEARCH_WORDS)
       String searchWords) {
     LOG.info("Enter. SearchWords: {}.", searchWords);
 

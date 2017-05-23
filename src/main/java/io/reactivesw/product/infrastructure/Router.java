@@ -60,4 +60,14 @@ public final class Router {
    * The constant PRODUCT_WITH_ID.
    */
   public static final String PRODUCT_WITH_ID = PRODUCT_ROOT + "/{" + PRODUCT_ID + "}";
+
+  /**
+   * The constant SEARCH.
+   */
+  public static final String SEARCH = PRODUCT_ROOT +  "/search";
+
+  /**
+   * The constant SEARCH_WORDS.
+   */
+  public static final String SEARCH_WORDS = "searchWords";
 }
