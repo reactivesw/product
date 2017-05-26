@@ -89,6 +89,7 @@ TODO
 ### 3.4 search product by words
 
 * URL: /search
+* method: GET
 * params: searchWords - required
 * response: PagedQueryResult<CategoryProductView>
 * URL example: {api-gateway url}/products/search?searchWords=test
