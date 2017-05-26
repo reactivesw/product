@@ -85,3 +85,10 @@ TODO
   
 * URL : /CartProducts/{productId}
 * response : CartProductView
+
+### 3.4 search product by words
+
+* URL: /search
+* params: searchWords - required
+* response: PagedQueryResult<CategoryProductView>
+* URL example: {api-gateway url}/products/search?searchWords=test
