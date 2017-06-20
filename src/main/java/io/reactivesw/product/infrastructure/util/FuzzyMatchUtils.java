@@ -13,7 +13,7 @@ public final class FuzzyMatchUtils {
   /**
    * The RATIO.
    */
-  private static final Integer RATIO = 83;
+  private static final Integer RATIO = 50;
 
   /**
    * Instantiates a new Fuzzy match utils.

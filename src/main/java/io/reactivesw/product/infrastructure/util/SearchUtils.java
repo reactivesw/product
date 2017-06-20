@@ -65,6 +65,10 @@ public final class SearchUtils {
       result.addAll(matchVariants(searchWords, product));
     }
 
+    // TODO: 17/6/20 返回第一个即可
+    if (result.size() > 1) {
+      result = result.subList(0, 1);
+    }
     return result;
   }
 
